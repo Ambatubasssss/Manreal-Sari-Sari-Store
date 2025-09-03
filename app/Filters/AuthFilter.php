@@ -27,7 +27,8 @@ class AuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         // Check if user is authenticated
-        if (!AuthController::isAuthenticated()) {
+        $session = \Config\Services::session();
+        if (!$session->get('is_logged_in')) {
             return redirect()->to('/auth');
         }
     }

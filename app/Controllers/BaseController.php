@@ -21,7 +21,7 @@ class BaseController extends Controller
      */
     protected function getUserData()
     {
-        if (AuthController::isAuthenticated()) {
+        if ($this->session->get('is_logged_in')) {
             return [
                 'id' => $this->session->get('user_id'),
                 'username' => $this->session->get('username'),
@@ -37,7 +37,11 @@ class BaseController extends Controller
      */
     protected function requireAuth()
     {
-        if (!AuthController::isAuthenticated()) {
+        $session = \Config\Services::session();
+        if (!$session->get('is_logged_in')) {
+            if ($this->request->isAJAX()) {
+                return $this->response->setJSON(['error' => 'Authentication required'])->setStatusCode(401);
+            }
             return redirect()->to('/auth');
         }
     }
@@ -49,7 +53,8 @@ class BaseController extends Controller
     {
         $this->requireAuth();
         
-        if (!AuthController::isAdmin()) {
+        $session = \Config\Services::session();
+        if ($session->get('role') !== 'admin') {
             return redirect()->to('/dashboard')->with('error', 'Access denied. Admin privileges required.');
         }
     }
@@ -61,7 +66,8 @@ class BaseController extends Controller
     {
         $this->requireAuth();
         
-        if (!AuthController::isCashier()) {
+        $session = \Config\Services::session();
+        if ($session->get('role') !== 'cashier') {
             return redirect()->to('/dashboard')->with('error', 'Access denied. Cashier privileges required.');
         }
     }
@@ -73,8 +79,8 @@ class BaseController extends Controller
     {
         return [
             'user' => $this->userData,
-            'is_admin' => AuthController::isAdmin(),
-            'is_cashier' => AuthController::isCashier(),
+            'is_admin' => $this->session->get('role') === 'admin',
+            'is_cashier' => $this->session->get('role') === 'cashier',
             'current_url' => current_url(),
         ];
     }

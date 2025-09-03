@@ -78,6 +78,19 @@ $routes->group('reports', ['filter' => 'auth'], function($routes) {
     $routes->get('chart-data', 'ReportsController::getChartData');
 });
 
+// Chat routes
+$routes->group('chat', ['filter' => 'auth'], function($routes) {
+    $routes->get('/', 'ChatController::index');
+    
+    // AJAX routes
+    $routes->post('send', 'ChatController::sendMessage');
+    $routes->get('fetch', 'ChatController::fetchMessages');
+    $routes->get('search-users', 'ChatController::searchUsers');
+    $routes->get('unread-count', 'ChatController::getUnreadCount');
+    $routes->get('online-users', 'ChatController::getOnlineUsers');
+    $routes->post('update-activity', 'ChatController::updateActivity');
+});
+
 // Default route
 $routes->get('/', 'AuthController::index');
 

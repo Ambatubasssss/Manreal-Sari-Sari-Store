@@ -14,7 +14,7 @@ class UserModel extends Model
     protected $protectFields = true;
     protected $allowedFields = [
         'username', 'email', 'password', 'full_name', 'role', 
-        'is_active', 'last_login', 'created_at', 'updated_at'
+        'is_active', 'last_login', 'last_activity', 'created_at', 'updated_at'
     ];
 
     // Dates

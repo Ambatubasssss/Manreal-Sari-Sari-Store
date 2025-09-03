@@ -145,6 +145,10 @@
                             <i class="bi bi-receipt"></i> Sales
                         </a>
                         
+                        <a class="nav-link <?= strpos($current_url, 'chat') !== false ? 'active' : '' ?>" href="<?= base_url('chat') ?>" id="chatNavLink">
+                            <i class="bi bi-chat-dots"></i> Chat
+                        </a>
+                        
                         <?php if ($is_admin): ?>
                         <a class="nav-link <?= strpos($current_url, 'reports') !== false ? 'active' : '' ?>" href="<?= base_url('reports') ?>">
                             <i class="bi bi-graph-up"></i> Reports

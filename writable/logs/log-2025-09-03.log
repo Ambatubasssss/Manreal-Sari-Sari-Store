@@ -411,3 +411,163 @@ in APPPATH\Views\products\index.php on line 136.
 10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
 11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:23:35 --> CodeIgniter\Exceptions\ModelException: You cannot use "getCompiledSelect()" in "App\Models\MessageModel". This is a method of the Query Builder Class.
+[Method: GET, Route: chat]
+in SYSTEMPATH\Model.php on line 943.
+ 1 SYSTEMPATH\Model.php(943): CodeIgniter\Exceptions\ModelException::forMethodNotAvailable('App\\Models\\MessageModel', 'getCompiledSelect()')
+ 2 SYSTEMPATH\Model.php(923): CodeIgniter\Model->checkBuilderMethod('getCompiledSelect')
+ 3 APPPATH\Models\MessageModel.php(91): CodeIgniter\Model->__call('getCompiledSelect', [])
+ 4 APPPATH\Controllers\ChatController.php(31): App\Models\MessageModel->getRecentConversations('1')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:31:55 --> Error: Call to undefined method App\Controllers\AuthController::isAuthenticated()
+[Method: GET, Route: dashboard/data]
+in APPPATH\Controllers\BaseController.php on line 24.
+ 1 APPPATH\Controllers\BaseController.php(16): App\Controllers\BaseController->getUserData()
+ 2 APPPATH\Controllers\DashboardController.php(19): App\Controllers\BaseController->__construct()
+ 3 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 4 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:32:24 --> Error: Call to undefined method App\Controllers\AuthController::isAuthenticated()
+[Method: GET, Route: chat]
+in APPPATH\Filters\AuthFilter.php on line 30.
+ 1 SYSTEMPATH\Filters\Filters.php(241): App\Filters\AuthFilter->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 2 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 3 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('chat', 'before')
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:32:26 --> Error: Call to undefined method App\Controllers\AuthController::isAuthenticated()
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\BaseController.php on line 24.
+ 1 APPPATH\Controllers\BaseController.php(16): App\Controllers\BaseController->getUserData()
+ 2 APPPATH\Controllers\DashboardController.php(19): App\Controllers\BaseController->__construct()
+ 3 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 4 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:32:29 --> Error: Call to undefined method App\Controllers\AuthController::isAuthenticated()
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\BaseController.php on line 24.
+ 1 APPPATH\Controllers\BaseController.php(16): App\Controllers\BaseController->getUserData()
+ 2 APPPATH\Controllers\DashboardController.php(19): App\Controllers\BaseController->__construct()
+ 3 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 4 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:32:37 --> CodeIgniter\Exceptions\ModelException: You cannot use "getCompiledSelect()" in "App\Models\MessageModel". This is a method of the Query Builder Class.
+[Method: GET, Route: chat]
+in SYSTEMPATH\Model.php on line 943.
+ 1 SYSTEMPATH\Model.php(943): CodeIgniter\Exceptions\ModelException::forMethodNotAvailable('App\\Models\\MessageModel', 'getCompiledSelect()')
+ 2 SYSTEMPATH\Model.php(923): CodeIgniter\Model->checkBuilderMethod('getCompiledSelect')
+ 3 APPPATH\Models\MessageModel.php(91): CodeIgniter\Model->__call('getCompiledSelect', [])
+ 4 APPPATH\Controllers\ChatController.php(31): App\Models\MessageModel->getRecentConversations('1')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:35:40 --> CodeIgniter\Exceptions\RuntimeException: View themes, no current section.
+[Method: GET, Route: chat]
+in SYSTEMPATH\View\View.php on line 430.
+ 1 APPPATH\Views\chat\index.php(215): CodeIgniter\View\View->endSection()
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\chat\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(90): view('chat/index', [...])
+ 6 APPPATH\Controllers\ChatController.php(47): App\Controllers\BaseController->renderView('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:35:48 --> CodeIgniter\Exceptions\RuntimeException: View themes, no current section.
+[Method: GET, Route: chat]
+in SYSTEMPATH\View\View.php on line 430.
+ 1 APPPATH\Views\chat\index.php(215): CodeIgniter\View\View->endSection()
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\chat\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(90): view('chat/index', [...])
+ 6 APPPATH\Controllers\ChatController.php(47): App\Controllers\BaseController->renderView('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-03 02:39:05 --> mysqli_sql_exception: Duplicate entry 'admin' for key 'username' in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', NULL, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Manrealstore\app\Database\Seeds\UserSeeder.php(44): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Manrealstore\system\Database\Seeder.php(149): App\Database\Seeds\UserSeeder->run()
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-09-03 02:44:28 --> ErrorException: Undefined array key "created_at"
+[Method: GET, Route: chat]
+in APPPATH\Views\chat\index.php on line 67.
+ 1 APPPATH\Views\chat\index.php(67): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "created_at"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\chat\\index.php', 67)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\chat\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(90): view('chat/index', [...])
+ 6 APPPATH\Controllers\ChatController.php(47): App\Controllers\BaseController->renderView('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:44:38 --> ErrorException: Undefined array key "created_at"
+[Method: GET, Route: chat]
+in APPPATH\Views\chat\index.php on line 67.
+ 1 APPPATH\Views\chat\index.php(67): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "created_at"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\chat\\index.php', 67)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\chat\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(90): view('chat/index', [...])
+ 6 APPPATH\Controllers\ChatController.php(47): App\Controllers\BaseController->renderView('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-03 02:44:41 --> ErrorException: Undefined array key "created_at"
+[Method: GET, Route: chat]
+in APPPATH\Views\chat\index.php on line 67.
+ 1 APPPATH\Views\chat\index.php(67): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "created_at"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\chat\\index.php', 67)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\chat\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(90): view('chat/index', [...])
+ 6 APPPATH\Controllers\ChatController.php(47): App\Controllers\BaseController->renderView('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
