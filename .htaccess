@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Ensure index.php is in the root directory
+DirectoryIndex index.php
+
+# Handle CodeIgniter routing - redirect all requests to root index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+# Prevent direct access to sensitive folders
+RewriteRule ^(system|app|writable|tests) - [F,L]
