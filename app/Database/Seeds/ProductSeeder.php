@@ -11,7 +11,7 @@ class ProductSeeder extends Seeder
         $data = [
             [
                 'product_code' => 'CIG001',
-                'name' => 'Marlboro Red',
+                'name' => 'Marlboro Blast',
                 'description' => 'Premium cigarette brand',
                 'category' => 'Cigarettes',
                 'price' => 15.00,
