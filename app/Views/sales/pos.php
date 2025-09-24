@@ -5,6 +5,24 @@
 <div class="row">
     <!-- Product Search and Cart -->
     <div class="col-md-8">
+        <!-- Barcode Scanner -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-upc-scan me-2"></i>Barcode Scanner</h5>
+            </div>
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="barcodeInput" placeholder="Scan barcode or enter product code...">
+                    <button class="btn btn-success" type="button" onclick="scanBarcode()">
+                        <i class="bi bi-upc-scan"></i> Scan
+                    </button>
+                </div>
+                <div id="barcodeResult" class="mt-2" style="display: none;">
+                    <!-- Scanned product will be displayed here -->
+                </div>
+            </div>
+        </div>
+
         <div class="card mb-4">
             <div class="card-header">
                 <h5 class="mb-0"><i class="bi bi-search me-2"></i>Product Search</h5>
@@ -16,7 +34,7 @@
                         <i class="bi bi-search"></i> Search
                     </button>
                 </div>
-                
+
                 <div id="searchResults" class="row g-2">
                     <!-- Search results will be displayed here -->
                 </div>
@@ -138,14 +156,90 @@
 let cart = [];
 let currentProduct = null;
 
+function scanBarcode() {
+    const barcode = document.getElementById('barcodeInput').value.trim();
+    if (!barcode) {
+        alert('Please enter a barcode or product code');
+        return;
+    }
+
+    fetch(`<?= base_url('products/by-code') ?>?product_code=${encodeURIComponent(barcode)}`)
+        .then(response => response.json())
+        .then(product => {
+            if (product.error) {
+                displayBarcodeError(product.error);
+            } else {
+                displayScannedProduct(product);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            displayBarcodeError('Error scanning barcode');
+        });
+}
+
+function displayScannedProduct(product) {
+    const container = document.getElementById('barcodeResult');
+    container.style.display = 'block';
+    container.innerHTML = `
+        <div class="alert alert-success">
+            <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <h6 class="mb-1">${product.name}</h6>
+                    <p class="mb-1 text-muted small">Code: ${product.product_code}</p>
+                    <p class="mb-0 fw-bold">₱${parseFloat(product.price).toFixed(2)}</p>
+                </div>
+                <div class="ms-3">
+                    <button class="btn btn-sm btn-success" onclick="addScannedProductToCart(${JSON.stringify(product).replace(/"/g, '"')})">
+                        <i class="bi bi-plus-circle"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Clear the input after successful scan
+    document.getElementById('barcodeInput').value = '';
+}
+
+function displayBarcodeError(message) {
+    const container = document.getElementById('barcodeResult');
+    container.style.display = 'block';
+    container.innerHTML = `
+        <div class="alert alert-danger">
+            <i class="bi bi-exclamation-triangle me-2"></i>${message}
+        </div>
+    `;
+
+    // Hide error after 3 seconds
+    setTimeout(() => {
+        container.style.display = 'none';
+    }, 3000);
+}
+
+function addScannedProductToCart(product) {
+    currentProduct = product;
+    document.getElementById('modalProductName').textContent = product.name;
+    document.getElementById('modalProductCode').textContent = product.product_code;
+    document.getElementById('modalProductPrice').textContent = `₱${parseFloat(product.price).toFixed(2)}`;
+    document.getElementById('modalProductImage').src = product.image ? `<?= base_url('uploads/products/') ?>${product.image}` : '';
+    document.getElementById('quantity').value = 1;
+
+    const modal = new bootstrap.Modal(document.getElementById('productModal'));
+    modal.show();
+
+    // Hide the barcode result after adding to cartt
+    document.getElementById('barcodeResult').style.display = 'none';
+}
+
 function searchProducts() {
     const searchTerm = document.getElementById('productSearch').value;
     if (searchTerm.length < 2) return;
-    
+
     fetch(`<?= base_url('products/pos-search') ?>?search=${encodeURIComponent(searchTerm)}`)
         .then(response => response.json())
-        .then(data => {
-            displaySearchResults(data);
+        .then(products => {
+            displaySearchResults(products);
         })
         .catch(error => console.error('Error:', error));
 }
@@ -343,6 +437,13 @@ document.getElementById('cashReceived').addEventListener('input', updateTotals);
 document.getElementById('productSearch').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         searchProducts();
+    }
+});
+
+// Barcode scan on Enter key
+document.getElementById('barcodeInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        scanBarcode();
     }
 });
 </script>
