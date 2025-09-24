@@ -51,7 +51,7 @@ class ProductsController extends BaseController
     }
 
     /**
-     * Show create product form
+     * Show create product formm
      */
     public function create()
     {
@@ -339,14 +339,10 @@ class ProductsController extends BaseController
      */
     public function getProductsForPOS()
     {
-        if (!$this->request->isAJAX()) {
-            return $this->response->setJSON(['error' => 'Invalid request']);
-        }
-        
         $search = $this->request->getGet('search') ?? '';
         $products = $this->productModel->getProductsForPOS($search);
-        
-        return $this->response->setJSON(['products' => $products]);
+
+        return $this->response->setJSON($products);
     }
 
     /**
@@ -354,21 +350,17 @@ class ProductsController extends BaseController
      */
     public function getProductByCode()
     {
-        if (!$this->request->isAJAX()) {
-            return $this->response->setJSON(['error' => 'Invalid request']);
-        }
-        
         $productCode = $this->request->getGet('product_code') ?? '';
         if (empty($productCode)) {
             return $this->response->setJSON(['error' => 'Product code is required']);
         }
-        
+
         $product = $this->productModel->getByCode($productCode);
         if (!$product) {
             return $this->response->setJSON(['error' => 'Product not found']);
         }
-        
-        return $this->response->setJSON(['product' => $product]);
+
+        return $this->response->setJSON($product);
     }
 
     /**
