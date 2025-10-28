@@ -131,8 +131,8 @@ class AuthController extends Controller
                 $this->session->set('registration_data', $insertData);
                 $this->session->set('registration_otp', $otp);
 
-                // Show OTP code for testing while attempting SMS
-                $this->session->setFlashdata('success', "OTP Code: {$otp} - Also attempted to send SMS. Enter this code to register.");
+                // Only show SMS sent message - OTP must come from SMS
+                $this->session->setFlashdata('success', 'Verification code sent to your contact number. Please check your SMS and enter the 6-digit code below to complete registration.');
             } else {
                 log_message('error', 'SMS sending failed for ' . $data['contact_number']);
                 $this->session->setFlashdata('error', 'SMS service unavailable. Your account registration is pending API verification. Please contact support or try again later.');
