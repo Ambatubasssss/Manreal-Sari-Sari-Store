@@ -1,0 +1,7 @@
+ERROR - 2025-10-28 15:30:16 --> SMS failed: Authentication Error - invalid username
+ERROR - 2025-10-28 15:31:33 --> SMS failed: Authentication Error - invalid username
+ERROR - 2025-10-28 16:00:29 --> SMS failed: {"code":20003,"message":"Authenticate","more_info":"https://www.twilio.com/docs/errors/20003","status":401}
+ERROR - 2025-10-28 16:01:08 --> SMS failed: {"code":20003,"message":"Authenticate","more_info":"https://www.twilio.com/docs/errors/20003","status":401}
+ERROR - 2025-10-28 16:25:27 --> Semaphore SMS failed: Your account has not yet been approved for sending messages. Please either top-up your account or wait for your account to be approved. If your account has not been approved within 2 business days, please email rex@semaphore.co
+ERROR - 2025-10-28 17:12:10 --> Failed to send SMS via Iprogtech API
+ERROR - 2025-10-28 17:16:08 --> Failed to send SMS via Iprogtech API

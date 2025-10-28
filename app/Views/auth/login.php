@@ -77,13 +77,20 @@
                     </div>
                     
                     <div class="login-body">
+                        <?php if (session()->getFlashdata('success')): ?>
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('success') ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        <?php endif; ?>
+
                         <?php if (session()->getFlashdata('message')): ?>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 <?= session()->getFlashdata('message') ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         <?php endif; ?>
-                        
+
                         <?php if (session()->getFlashdata('error')): ?>
                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                 <?= session()->getFlashdata('error') ?>
@@ -120,15 +127,13 @@
                                     <i class="bi bi-box-arrow-in-right me-2"></i>Login
                                 </button>
                             </div>
-                        </form>
-                        
-                        <div class="text-center mt-4">
-                            <small class="text-muted">
-                                <i class="bi bi-info-circle me-1"></i>
-                                Demo Accounts:<br>
-                                <strong>Admin:</strong> admin / admin123<br>
-                                <strong>Cashier:</strong> cashier1 / cashier123
-                            </small>
+                        </form>                 
+                            <div>
+                                <span class="text-muted">Don't have an account? </span>
+                                <a href="<?= base_url('register') ?>" class="text-decoration-none">
+                                    <strong>Create one here</strong>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

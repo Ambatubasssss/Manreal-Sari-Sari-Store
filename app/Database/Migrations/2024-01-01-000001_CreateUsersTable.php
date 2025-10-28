@@ -33,6 +33,11 @@ class CreateUsersTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 100,
             ],
+            'contact_number' => [
+                'type' => 'VARCHAR',
+                'constraint' => 20,
+                'null' => true,
+            ],
             'role' => [
                 'type' => 'ENUM',
                 'constraint' => ['admin', 'cashier'],

@@ -9,7 +9,9 @@ use CodeIgniter\Router\RouteCollection;
 // Authentication routes
 $routes->get('auth', 'AuthController::index');
 $routes->get('login', 'AuthController::index'); // Add direct login route
+$routes->get('register', 'AuthController::register');
 $routes->post('auth/login', 'AuthController::login');
+$routes->post('auth/processRegistration', 'AuthController::processRegistration');
 $routes->get('auth/logout', 'AuthController::logout');
 $routes->get('auth/change-password', 'AuthController::changePassword');
 $routes->post('auth/update-password', 'AuthController::updatePassword');

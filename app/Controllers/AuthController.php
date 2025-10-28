@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Libraries\SmsService;
 use CodeIgniter\Controller;
 
 class AuthController extends Controller
@@ -27,6 +28,119 @@ class AuthController extends Controller
         }
 
         return view('auth/login');
+    }
+
+    /**
+     * Show register form
+     */
+    public function register()
+    {
+        // Check if user is already logged in
+        if ($this->session->get('user_id')) {
+            return redirect()->to('/dashboard');
+        }
+
+        return view('auth/register');
+    }
+
+    /**
+     * Handle register form submission
+     */
+    public function processRegistration()
+    {
+        $data = [
+            'full_name' => $this->request->getPost('full_name'),
+            'username' => $this->request->getPost('username'),
+            'email' => $this->request->getPost('email'),
+            'contact_number' => $this->request->getPost('contact_number'),
+            'password' => $this->request->getPost('password'),
+            'confirm_password' => $this->request->getPost('confirm_password'),
+            'otp' => $this->request->getPost('otp'),
+            'role' => 'cashier', // Default role
+        ];
+
+        // Validate input
+        if (empty($data['full_name']) || empty($data['username']) || empty($data['email']) || empty($data['contact_number']) || empty($data['password'])) {
+            $this->session->setFlashdata('error', 'All fields are required, including contact number for SMS verification');
+            return redirect()->back()->withInput();
+        }
+
+        if ($data['password'] !== $data['confirm_password']) {
+            $this->session->setFlashdata('error', 'Passwords do not match');
+            return redirect()->back()->withInput();
+        }
+
+        // Check if verification step
+        $expectedOTP = $this->session->get('registration_otp');
+        if ($expectedOTP !== null) {
+            // Verify OTP
+            if (empty($data['otp']) || $data['otp'] != $expectedOTP) {
+                $this->session->setFlashdata('error', 'Invalid OTP verification code');
+                return redirect()->back()->withInput();
+            }
+        }
+
+        // Prepare data for insertion
+        $insertData = [
+            'full_name' => $data['full_name'],
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'contact_number' => $data['contact_number'],
+            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'role' => $data['role'],
+            'is_active' => true,
+        ];
+
+        // Validate using model
+        if (!$this->userModel->validate($insertData)) {
+            // Get validation errors
+            $errors = $this->userModel->errors();
+            $errorMessage = implode('<br>', $errors);
+            $this->session->setFlashdata('error', $errorMessage);
+            return redirect()->back()->withInput();
+        }
+
+        if ($expectedOTP !== null) {
+            // Insert user after OTP verification
+            if ($this->userModel->insert($insertData)) {
+                // Clear session
+                $this->session->remove('registration_data');
+                $this->session->remove('registration_otp');
+                $this->session->setFlashdata('success', 'Registration successful! Please login.');
+                return redirect()->to('/auth');
+            } else {
+                $this->session->setFlashdata('error', 'Registration failed. Please try again.');
+                return redirect()->back()->withInput();
+            }
+        } else {
+            // Clear any existing registration session data before starting new registration
+            $this->session->remove('registration_data');
+            $this->session->remove('registration_otp');
+
+            // Generate NEW OTP and send SMS since contact is required
+            $otp = mt_rand(100000, 999999);
+            log_message('info', 'Generated NEW OTP: ' . $otp . ' for phone: ' . $data['contact_number']);
+
+            // Send actual SMS OTP
+            $smsService = new SmsService();
+            $smsSent = $smsService->sendOTP($data['contact_number'], $otp);
+
+            log_message('info', 'Registration attempt: SMS sent result = ' . ($smsSent ? 'SUCCESS' : 'FAILED') . ' for phone ' . $data['contact_number']);
+
+            if ($smsSent) {
+                $this->session->set('registration_data', $insertData);
+                $this->session->set('registration_otp', $otp);
+
+                // Show OTP code for testing while attempting SMS
+                $this->session->setFlashdata('success', "OTP Code: {$otp} - Also attempted to send SMS. Enter this code to register.");
+            } else {
+                log_message('error', 'SMS sending failed for ' . $data['contact_number']);
+                $this->session->setFlashdata('error', 'SMS service unavailable. Your account registration is pending API verification. Please contact support or try again later.');
+                return redirect()->back()->withInput();
+            }
+
+            return redirect()->back()->withInput();
+        }
     }
 
     /**

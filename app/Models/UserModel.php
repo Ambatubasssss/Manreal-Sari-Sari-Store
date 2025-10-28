@@ -13,7 +13,7 @@ class UserModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'username', 'email', 'password', 'full_name', 'role', 
+        'username', 'email', 'password', 'full_name', 'contact_number', 'role',
         'is_active', 'last_login', 'last_activity', 'created_at', 'updated_at'
     ];
 
@@ -29,6 +29,7 @@ class UserModel extends Model
         'email' => 'required|valid_email|is_unique[users.email,id,{id}]',
         'password' => 'required|min_length[6]',
         'full_name' => 'required|min_length[2]|max_length[100]',
+        'contact_number' => 'permit_empty|max_length[20]|regex_match[/^[0-9+\-\s]+$/]',
         'role' => 'required|in_list[admin,cashier]',
     ];
 
@@ -52,6 +53,10 @@ class UserModel extends Model
             'required' => 'Full name is required',
             'min_length' => 'Full name must be at least 2 characters long',
             'max_length' => 'Full name cannot exceed 100 characters',
+        ],
+        'contact_number' => [
+            'max_length' => 'Contact number cannot exceed 20 characters',
+            'regex_match' => 'Contact number can only contain numbers, spaces, dashes, and plus signs',
         ],
         'role' => [
             'required' => 'Role is required',
