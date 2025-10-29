@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\PasswordResetModel;
 use App\Libraries\SmsService;
 use CodeIgniter\Controller;
 
@@ -302,5 +303,163 @@ class AuthController extends Controller
         if (!$this->isAdmin()) {
             return redirect()->to('/dashboard')->with('error', 'Access denied. Admin privileges required.');
         }
+    }
+
+    /**
+     * Show forgot password form
+     */
+    public function forgotPassword()
+    {
+        // Check if user is already logged in
+        if ($this->session->get('user_id')) {
+            return redirect()->to('/dashboard');
+        }
+
+        return view('auth/forgot_password');
+    }
+
+    /**
+     * Handle forgot password form submission
+     */
+    public function processForgotPassword()
+    {
+        $email = $this->request->getPost('email');
+
+        // Validate input
+        if (empty($email)) {
+            $this->session->setFlashdata('error', 'Email address is required');
+            return redirect()->back()->withInput();
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->session->setFlashdata('error', 'Please enter a valid email address');
+            return redirect()->back()->withInput();
+        }
+
+        // Check if email exists
+        $user = $this->userModel->where('email', $email)->first();
+
+        if (!$user) {
+            // Don't reveal if email exists or not for security
+            $this->session->setFlashdata('success', 'If your email is registered, you will receive a password reset link shortly.');
+            return redirect()->back();
+        }
+
+        // Check if user is active
+        if (!$user['is_active']) {
+            $this->session->setFlashdata('error', 'Your account is inactive. Please contact support.');
+            return redirect()->back();
+        }
+
+        // Generate reset token
+        $passwordResetModel = new PasswordResetModel();
+        $token = $passwordResetModel->createToken($email);
+
+        // Send reset email
+        $resetLink = base_url("auth/reset-password?token={$token}&email=" . urlencode($email));
+        
+        $emailService = \Config\Services::email();
+        $emailService->setTo($email);
+        $emailService->setSubject('Password Reset Request - Manrealstore');
+        
+        $message = view('emails/password_reset', [
+            'user' => $user,
+            'reset_link' => $resetLink,
+        ]);
+        
+        $emailService->setMessage($message);
+
+        if ($emailService->send()) {
+            log_message('info', 'Password reset email sent to: ' . $email);
+            $this->session->setFlashdata('success', 'Password reset link has been sent to your email address. Please check your inbox.');
+        } else {
+            log_message('error', 'Failed to send password reset email to: ' . $email);
+            log_message('error', 'Email error: ' . $emailService->printDebugger(['headers']));
+            $this->session->setFlashdata('error', 'Failed to send reset email. Please try again later or contact support.');
+        }
+
+        return redirect()->back();
+    }
+
+    /**
+     * Show reset password form
+     */
+    public function resetPassword()
+    {
+        // Check if user is already logged in
+        if ($this->session->get('user_id')) {
+            return redirect()->to('/dashboard');
+        }
+
+        $token = $this->request->getGet('token');
+        $email = $this->request->getGet('email');
+
+        if (empty($token) || empty($email)) {
+            $this->session->setFlashdata('error', 'Invalid password reset link');
+            return redirect()->to('/auth');
+        }
+
+        // Verify token
+        $passwordResetModel = new PasswordResetModel();
+        if (!$passwordResetModel->verifyToken($email, $token)) {
+            $this->session->setFlashdata('error', 'Invalid or expired password reset link. Please request a new one.');
+            return redirect()->to('/auth/forgot-password');
+        }
+
+        return view('auth/reset_password', [
+            'token' => $token,
+            'email' => $email,
+        ]);
+    }
+
+    /**
+     * Handle reset password form submission
+     */
+    public function processResetPassword()
+    {
+        $token = $this->request->getPost('token');
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+        $confirmPassword = $this->request->getPost('confirm_password');
+
+        // Validate input
+        if (empty($token) || empty($email) || empty($password) || empty($confirmPassword)) {
+            $this->session->setFlashdata('error', 'All fields are required');
+            return redirect()->back()->withInput();
+        }
+
+        if ($password !== $confirmPassword) {
+            $this->session->setFlashdata('error', 'Passwords do not match');
+            return redirect()->back()->withInput();
+        }
+
+        if (strlen($password) < 6) {
+            $this->session->setFlashdata('error', 'Password must be at least 6 characters long');
+            return redirect()->back()->withInput();
+        }
+
+        // Verify token again
+        $passwordResetModel = new PasswordResetModel();
+        if (!$passwordResetModel->verifyToken($email, $token)) {
+            $this->session->setFlashdata('error', 'Invalid or expired password reset link. Please request a new one.');
+            return redirect()->to('/auth/forgot-password');
+        }
+
+        // Update password
+        $user = $this->userModel->where('email', $email)->first();
+        if (!$user) {
+            $this->session->setFlashdata('error', 'User not found');
+            return redirect()->to('/auth/forgot-password');
+        }
+
+        $this->userModel->update($user['id'], [
+            'password' => password_hash($password, PASSWORD_DEFAULT)
+        ]);
+
+        // Delete reset token
+        $passwordResetModel->deleteToken($email);
+
+        $this->session->setFlashdata('success', 'Password reset successful! You can now login with your new password.');
+        return redirect()->to('/auth');
     }
 }

@@ -1,0 +1,298 @@
+ERROR - 2025-10-29 12:51:10 --> mysqli_sql_exception: Table 'messages' already exists in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp\htdocs\Manrealstore\app\Database\Migrations\2024-01-01-000002_CreateMessagesTable.php(56): CodeIgniter\Database\Forge->createTable('messages')
+#5 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMessagesTable->up()
+#6 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-10-29 12:51:39 --> mysqli_sql_exception: Table 'messages' already exists in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp\htdocs\Manrealstore\app\Database\Migrations\2024-01-01-000002_CreateMessagesTable.php(56): CodeIgniter\Database\Forge->createTable('messages')
+#5 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMessagesTable->up()
+#6 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-10-29 12:58:13 --> mysqli_sql_exception: Table 'messages' already exists in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp\htdocs\Manrealstore\app\Database\Migrations\2024-01-01-000002_CreateMessagesTable.php(56): CodeIgniter\Database\Forge->createTable('messages')
+#5 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMessagesTable->up()
+#6 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#14 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-10-29 12:59:12 --> mysqli_sql_exception: Table 'messages' already exists in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp\htdocs\Manrealstore\app\Database\Migrations\2024-01-01-000002_CreateMessagesTable.php(56): CodeIgniter\Database\Forge->createTable('messages')
+#5 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMessagesTable->up()
+#6 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-10-29 13:06:00 --> ErrorException: Undefined array key "contact_number"
+[Method: GET, Route: profile]
+in APPPATH\Views\profile\index.php on line 101.
+ 1 APPPATH\Views\profile\index.php(101): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "contact_number"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\profile\\index.php', 101)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\profile\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('profile/index', [], true)
+ 5 APPPATH\Controllers\ProfileController.php(44): view('profile/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 13:06:52 --> ErrorException: Undefined array key "contact_number"
+[Method: GET, Route: profile]
+in APPPATH\Views\profile\index.php on line 101.
+ 1 APPPATH\Views\profile\index.php(101): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "contact_number"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\profile\\index.php', 101)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\profile\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('profile/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(96): view('profile/index', [...])
+ 6 APPPATH\Controllers\ProfileController.php(41): App\Controllers\BaseController->renderView('profile/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 13:06:54 --> ErrorException: Undefined array key "contact_number"
+[Method: GET, Route: profile]
+in APPPATH\Views\profile\index.php on line 101.
+ 1 APPPATH\Views\profile\index.php(101): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "contact_number"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\profile\\index.php', 101)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\profile\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('profile/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(96): view('profile/index', [...])
+ 6 APPPATH\Controllers\ProfileController.php(41): App\Controllers\BaseController->renderView('profile/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 13:06:56 --> ErrorException: Undefined array key "contact_number"
+[Method: GET, Route: profile]
+in APPPATH\Views\profile\index.php on line 101.
+ 1 APPPATH\Views\profile\index.php(101): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "contact_number"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\profile\\index.php', 101)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\profile\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('profile/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(96): view('profile/index', [...])
+ 6 APPPATH\Controllers\ProfileController.php(41): App\Controllers\BaseController->renderView('profile/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 13:09:27 --> mysqli_sql_exception: Unknown column 'contact_number' in 'field list' in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `users` ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `users` ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `users` ...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `users` ...', Array, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\xampp\htdocs\Manrealstore\system\BaseModel.php(1025): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\xampp\htdocs\Manrealstore\system\Model.php(860): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\xampp\htdocs\Manrealstore\app\Controllers\ProfileController.php(107): CodeIgniter\Model->update('2', Array)
+#8 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ProfileController->update()
+#9 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+#10 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-10-29 13:09:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'contact_number' in 'field list'
+[Method: POST, Route: profile/update]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `users` SET `full_name` = :full_name:, `username` = :username:, `email` = :email:, `contact_number` = :contact_number:, `updated_at` = :updated_at:
+WHERE `users`.`id` IN :users.id:', [...], false)
+ 2 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\ProfileController.php(107): CodeIgniter\Model->update('2', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->update()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 13:09:27 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'contact_number' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `users` SET `full_name` = \'John Doe\', `username` = \'john123\', `email` = \'francismalilay@gmail.com\', `contact_number` = \'\', `updated_at` = \'2025-10-29 13:09:27\'
+WHERE `users`.`id` IN (\'2\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `users` SET `full_name` = \'John Doe\', `username` = \'john123\', `email` = \'francismalilay@gmail.com\', `contact_number` = \'\', `updated_at` = \'2025-10-29 13:09:27\'
+WHERE `users`.`id` IN (\'2\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `users` SET `full_name` = :full_name:, `username` = :username:, `email` = :email:, `contact_number` = :contact_number:, `updated_at` = :updated_at:
+WHERE `users`.`id` IN :users.id:', [...], false)
+ 4 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 5 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 6 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 7 APPPATH\Controllers\ProfileController.php(107): CodeIgniter\Model->update('2', [...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->update()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 13:09:27 --> [Caused by] mysqli_sql_exception: Unknown column 'contact_number' in 'field list'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('UPDATE `users` SET `full_name` = \'John Doe\', `username` = \'john123\', `email` = \'francismalilay@gmail.com\', `contact_number` = \'\', `updated_at` = \'2025-10-29 13:09:27\'
+WHERE `users`.`id` IN (\'2\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `users` SET `full_name` = \'John Doe\', `username` = \'john123\', `email` = \'francismalilay@gmail.com\', `contact_number` = \'\', `updated_at` = \'2025-10-29 13:09:27\'
+WHERE `users`.`id` IN (\'2\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `users` SET `full_name` = \'John Doe\', `username` = \'john123\', `email` = \'francismalilay@gmail.com\', `contact_number` = \'\', `updated_at` = \'2025-10-29 13:09:27\'
+WHERE `users`.`id` IN (\'2\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2521): CodeIgniter\Database\BaseConnection->query('UPDATE `users` SET `full_name` = :full_name:, `username` = :username:, `email` = :email:, `contact_number` = :contact_number:, `updated_at` = :updated_at:
+WHERE `users`.`id` IN :users.id:', [...], false)
+ 5 SYSTEMPATH\Model.php(461): CodeIgniter\Database\BaseBuilder->update()
+ 6 SYSTEMPATH\BaseModel.php(1025): CodeIgniter\Model->doUpdate([...], [...])
+ 7 SYSTEMPATH\Model.php(860): CodeIgniter\BaseModel->update([...], [...])
+ 8 APPPATH\Controllers\ProfileController.php(107): CodeIgniter\Model->update('2', [...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->update()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 13:10:44 --> mysqli_sql_exception: Table 'manreal_pos.password_resets' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('DELETE FROM `pa...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `pa...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `pa...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `pa...', Array, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\xampp\htdocs\Manrealstore\system\BaseModel.php(1152): CodeIgniter\Model->doDelete(NULL, false)
+#6 C:\xampp\htdocs\Manrealstore\app\Models\PasswordResetModel.php(30): CodeIgniter\BaseModel->delete()
+#7 C:\xampp\htdocs\Manrealstore\app\Controllers\AuthController.php(356): App\Models\PasswordResetModel->createToken('francismalilay@...')
+#8 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\AuthController->processForgotPassword()
+#9 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-10-29 13:10:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.password_resets' doesn't exist
+[Method: POST, Route: auth/forgot-password]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `password_resets`
+WHERE `email` = :email:', [...], false)
+ 2 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete(null, false)
+ 4 APPPATH\Models\PasswordResetModel.php(30): CodeIgniter\BaseModel->delete()
+ 5 APPPATH\Controllers\AuthController.php(356): App\Models\PasswordResetModel->createToken('francismalilay@gmail.com')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AuthController->processForgotPassword()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 13:10:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.password_resets' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `password_resets`
+WHERE `email` = \'francismalilay@gmail.com\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `password_resets`
+WHERE `email` = \'francismalilay@gmail.com\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `password_resets`
+WHERE `email` = :email:', [...], false)
+ 4 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 5 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete(null, false)
+ 6 APPPATH\Models\PasswordResetModel.php(30): CodeIgniter\BaseModel->delete()
+ 7 APPPATH\Controllers\AuthController.php(356): App\Models\PasswordResetModel->createToken('francismalilay@gmail.com')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AuthController->processForgotPassword()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 13:10:44 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.password_resets' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('DELETE FROM `password_resets`
+WHERE `email` = \'francismalilay@gmail.com\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `password_resets`
+WHERE `email` = \'francismalilay@gmail.com\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `password_resets`
+WHERE `email` = \'francismalilay@gmail.com\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2848): CodeIgniter\Database\BaseConnection->query('DELETE FROM `password_resets`
+WHERE `email` = :email:', [...], false)
+ 5 SYSTEMPATH\Model.php(521): CodeIgniter\Database\BaseBuilder->delete()
+ 6 SYSTEMPATH\BaseModel.php(1152): CodeIgniter\Model->doDelete(null, false)
+ 7 APPPATH\Models\PasswordResetModel.php(30): CodeIgniter\BaseModel->delete()
+ 8 APPPATH\Controllers\AuthController.php(356): App\Models\PasswordResetModel->createToken('francismalilay@gmail.com')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AuthController->processForgotPassword()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 13:12:43 --> mysqli_sql_exception: Duplicate column name 'last_activity' in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `us...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `us...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `us...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `us...')
+#4 C:\xampp\htdocs\Manrealstore\app\Database\Migrations\2024-01-01-000003_AddLastActivityToUsers.php(11): CodeIgniter\Database\Forge->addColumn('users', Array)
+#5 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(876): App\Database\Migrations\AddLastActivityToUsers->up()
+#6 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-10-29 13:13:04 --> mysqli_sql_exception: Table 'products' already exists in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `p...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `p...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `p...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `p...')
+#4 C:\xampp\htdocs\Manrealstore\app\Database\Migrations\2024-01-01-000004_CreateProductsTable.php(77): CodeIgniter\Database\Forge->createTable('products')
+#5 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateProductsTable->up()
+#6 C:\xampp\htdocs\Manrealstore\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}

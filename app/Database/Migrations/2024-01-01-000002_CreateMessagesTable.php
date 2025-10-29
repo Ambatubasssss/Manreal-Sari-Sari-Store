@@ -8,6 +8,11 @@ class CreateMessagesTable extends Migration
 {
     public function up()
     {
+        // Check if table already exists
+        if ($this->db->tableExists('messages')) {
+            return;
+        }
+
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',
@@ -48,10 +53,6 @@ class CreateMessagesTable extends Migration
         $this->forge->addKey('sender_id');
         $this->forge->addKey('receiver_id');
         $this->forge->addKey('created_at');
-        
-        // Add foreign key constraints
-        $this->forge->addForeignKey('sender_id', 'users', 'id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('receiver_id', 'users', 'id', 'CASCADE', 'CASCADE');
         
         $this->forge->createTable('messages');
     }

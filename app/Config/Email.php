@@ -6,8 +6,10 @@ use CodeIgniter\Config\BaseConfig;
 
 class Email extends BaseConfig
 {
-    public string $fromEmail  = '';
-    public string $fromName   = '';
+    // Gmail SMTP Configuration
+    // IMPORTANT: Update these values with your Gmail credentials
+    public string $fromEmail  = 'francismalilay@gmail.com'; // Change this to your Gmail
+    public string $fromName   = 'Manrealstore'; // Your app name
     public string $recipients = '';
 
     /**
@@ -18,7 +20,7 @@ class Email extends BaseConfig
     /**
      * The mail sending protocol: mail, sendmail, smtp
      */
-    public string $protocol = 'mail';
+    public string $protocol = 'smtp';
 
     /**
      * The server path to Sendmail.
@@ -28,27 +30,29 @@ class Email extends BaseConfig
     /**
      * SMTP Server Hostname
      */
-    public string $SMTPHost = '';
+    public string $SMTPHost = 'smtp.gmail.com';
 
     /**
-     * SMTP Username
+     * SMTP Username (Your Gmail address)
      */
-    public string $SMTPUser = '';
+    public string $SMTPUser = 'francismalilay@gmail.com'; // Change this to your Gmail
 
     /**
-     * SMTP Password
+     * SMTP Password (Your Gmail App Password)
+     * IMPORTANT: Use App Password, not your regular Gmail password
+     * Generate App Password: https://myaccount.google.com/apppasswords
      */
-    public string $SMTPPass = '';
+    public string $SMTPPass = 'zhquwwavejqthayy'; // Change this to your Gmail App Password
 
     /**
-     * SMTP Port
+     * SMTP Port (587 for TLS, 465 for SSL)
      */
-    public int $SMTPPort = 25;
+    public int $SMTPPort = 587;
 
     /**
      * SMTP Timeout (in seconds)
      */
-    public int $SMTPTimeout = 5;
+    public int $SMTPTimeout = 30;
 
     /**
      * Enable persistent SMTP connections
@@ -77,7 +81,7 @@ class Email extends BaseConfig
     /**
      * Type of mail, either 'text' or 'html'
      */
-    public string $mailType = 'text';
+    public string $mailType = 'html';
 
     /**
      * Character set (utf-8, iso-8859-1, etc.)

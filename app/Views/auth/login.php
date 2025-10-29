@@ -112,7 +112,7 @@
                                 </div>
                             </div>
                             
-                            <div class="mb-4">
+                            <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text">
@@ -120,6 +120,12 @@
                                     </span>
                                     <input type="password" class="form-control" id="password" name="password" required>
                                 </div>
+                            </div>
+                            
+                            <div class="mb-4 text-end">
+                                <a href="<?= base_url('auth/forgot-password') ?>" class="text-decoration-none" style="color: #667eea;">
+                                    <small><i class="bi bi-question-circle"></i> Forgot Password?</small>
+                                </a>
                             </div>
                             
                             <div class="d-grid">

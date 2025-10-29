@@ -16,6 +16,16 @@ $routes->get('auth/logout', 'AuthController::logout');
 $routes->get('auth/change-password', 'AuthController::changePassword');
 $routes->post('auth/update-password', 'AuthController::updatePassword');
 
+// Password reset routes
+$routes->get('auth/forgot-password', 'AuthController::forgotPassword');
+$routes->post('auth/forgot-password', 'AuthController::processForgotPassword');
+$routes->get('auth/reset-password', 'AuthController::resetPassword');
+$routes->post('auth/reset-password', 'AuthController::processResetPassword');
+
+// Profile routes
+$routes->get('profile', 'ProfileController::index', ['filter' => 'auth']);
+$routes->post('profile/update', 'ProfileController::update', ['filter' => 'auth']);
+
 // Dashboard routes
 $routes->get('dashboard', 'DashboardController::index');
 $routes->get('dashboard/system-info', 'DashboardController::systemInfo');

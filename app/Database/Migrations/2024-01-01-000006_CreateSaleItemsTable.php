@@ -8,6 +8,11 @@ class CreateSaleItemsTable extends Migration
 {
     public function up()
     {
+        // Check if table already exists
+        if ($this->db->tableExists('sale_items')) {
+            return;
+        }
+
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',

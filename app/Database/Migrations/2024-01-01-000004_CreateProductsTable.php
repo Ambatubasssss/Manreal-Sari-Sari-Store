@@ -8,6 +8,11 @@ class CreateProductsTable extends Migration
 {
     public function up()
     {
+        // Check if table already exists
+        if ($this->db->tableExists('products')) {
+            return;
+        }
+
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',

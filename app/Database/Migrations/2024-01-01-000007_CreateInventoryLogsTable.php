@@ -8,6 +8,11 @@ class CreateInventoryLogsTable extends Migration
 {
     public function up()
     {
+        // Check if table already exists
+        if ($this->db->tableExists('inventory_logs')) {
+            return;
+        }
+
         $this->forge->addField([
             'id' => [
                 'type' => 'INT',

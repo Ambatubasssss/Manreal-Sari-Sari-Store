@@ -157,6 +157,10 @@
                         
                         <hr class="text-white-50">
                         
+                        <a class="nav-link <?= strpos($current_url, 'profile') !== false ? 'active' : '' ?>" href="<?= base_url('profile') ?>">
+                            <i class="bi bi-person"></i> My Profile
+                        </a>
+                        
                         <a class="nav-link" href="<?= base_url('auth/change-password') ?>">
                             <i class="bi bi-key"></i> Change Password
                         </a>
@@ -186,6 +190,9 @@
                                         <i class="bi bi-person-circle"></i> <?= $user['full_name'] ?>
                                     </a>
                                     <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="<?= base_url('profile') ?>">
+                                            <i class="bi bi-person"></i> My Profile
+                                        </a></li>
                                         <li><a class="dropdown-item" href="<?= base_url('auth/change-password') ?>">
                                             <i class="bi bi-key"></i> Change Password
                                         </a></li>

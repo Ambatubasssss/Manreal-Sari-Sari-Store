@@ -25,12 +25,12 @@ class UserModel extends Model
 
     // Validation
     protected $validationRules = [
-        'username' => 'required|min_length[3]|max_length[50]|is_unique[users.username,id,{id}]',
-        'email' => 'required|valid_email|is_unique[users.email,id,{id}]',
-        'password' => 'required|min_length[6]',
+        'username' => 'required|min_length[3]|max_length[50]',
+        'email' => 'required|valid_email',
+        'password' => 'permit_empty|min_length[6]', // Allow empty for profile updates
         'full_name' => 'required|min_length[2]|max_length[100]',
         'contact_number' => 'permit_empty|max_length[20]|regex_match[/^[0-9+\-\s]+$/]',
-        'role' => 'required|in_list[admin,cashier]',
+        'role' => 'permit_empty|in_list[admin,cashier]', // Allow empty for profile updates
     ];
 
     protected $validationMessages = [
