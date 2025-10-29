@@ -190,7 +190,7 @@ function displayScannedProduct(product) {
                     <p class="mb-0 fw-bold">₱${parseFloat(product.price).toFixed(2)}</p>
                 </div>
                 <div class="ms-3">
-                    <button class="btn btn-sm btn-success" onclick="addScannedProductToCart(${JSON.stringify(product).replace(/"/g, '"')})">
+                    <button class="btn btn-sm btn-success" onclick="addScannedProductToCart('${product.id}')">
                         <i class="bi bi-plus-circle"></i> Add to Cart
                     </button>
                 </div>
@@ -217,19 +217,33 @@ function displayBarcodeError(message) {
     }, 3000);
 }
 
-function addScannedProductToCart(product) {
-    currentProduct = product;
-    document.getElementById('modalProductName').textContent = product.name;
-    document.getElementById('modalProductCode').textContent = product.product_code;
-    document.getElementById('modalProductPrice').textContent = `₱${parseFloat(product.price).toFixed(2)}`;
-    document.getElementById('modalProductImage').src = product.image ? `<?= base_url('uploads/products/') ?>${product.image}` : '';
-    document.getElementById('quantity').value = 1;
+function addScannedProductToCart(productId) {
+    // Fetch product details by ID
+    fetch(`<?= base_url('products/get/') ?>${productId}`)
+        .then(response => response.json())
+        .then(product => {
+            if (product.error) {
+                alert('Error loading product: ' + product.error);
+                return;
+            }
+            
+            currentProduct = product;
+            document.getElementById('modalProductName').textContent = product.name;
+            document.getElementById('modalProductCode').textContent = product.product_code;
+            document.getElementById('modalProductPrice').textContent = `₱${parseFloat(product.price).toFixed(2)}`;
+            document.getElementById('modalProductImage').src = product.image ? `<?= base_url('uploads/products/') ?>${product.image}` : '';
+            document.getElementById('quantity').value = 1;
 
-    const modal = new bootstrap.Modal(document.getElementById('productModal'));
-    modal.show();
+            const modal = new bootstrap.Modal(document.getElementById('productModal'));
+            modal.show();
 
-    // Hide the barcode result after adding to cartt
-    document.getElementById('barcodeResult').style.display = 'none';
+            // Hide the barcode result after adding to cart
+            document.getElementById('barcodeResult').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error loading product details');
+        });
 }
 
 function searchProducts() {

@@ -47,6 +47,7 @@ $routes->group('products', ['filter' => 'auth'], function($routes) {
     // AJAX routes
     $routes->get('pos-search', 'ProductsController::getProductsForPOS');
     $routes->get('by-code', 'ProductsController::getProductByCode');
+    $routes->get('get/(:num)', 'ProductsController::getProductById/$1');
 });
 
 // Sales routes

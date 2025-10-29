@@ -364,6 +364,23 @@ class ProductsController extends BaseController
     }
 
     /**
+     * Get product by ID for AJAX requests
+     */
+    public function getProductById($id = null)
+    {
+        if (!$id) {
+            return $this->response->setJSON(['error' => 'Product ID is required']);
+        }
+
+        $product = $this->productModel->find($id);
+        if (!$product) {
+            return $this->response->setJSON(['error' => 'Product not found']);
+        }
+
+        return $this->response->setJSON($product);
+    }
+
+    /**
      * Export products to Excel
      */
     public function export()
