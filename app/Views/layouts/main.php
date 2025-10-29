@@ -234,6 +234,7 @@
                         <!-- Main Content Area -->
                         <?= $this->renderSection('content') ?>
                     </div>
+                    
                 </div>
             </div>
         </div>

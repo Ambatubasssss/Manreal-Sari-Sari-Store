@@ -67,7 +67,7 @@ encryption.key = '$encryptionKey'
 #--------------------------------------------------------------------
 
 session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
-session.savePath = null
+session.savePath = 'C:\\xampp\\htdocs\\Manrealstore\\writable\\session'
 
 #--------------------------------------------------------------------
 # LOGGER

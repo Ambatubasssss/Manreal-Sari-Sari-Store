@@ -95,6 +95,7 @@ $routes->group('chat', ['filter' => 'auth'], function($routes) {
     $routes->get('/', 'ChatController::index');
     
     // AJAX routes
+    $routes->get('users', 'ChatController::users');
     $routes->post('send', 'ChatController::sendMessage');
     $routes->get('fetch', 'ChatController::fetchMessages');
     $routes->get('search-users', 'ChatController::searchUsers');

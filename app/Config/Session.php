@@ -57,7 +57,7 @@ class Session extends BaseConfig
      *
      * IMPORTANT: You are REQUIRED to set a valid save path!
      */
-    public string $savePath = 'C:\xampp\htdocs\Manrealstore\writable\session';
+    public string $savePath = 'C:\\xampp\\htdocs\\Manrealstore\\writable\\session';
 
     /**
      * --------------------------------------------------------------------------

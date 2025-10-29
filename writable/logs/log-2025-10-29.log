@@ -296,3 +296,1534 @@ Stack trace:
 #11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
 #12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
 #13 {main}
+ERROR - 2025-10-29 13:41:56 --> mysqli_sql_exception: Duplicate entry 'admin' for key 'username' in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', NULL, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Manrealstore\app\Database\Seeds\UserSeeder.php(44): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Manrealstore\system\Database\Seeder.php(149): App\Database\Seeds\UserSeeder->run()
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-10-29 13:44:10 --> Chat Query Error: You cannot use "getCompiledSelect()" in "App\Models\MessageModel". This is a method of the Query Builder Class.
+ERROR - 2025-10-29 13:44:54 --> Chat Query Error: You cannot use "getCompiledSelect()" in "App\Models\MessageModel". This is a method of the Query Builder Class.
+ERROR - 2025-10-29 13:47:59 --> Chat Query Error: You cannot use "getCompiledSelect()" in "App\Models\MessageModel". This is a method of the Query Builder Class.
+ERROR - 2025-10-29 13:48:10 --> Chat Query Error: You cannot use "getCompiledSelect()" in "App\Models\MessageModel". This is a method of the Query Builder Class.
+ERROR - 2025-10-29 13:48:18 --> Chat Query Error: You cannot use "getCompiledSelect()" in "App\Models\MessageModel". This is a method of the Query Builder Class.
+ERROR - 2025-10-29 13:48:22 --> Chat Query Error: You cannot use "getCompiledSelect()" in "App\Models\MessageModel". This is a method of the Query Builder Class.
+ERROR - 2025-10-29 15:41:34 --> mysqli_sql_exception: Duplicate entry 'admin' for key 'username' in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', NULL, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Manrealstore\app\Database\Seeds\UserSeeder.php(44): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Manrealstore\system\Database\Seeder.php(149): App\Database\Seeds\UserSeeder->run()
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+CRITICAL - 2025-10-29 15:56:51 --> ErrorException: Undefined variable $current_url
+[Method: GET, Route: chat]
+in APPPATH\Views\layouts\main.php on line 130.
+ 1 APPPATH\Views\layouts\main.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $current_url', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php', 130)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(242): CodeIgniter\View\View->render('layouts/main', [], true)
+ 5 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 6 APPPATH\Controllers\ChatController.php(52): view('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 15:56:52 --> ErrorException: Undefined variable $current_url
+[Method: GET, Route: chat]
+in APPPATH\Views\layouts\main.php on line 130.
+ 1 APPPATH\Views\layouts\main.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $current_url', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php', 130)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(242): CodeIgniter\View\View->render('layouts/main', [], true)
+ 5 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 6 APPPATH\Controllers\ChatController.php(52): view('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 15:56:54 --> ErrorException: Undefined variable $current_url
+[Method: GET, Route: chat]
+in APPPATH\Views\layouts\main.php on line 130.
+ 1 APPPATH\Views\layouts\main.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $current_url', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php', 130)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(242): CodeIgniter\View\View->render('layouts/main', [], true)
+ 5 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 6 APPPATH\Controllers\ChatController.php(52): view('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:05:06 --> ErrorException: Undefined variable $current_url
+[Method: GET, Route: chat]
+in APPPATH\Views\layouts\main.php on line 130.
+ 1 APPPATH\Views\layouts\main.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $current_url', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php', 130)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(242): CodeIgniter\View\View->render('layouts/main', [], true)
+ 5 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 6 APPPATH\Controllers\ChatController.php(50): view('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:05:08 --> ErrorException: Undefined variable $current_url
+[Method: GET, Route: chat]
+in APPPATH\Views\layouts\main.php on line 130.
+ 1 APPPATH\Views\layouts\main.php(130): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $current_url', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php', 130)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\layouts\\main.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\View\View.php(242): CodeIgniter\View\View->render('layouts/main', [], true)
+ 5 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('chat/index', [], true)
+ 6 APPPATH\Controllers\ChatController.php(50): view('chat/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:18:43 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:18:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:18:43 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:18:43 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:18:44 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:18:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:18:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:18:44 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:19:13 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:19:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:19:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:19:13 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:19:36 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:19:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:19:36 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:19:36 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:19:37 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `me...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `me...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `me...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `me...', NULL, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Manrealstore\app\Database\Seeds\MessageSeeder.php(79): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Manrealstore\system\Database\Seeder.php(149): App\Database\Seeds\MessageSeeder->run()
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-10-29 16:19:43 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:19:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:19:43 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:19:43 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:20:29 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `me...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `me...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `me...')
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1841): CodeIgniter\Database\BaseConnection->query('INSERT INTO `me...', NULL, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(2230): CodeIgniter\Database\BaseBuilder->batchExecute('_insertBatch', 100)
+#5 C:\xampp\htdocs\Manrealstore\app\Database\Seeds\MessageSeeder.php(79): CodeIgniter\Database\BaseBuilder->insertBatch(Array)
+#6 C:\xampp\htdocs\Manrealstore\system\Database\Seeder.php(149): App\Database\Seeds\MessageSeeder->run()
+#7 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#8 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#9 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#10 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-10-29 16:20:36 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+ERROR - 2025-10-29 16:20:36 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:20:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:20:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:20:36 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:20:36 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:20:36 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:20:36 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:20:44 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:20:44 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:20:44 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:20:44 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:21:13 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:21:13 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:21:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:21:13 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:21:36 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:21:36 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:21:36 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:21:36 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'2\' AND m.receiver_id = \'3\') 
+                   OR (m.sender_id = \'3\' AND m.receiver_id = \'2\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-10-29 16:21:43 --> mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, \n  ...', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, \n  ...')
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, \n  ...')
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, \n  ...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-10-29 16:21:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+[Method: GET, Route: chat/fetch]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:21:43 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-29 16:21:43 --> [Caused by] mysqli_sql_exception: Table 'manreal_pos.messages' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = \'3\' AND m.receiver_id = \'2\') 
+                   OR (m.sender_id = \'2\' AND m.receiver_id = \'3\')
+                ORDER BY m.created_at ASC')
+ 4 APPPATH\Controllers\ChatController.php(164): CodeIgniter\Database\BaseConnection->query('SELECT m.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages m
+                INNER JOIN users u1 ON u1.id = m.sender_id
+                INNER JOIN users u2 ON u2.id = m.receiver_id
+                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
+                   OR (m.sender_id = ? AND m.receiver_id = ?)
+                ORDER BY m.created_at ASC', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->fetchMessages()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

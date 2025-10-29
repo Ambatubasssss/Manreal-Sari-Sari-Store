@@ -2,141 +2,88 @@
 
 <?= $this->section('content') ?>
 
-<div class="container-fluid">
+<!-- Chat Management -->
     <div class="row">
-        <!-- Sidebar - Users and Conversations -->
-        <div class="col-md-4 col-lg-3">
+    <div class="col-md-4">
             <div class="card">
-                <div class="card-header bg-primary text-white">
+            <div class="card-header">
                     <h5 class="mb-0">
-                        <i class="bi bi-chat-dots me-2"></i>Chat
+                    <i class="bi bi-people-fill me-2"></i>
+                    Online Users
                     </h5>
                 </div>
                 <div class="card-body p-0">
-                    <!-- Search Users -->
-                    <div class="p-3 border-bottom">
-                        <div class="input-group">
-                            <input type="text" id="searchUsers" class="form-control" placeholder="Search users...">
-                            <button class="btn btn-outline-secondary" type="button" id="searchBtn">
-                                <i class="bi bi-search"></i>
-                            </button>
+                <div class="list-group list-group-flush" id="usersList">
+                    <?php foreach ($users as $user): ?>
+                    <div class="list-group-item list-group-item-action user-item" 
+                         data-user-id="<?= $user['id'] ?>" 
+                         data-user-name="<?= htmlspecialchars($user['full_name']) ?>"
+                         data-user-role="<?= $user['role'] ?>"
+                         onclick="loadMessages(<?= $user['id'] ?>, '<?= htmlspecialchars($user['full_name']) ?>', '<?= $user['role'] ?>')">
+                        <div class="d-flex align-items-center">
+                            <div class="avatar me-3">
+                                <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                     style="width: 40px; height: 40px; font-size: 14px; font-weight: bold;">
+                                    <?= strtoupper(substr($user['full_name'], 0, 1)) ?>
                         </div>
-                    </div>
-
-                    <!-- Online Users -->
-                    <div class="p-3 border-bottom">
-                        <h6 class="text-muted mb-2">
-                            <i class="bi bi-circle-fill text-success me-1"></i>Online Users
-                        </h6>
-                        <div id="onlineUsers">
-                            <?php if (!empty($online_users)): ?>
-                                <?php foreach ($online_users as $user): ?>
-                                    <div class="d-flex align-items-center mb-2 user-item" data-user-id="<?= $user['id'] ?>">
-                                        <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                                            <?= strtoupper(substr($user['full_name'], 0, 1)) ?>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <div class="fw-bold"><?= $user['full_name'] ?></div>
+                                <h6 class="mb-1"><?= htmlspecialchars($user['full_name']) ?></h6>
                                             <small class="text-muted"><?= ucfirst($user['role']) ?></small>
                                         </div>
+                            <div class="status-indicator">
+                                <span class="badge bg-success">Online</span>
                                     </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <p class="text-muted small">No users online</p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
-                    <!-- Recent Conversations -->
-                    <div class="p-3">
-                        <h6 class="text-muted mb-2">
-                            <i class="bi bi-clock-history me-1"></i>Recent Conversations
-                        </h6>
-                        <div id="conversations">
-                            <?php if (!empty($conversations)): ?>
-                                <?php foreach ($conversations as $conv): ?>
-                                    <div class="d-flex align-items-center mb-2 conversation-item" data-user-id="<?= $conv['other_user_id'] ?>">
-                                        <div class="avatar-sm bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                                            <?= strtoupper(substr($conv['other_user_name'], 0, 1)) ?>
-                                        </div>
-                                        <div class="flex-grow-1">
-                                            <div class="fw-bold"><?= $conv['other_user_name'] ?></div>
-                                            <small class="text-muted"><?= ucfirst($conv['other_user_role']) ?></small>
-                                        </div>
-                                        <div class="text-end">
-                                            <small class="text-muted"><?= date('M j', strtotime($conv['last_message_time'])) ?></small>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
-                            <?php else: ?>
-                                <p class="text-muted small">No recent conversations</p>
-                            <?php endif; ?>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Main Chat Area -->
-        <div class="col-md-8 col-lg-9">
+    <div class="col-md-8">
             <div class="card">
-                <div class="card-header bg-light">
-                    <div id="chatHeader" class="d-flex align-items-center">
-                        <div class="avatar-sm bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                            <i class="bi bi-person"></i>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">
+                    <i class="bi bi-chat-dots me-2"></i>
+                    <span id="chatTitle">Select a user to start chatting</span>
+                </h5>
+                <div class="chat-actions">
+                    <button class="btn btn-sm btn-outline-primary" onclick="refreshMessages()" id="refreshBtn" title="Refresh Messages">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                    <small class="text-muted ms-2" id="lastRefresh">Auto-refresh every 2s</small>
                         </div>
-                        <div>
-                            <h6 class="mb-0">Select a user to start chatting</h6>
-                            <small class="text-muted">Choose from the list on the left</small>
                         </div>
+            <div class="card-body p-0">
+                <div id="messages" class="messages-container">
+                    <div class="text-center text-muted py-5">
+                        <i class="bi bi-chat-dots" style="font-size: 3rem; opacity: 0.3;"></i>
+                        <p class="mt-3">Click on a user to start a conversation</p>
                     </div>
                 </div>
-                
-                <div class="card-body p-0">
-                    <!-- Chat Messages Area -->
-                    <div id="chatMessages" class="chat-messages p-3" style="height: 400px; overflow-y: auto;">
-                        <div class="text-center text-muted mt-5">
-                            <i class="bi bi-chat-dots" style="font-size: 3rem;"></i>
-                            <p class="mt-3">Select a user to start chatting</p>
                         </div>
-                    </div>
-
-                    <!-- Message Input -->
-                    <div class="border-top p-3">
+            <div class="card-footer" id="messageInputContainer" style="display: none;">
                         <div class="input-group">
-                            <input type="text" id="messageInput" class="form-control" placeholder="Type your message..." disabled>
-                            <button class="btn btn-primary" type="button" id="sendBtn" disabled>
-                                <i class="bi bi-send"></i> Send
+                    <input type="text" class="form-control" id="messageInput" placeholder="Type your message..." 
+                           onkeypress="handleKeyPress(event)">
+                    <button class="btn btn-primary" type="button" onclick="sendMessage()" id="sendBtn">
+                        <i class="bi bi-send"></i>
                             </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- User Search Results Modal -->
-<div class="modal fade" id="searchResultsModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Search Results</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body" id="searchResultsBody">
-                <!-- Search results will be populated here -->
-            </div>
-        </div>
-    </div>
-</div>
-
-<?= $this->endSection() ?>
-
-<?= $this->section('styles') ?>
+<!-- Custom Styles -->
 <style>
-.chat-messages {
+.messages-container {
+    height: 500px;
+    overflow-y: auto;
     background-color: #f8f9fa;
+    padding: 1rem;
 }
 
 .message {
@@ -157,266 +104,197 @@
     max-width: 70%;
     padding: 0.75rem 1rem;
     border-radius: 1rem;
-    word-wrap: break-word;
+    position: relative;
 }
 
 .message.sent .message-content {
-    background-color: #007bff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-bottom-right-radius: 0.25rem;
 }
 
 .message.received .message-content {
-    background-color: white;
-    color: #212529;
+    background: white;
     border: 1px solid #dee2e6;
     border-bottom-left-radius: 0.25rem;
 }
 
 .message-time {
     font-size: 0.75rem;
-    margin-top: 0.25rem;
     opacity: 0.7;
+    margin-top: 0.25rem;
 }
 
-.avatar-sm {
-    width: 2rem;
-    height: 2rem;
-    font-size: 0.875rem;
-}
-
-.user-item, .conversation-item {
+.user-item {
     cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    transition: background-color 0.2s;
+    transition: all 0.3s ease;
+    border: none !important;
 }
 
-.user-item:hover, .conversation-item:hover {
-    background-color: #f8f9fa;
+.user-item:hover {
+    background-color: #f8f9fa !important;
+    transform: translateX(5px);
 }
 
-.user-item.active, .conversation-item.active {
-    background-color: #e3f2fd;
-}
-
-.unread-badge {
-    background-color: #dc3545;
+.user-item.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     color: white;
-    border-radius: 50%;
+}
+
+.user-item.active .text-muted {
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.user-item.active .badge {
+    background-color: rgba(255,255,255,0.2) !important;
+    color: white !important;
+}
+
+.status-indicator .badge {
+    font-size: 0.7rem;
     padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    min-width: 1.5rem;
-    text-align: center;
+}
+
+.avatar {
+    position: relative;
+}
+
+.typing-indicator {
+    font-style: italic;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+#messageInput:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+    transform: translateY(-1px);
 }
 </style>
-<?= $this->endSection() ?>
 
-<?= $this->section('scripts') ?>
+<!-- JavaScript -->
 <script>
 let currentChatUser = null;
-let messagePollingInterval = null;
+let currentChatUserName = null;
+let currentChatUserRole = null;
 
-$(document).ready(function() {
-    // Initialize chat functionality
-    initializeChat();
-    
-    // Start activity updates
-    startActivityUpdates();
-    
-    // Start unread count updates
-    startUnreadCountUpdates();
-});
-
-function initializeChat() {
-    // User search functionality
-    $('#searchBtn').click(function() {
-        searchUsers();
-    });
-    
-    $('#searchUsers').keypress(function(e) {
-        if (e.which === 13) {
-            searchUsers();
-        }
-    });
-    
-    // Send message functionality
-    $('#sendBtn').click(function() {
-        sendMessage();
-    });
-    
-    $('#messageInput').keypress(function(e) {
-        if (e.which === 13) {
-            sendMessage();
-        }
-    });
-    
-    // User selection
-    $(document).on('click', '.user-item, .conversation-item', function() {
-        const userId = $(this).data('user-id');
-        selectUser(userId);
-    });
-}
-
-function searchUsers() {
-    const searchTerm = $('#searchUsers').val().trim();
-    if (searchTerm.length < 2) {
-        alert('Please enter at least 2 characters to search');
-        return;
-    }
-    
-    $.ajax({
-        url: '<?= base_url('chat/search-users') ?>',
-        method: 'GET',
-        data: { search: searchTerm },
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                displaySearchResults(response.users);
-            } else {
-                alert('Error: ' + response.error);
-            }
-        },
-        error: function() {
-            alert('Error searching users');
-        }
-    });
-}
-
-function displaySearchResults(users) {
-    let html = '';
-    if (users.length > 0) {
-        users.forEach(function(user) {
-            html += `
-                <div class="d-flex align-items-center mb-2 user-item" data-user-id="${user.id}">
-                    <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                        ${user.full_name.charAt(0).toUpperCase()}
-                    </div>
-                    <div class="flex-grow-1">
-                        <div class="fw-bold">${user.full_name}</div>
-                        <small class="text-muted">${user.role.charAt(0).toUpperCase() + user.role.slice(1)}</small>
-                    </div>
-                </div>
-            `;
-        });
-    } else {
-        html = '<p class="text-muted">No users found</p>';
-    }
-    
-    $('#searchResultsBody').html(html);
-    $('#searchResultsModal').modal('show');
-    
-    // Add click handler for search results
-    $('#searchResultsModal .user-item').click(function() {
-        const userId = $(this).data('user-id');
-        selectUser(userId);
-        $('#searchResultsModal').modal('hide');
-    });
-}
-
-function selectUser(userId) {
-    // Update active state
-    $('.user-item, .conversation-item').removeClass('active');
-    $(`.user-item[data-user-id="${userId}"], .conversation-item[data-user-id="${userId}"]`).addClass('active');
+function loadMessages(userId, userName, userRole) {
+    // Update active user
+    $('.user-item').removeClass('active');
+    $(`.user-item[data-user-id="${userId}"]`).addClass('active');
     
     currentChatUser = userId;
+    currentChatUserName = userName;
+    currentChatUserRole = userRole;
     
-    // Enable message input
-    $('#messageInput').prop('disabled', false);
-    $('#sendBtn').prop('disabled', false);
+    // Update chat title
+    $('#chatTitle').html(`<i class="bi bi-person-circle me-2"></i>${userName} (${userRole})`);
     
-    // Load chat header
-    loadChatHeader(userId);
+    // Show message input
+    $('#messageInputContainer').show();
+    $('#refreshBtn').prop('disabled', false);
+    
+    // Update refresh status
+    $('#lastRefresh').text('Auto-refresh every 2s');
     
     // Load messages
-    loadMessages(userId);
-    
-    // Start message polling
-    startMessagePolling(userId);
-}
-
-function loadChatHeader(userId) {
-    // Find user info from existing data
-    let user = null;
-    
-    // Check online users
-    $('.user-item').each(function() {
-        if ($(this).data('user-id') == userId) {
-            const name = $(this).find('.fw-bold').text();
-            const role = $(this).find('.text-muted').text();
-            user = { full_name: name, role: role };
-            return false;
-        }
-    });
-    
-    // Check conversations
-    if (!user) {
-        $('.conversation-item').each(function() {
-            if ($(this).data('user-id') == userId) {
-                const name = $(this).find('.fw-bold').text();
-                const role = $(this).find('.text-muted').text();
-                user = { full_name: name, role: role };
-                return false;
-            }
-        });
-    }
-    
-    if (user) {
-        $('#chatHeader').html(`
-            <div class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                ${user.full_name.charAt(0).toUpperCase()}
-            </div>
-            <div>
-                <h6 class="mb-0">${user.full_name}</h6>
-                <small class="text-muted">${user.role}</small>
-            </div>
-        `);
-    }
-}
-
-function loadMessages(userId) {
     $.ajax({
-        url: '<?= base_url('chat/fetch') ?>',
+        url: '<?= base_url('chat/fetch') ?>?user_id=' + userId,
         method: 'GET',
-        data: { user_id: userId },
         dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                displayMessages(response.messages);
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        success: function(data) {
+            console.log('Load messages success:', data);
+            if (data.success && data.messages) {
+                // Initialize message count for new message detection
+                lastMessageCount = data.messages.length;
+                displayMessages(data.messages);
             } else {
-                alert('Error: ' + response.error);
+                showError('Error: ' + (data.error || 'Unknown error'));
             }
         },
         error: function(xhr, status, error) {
-            console.error('AJAX Error:', xhr.responseText);
-            console.error('Status:', status);
-            console.error('Error:', error);
-            alert('Error loading messages: ' + xhr.responseText);
+            console.log('Load messages error - XHR:', xhr);
+            console.log('Load messages error - Status:', status);
+            console.log('Load messages error - Error:', error);
+            console.log('Load messages error - Response:', xhr.responseText);
+            
+            // Try to parse the response even if status is 500
+            try {
+                const response = JSON.parse(xhr.responseText);
+                if (response.success && response.messages) {
+                    displayMessages(response.messages);
+                } else {
+                    showError('Error: ' + (response.error || error));
+                }
+            } catch (e) {
+                showError('Error loading messages: ' + error);
+            }
         }
     });
 }
 
 function displayMessages(messages) {
     let html = '';
-    const currentUserId = <?= session()->get('user_id') ?>;
     
-    messages.forEach(function(message) {
-        const isSent = message.sender_id == currentUserId;
+    if (messages && messages.length > 0) {
+        messages.forEach(function(msg) {
+            const isSent = msg.sender_id == <?= $current_user_id ?>;
         const messageClass = isSent ? 'sent' : 'received';
-        const time = new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const time = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         
         html += `
             <div class="message ${messageClass}">
                 <div class="message-content">
-                    <div>${message.message}</div>
+                        <div>${msg.message}</div>
                     <div class="message-time">${time}</div>
                 </div>
             </div>
         `;
     });
+    } else {
+        html = '<div class="text-center text-muted py-3"><i class="bi bi-chat-dots me-2"></i>No messages yet. Start the conversation!</div>';
+    }
     
-    $('#chatMessages').html(html);
+    $('#messages').html(html);
     scrollToBottom();
+}
+
+// Track last message count to detect new messages
+let lastMessageCount = 0;
+
+function checkForNewMessages(messages) {
+    if (messages && messages.length > lastMessageCount && lastMessageCount > 0) {
+        // New message detected - show notification
+        showNewMessageNotification();
+    }
+    lastMessageCount = messages ? messages.length : 0;
+}
+
+function showNewMessageNotification() {
+    // Create a subtle notification
+    const notification = $('<div class="alert alert-info alert-dismissible fade show position-fixed" style="top: 20px; right: 20px; z-index: 9999; min-width: 300px;">' +
+        '<i class="bi bi-chat-dots me-2"></i>New message received!' +
+        '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+        '</div>');
+    
+    $('body').append(notification);
+    
+    // Auto-remove after 3 seconds
+    setTimeout(function() {
+        notification.alert('close');
+    }, 3000);
 }
 
 function sendMessage() {
@@ -424,6 +302,9 @@ function sendMessage() {
     
     const message = $('#messageInput').val().trim();
     if (!message) return;
+    
+    // Disable send button to prevent double-sending
+    $('#sendBtn').prop('disabled', true);
     
     $.ajax({
         url: '<?= base_url('chat/send') ?>',
@@ -433,93 +314,136 @@ function sendMessage() {
             message: message
         },
         dataType: 'json',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
         success: function(response) {
-            if (response.success) {
+            console.log('Send response:', response);
+            if (response && response.success) {
                 $('#messageInput').val('');
                 // Reload messages to show the new message
-                loadMessages(currentChatUser);
+                loadMessages(currentChatUser, currentChatUserName, currentChatUserRole);
             } else {
-                alert('Error: ' + response.error);
+                const errorMsg = (response && response.error) ? response.error : 'Unknown error occurred';
+                showError('Error: ' + errorMsg);
             }
         },
-        error: function() {
-            alert('Error sending message');
+        error: function(xhr, status, error) {
+            console.log('Send error - Status:', xhr.status);
+            console.log('Send error - Response:', xhr.responseText);
+            
+            // Try to parse error response
+            try {
+                const errorResponse = JSON.parse(xhr.responseText);
+                if (errorResponse.success) {
+                    // If it's actually a success response but came through error handler
+                    $('#messageInput').val('');
+                    loadMessages(currentChatUser, currentChatUserName, currentChatUserRole);
+                } else {
+                    showError('Error: ' + (errorResponse.error || 'Unknown error'));
+                }
+            } catch (e) {
+                // If we can't parse JSON, check if it's a 500 error but message was sent
+                if (xhr.status === 500) {
+                    // Try to reload messages anyway, as the message might have been sent
+                    $('#messageInput').val('');
+                    loadMessages(currentChatUser, currentChatUserName, currentChatUserRole);
+                } else {
+                    showError('Error sending message: ' + (xhr.statusText || error));
+                }
+            }
+        },
+        complete: function() {
+            // Re-enable send button
+            $('#sendBtn').prop('disabled', false);
         }
     });
 }
 
-function startMessagePolling(userId) {
-    // Clear existing interval
-    if (messagePollingInterval) {
-        clearInterval(messagePollingInterval);
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
     }
-    
-    // Start new polling
-    messagePollingInterval = setInterval(function() {
+}
+
+function refreshMessages() {
         if (currentChatUser) {
-            loadMessages(currentChatUser);
-        }
-    }, 3000); // Poll every 3 seconds
-}
-
-function startActivityUpdates() {
-    // Update user activity every 30 seconds
-    setInterval(function() {
+        console.log('Refreshing messages for user:', currentChatUser);
+        
+        // Load messages silently (without console logs for auto-refresh)
         $.ajax({
-            url: '<?= base_url('chat/update-activity') ?>',
-            method: 'POST',
-            dataType: 'json',
-            error: function() {
-                // Silently fail for activity updates
-            }
-        });
-    }, 30000);
-}
-
-function startUnreadCountUpdates() {
-    // Update unread count every 10 seconds
-    setInterval(function() {
-        $.ajax({
-            url: '<?= base_url('chat/unread-count') ?>',
+            url: '<?= base_url('chat/fetch') ?>?user_id=' + currentChatUser,
             method: 'GET',
             dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    updateUnreadCount(response.unread_count);
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function(data) {
+                console.log('Refresh success:', data);
+                if (data.success && data.messages) {
+                    // Check for new messages before displaying
+                    checkForNewMessages(data.messages);
+                    displayMessages(data.messages);
+                }
+                // Update last refresh time
+                const now = new Date();
+                $('#lastRefresh').text('Last updated: ' + now.toLocaleTimeString());
+            },
+            error: function(xhr, status, error) {
+                console.log('Refresh error:', xhr.responseText);
+                
+                // Try to parse the response even if status is 500
+                try {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success && response.messages) {
+                        checkForNewMessages(response.messages);
+                        displayMessages(response.messages);
+                    }
+                } catch (e) {
+                    console.log('Failed to parse refresh response:', e);
                 }
             }
         });
-    }, 10000);
-}
-
-function updateUnreadCount(count) {
-    // Update unread count in navigation or header
-    // You can customize this based on your layout
-    if (count > 0) {
-        // Add or update unread badge
-        if ($('#chatUnreadBadge').length === 0) {
-            $('<span id="chatUnreadBadge" class="unread-badge ms-2">' + count + '</span>').appendTo('#chatNavLink');
-        } else {
-            $('#chatUnreadBadge').text(count);
-        }
     } else {
-        // Remove unread badge
-        $('#chatUnreadBadge').remove();
+        console.log('No currentChatUser set, skipping refresh');
     }
 }
 
 function scrollToBottom() {
-    const chatMessages = document.getElementById('chatMessages');
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    const messagesContainer = document.getElementById('messages');
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
-// Clean up on page unload
-$(window).on('beforeunload', function() {
-    if (messagePollingInterval) {
-        clearInterval(messagePollingInterval);
+function showError(message) {
+    $('#messages').html(`
+        <div class="alert alert-danger" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            ${message}
+        </div>
+    `);
+}
+
+// Auto-refresh messages every 2 seconds for real-time updates
+setInterval(function() {
+    if (currentChatUser) {
+        console.log('Auto-refreshing messages for user:', currentChatUser);
+        refreshMessages();
+    }
+}, 2000);
+
+// Also refresh when the page becomes visible (user switches back to tab)
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden && currentChatUser) {
+        refreshMessages();
+    }
+});
+
+// Refresh when user focuses on the window
+window.addEventListener('focus', function() {
+    if (currentChatUser) {
+        refreshMessages();
     }
 });
 </script>
+
 <?= $this->endSection() ?>
-
-

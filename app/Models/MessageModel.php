@@ -49,18 +49,22 @@ class MessageModel extends Model
      */
     public function getConversation($user1Id, $user2Id, $limit = 50, $offset = 0)
     {
-        return $this->select('messages.*, 
-                              u1.full_name as sender_name, 
-                              u1.role as sender_role,
-                              u2.full_name as receiver_name, 
-                              u2.role as receiver_role')
-                    ->join('users u1', 'u1.id = messages.sender_id')
-                    ->join('users u2', 'u2.id = messages.receiver_id')
-                    ->where("(sender_id = $user1Id AND receiver_id = $user2Id) OR (sender_id = $user2Id AND receiver_id = $user1Id)")
-                    ->orderBy('created_at', 'ASC')
-                    ->limit($limit, $offset)
-                    ->get()
-                    ->getResultArray();
+        // FIXED: Use raw SQL to avoid query builder issues
+        $db = \Config\Database::connect();
+        $sql = "SELECT messages.*, 
+                       u1.full_name as sender_name, 
+                       u1.role as sender_role,
+                       u2.full_name as receiver_name, 
+                       u2.role as receiver_role
+                FROM messages
+                INNER JOIN users u1 ON u1.id = messages.sender_id
+                INNER JOIN users u2 ON u2.id = messages.receiver_id
+                WHERE (sender_id = ? AND receiver_id = ?) 
+                   OR (sender_id = ? AND receiver_id = ?)
+                ORDER BY created_at ASC
+                LIMIT ?";
+        
+        return $db->query($sql, [$user1Id, $user2Id, $user2Id, $user1Id, $limit])->getResultArray();
     }
 
     /**
@@ -68,41 +72,31 @@ class MessageModel extends Model
      */
     public function getRecentConversations($userId, $limit = 20)
     {
-        // Use raw SQL query to avoid getCompiledSelect() issue
-        $sql = "
-            SELECT DISTINCT
-                u.id as other_user_id,
-                u.full_name as other_user_name,
-                u.role as other_user_role,
-                m.message as last_message,
-                m.created_at as last_message_time,
-                m.is_read
-            FROM users u
-            INNER JOIN (
-                SELECT 
-                    CASE 
-                        WHEN sender_id = ? THEN receiver_id 
-                        ELSE sender_id 
-                    END as other_user_id,
-                    message,
-                    created_at,
-                    is_read,
-                    ROW_NUMBER() OVER (
-                        PARTITION BY CASE 
-                            WHEN sender_id = ? THEN receiver_id 
-                            ELSE sender_id 
-                        END 
-                        ORDER BY created_at DESC
-                    ) as rn
-                FROM messages 
-                WHERE sender_id = ? OR receiver_id = ?
-            ) m ON u.id = m.other_user_id AND m.rn = 1
-            WHERE u.id != ?
-            ORDER BY m.created_at DESC
-            LIMIT ?
-        ";
-        
-        return $this->db->query($sql, [$userId, $userId, $userId, $userId, $userId, $limit])->getResultArray();
+        try {
+            // Simplified query to avoid complex SQL issues
+            $sql = "
+                SELECT DISTINCT
+                    u.id as other_user_id,
+                    u.full_name as other_user_name,
+                    u.role as other_user_role,
+                    m.message as last_message,
+                    m.created_at as last_message_time,
+                    m.is_read
+                FROM users u
+                INNER JOIN messages m ON (
+                    (m.sender_id = ? AND m.receiver_id = u.id) OR 
+                    (m.receiver_id = ? AND m.sender_id = u.id)
+                )
+                WHERE u.id != ?
+                ORDER BY m.created_at DESC
+                LIMIT ?
+            ";
+            
+            return $this->db->query($sql, [$userId, $userId, $userId, $limit])->getResultArray();
+        } catch (\Exception $e) {
+            log_message('error', 'getRecentConversations error: ' . $e->getMessage());
+            return [];
+        }
     }
 
     /**
@@ -134,18 +128,32 @@ class MessageModel extends Model
     {
         $userModel = new \App\Models\UserModel();
         
-        // First try to get users active in the last 5 minutes
-        $recentUsers = $userModel->select('id, full_name, role, last_activity')
-                        ->where('id !=', $currentUserId)
-                        ->where('last_activity >', date('Y-m-d H:i:s', strtotime('-5 minutes')))
-                        ->where('is_active', 1)
-                        ->orderBy('last_activity', 'DESC')
-                        ->get()
-                        ->getResultArray();
+        // Check if last_activity column exists
+        $columns = $userModel->db->getFieldNames('users');
+        $hasLastActivity = in_array('last_activity', $columns);
         
-        // If no recent users, show all active users
-        if (empty($recentUsers)) {
+        if ($hasLastActivity) {
+            // First try to get users active in the last 5 minutes
             $recentUsers = $userModel->select('id, full_name, role, last_activity')
+                            ->where('id !=', $currentUserId)
+                            ->where('last_activity >', date('Y-m-d H:i:s', strtotime('-5 minutes')))
+                            ->where('is_active', 1)
+                            ->orderBy('last_activity', 'DESC')
+                            ->get()
+                            ->getResultArray();
+            
+            // If no recent users, show all active users
+            if (empty($recentUsers)) {
+                $recentUsers = $userModel->select('id, full_name, role, last_activity')
+                                ->where('id !=', $currentUserId)
+                                ->where('is_active', 1)
+                                ->orderBy('full_name', 'ASC')
+                                ->get()
+                                ->getResultArray();
+            }
+        } else {
+            // Fallback: just get all active users without last_activity
+            $recentUsers = $userModel->select('id, full_name, role')
                             ->where('id !=', $currentUserId)
                             ->where('is_active', 1)
                             ->orderBy('full_name', 'ASC')
