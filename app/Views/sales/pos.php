@@ -156,25 +156,51 @@
 let cart = [];
 let currentProduct = null;
 
-function scanBarcode() {
-    const barcode = document.getElementById('barcodeInput').value.trim();
+function scanBarcode(barcodeValue = null) {
+    const barcodeInput = document.getElementById('barcodeInput');
+    const barcode = barcodeValue || barcodeInput.value.trim();
+    
     if (!barcode) {
-        alert('Please enter a barcode or product code');
         return;
     }
 
-    fetch(`<?= base_url('products/by-code') ?>?product_code=${encodeURIComponent(barcode)}`)
+    // Populate the search bar with the scanned barcode IMMEDIATELY
+    const searchInput = document.getElementById('productSearch');
+    searchInput.value = barcode;
+    
+    // Show loading state
+    const container = document.getElementById('barcodeResult');
+    container.style.display = 'block';
+    container.innerHTML = `
+        <div class="alert alert-info">
+            <i class="bi bi-hourglass-split me-2"></i>Scanning barcode: ${barcode}...
+        </div>
+    `;
+
+    // Use the new barcode scanner API
+    fetch(`<?= base_url('products/scan-barcode') ?>?barcode=${encodeURIComponent(barcode)}`, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
         .then(response => response.json())
-        .then(product => {
-            if (product.error) {
-                displayBarcodeError(product.error);
+        .then(data => {
+            if (data.success && data.product) {
+                displayScannedProduct(data.product);
+                // Also trigger search to show results
+                searchProducts();
             } else {
-                displayScannedProduct(product);
+                displayBarcodeError(data.error || 'Product not found');
+                // Still trigger search even if direct lookup fails
+                searchProducts();
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            displayBarcodeError('Error scanning barcode');
+            displayBarcodeError('Error scanning barcode. Please try again.');
+            // Still trigger search on error
+            searchProducts();
         });
 }
 
@@ -454,11 +480,80 @@ document.getElementById('productSearch').addEventListener('keypress', function(e
     }
 });
 
-// Barcode scan on Enter key
-document.getElementById('barcodeInput').addEventListener('keypress', function(e) {
+// Barcode scanner handling
+let barcodeInput = document.getElementById('barcodeInput');
+let barcodeTimeout = null;
+let lastBarcodeTime = 0;
+let barcodeBuffer = '';
+
+// Auto-focus barcode input when page loads for quick scanning
+document.addEventListener('DOMContentLoaded', function() {
+    barcodeInput.focus();
+});
+
+// Handle barcode scanner input
+// Barcode scanners typically send data very quickly and append Enter key
+barcodeInput.addEventListener('keypress', function(e) {
+    const currentTime = Date.now();
+    
+    // If Enter key is pressed, process the barcode
     if (e.key === 'Enter') {
-        scanBarcode();
+        e.preventDefault();
+        const barcode = barcodeInput.value.trim();
+        if (barcode.length > 0) {
+            scanBarcode(barcode);
+            barcodeInput.value = '';
+        }
+        return;
     }
+    
+    // Clear timeout if user is typing manually (slow input)
+    if (currentTime - lastBarcodeTime > 100) {
+        clearTimeout(barcodeTimeout);
+        barcodeBuffer = '';
+    }
+    
+    lastBarcodeTime = currentTime;
+    barcodeBuffer += e.key;
+    
+    // Clear previous timeout
+    clearTimeout(barcodeTimeout);
+    
+    // If barcode is entered quickly (typical of scanners), auto-scan after short delay
+    barcodeTimeout = setTimeout(() => {
+        const barcode = barcodeInput.value.trim();
+        if (barcode.length > 0) {
+            // Populate search bar immediately
+            document.getElementById('productSearch').value = barcode;
+            // Auto-scan if barcode looks complete (usually 4+ characters)
+            if (barcode.length >= 4) {
+                scanBarcode(barcode);
+                barcodeInput.value = '';
+            }
+        }
+        barcodeBuffer = '';
+    }, 150); // 150ms delay to detect if it's a scanner input (scanners are very fast)
+});
+
+// Also handle input event for compatibility
+barcodeInput.addEventListener('input', function(e) {
+    const barcode = e.target.value.trim();
+    
+    // Populate search bar immediately when barcode is entered
+    if (barcode.length > 0) {
+        document.getElementById('productSearch').value = barcode;
+    }
+    
+    // Clear previous timeout
+    clearTimeout(barcodeTimeout);
+    
+    // Auto-scan if barcode looks complete and no typing for 200ms
+    barcodeTimeout = setTimeout(() => {
+        if (barcode.length >= 4) {
+            scanBarcode(barcode);
+            e.target.value = '';
+        }
+    }, 200);
 });
 </script>
 <?= $this->endSection() ?>

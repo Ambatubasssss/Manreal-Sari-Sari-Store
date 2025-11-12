@@ -364,6 +364,58 @@ class ProductsController extends BaseController
     }
 
     /**
+     * Barcode Scanner API - Dedicated endpoint for barcode scanning
+     */
+    public function scanBarcode()
+    {
+        // Accept both GET and POST requests
+        $barcode = $this->request->getGet('barcode') ?? $this->request->getPost('barcode') ?? '';
+        
+        // Also check for product_code parameter for backward compatibility
+        if (empty($barcode)) {
+            $barcode = $this->request->getGet('product_code') ?? $this->request->getPost('product_code') ?? '';
+        }
+        
+        // Trim whitespace
+        $barcode = trim($barcode);
+        
+        if (empty($barcode)) {
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => 'Barcode is required'
+            ]);
+        }
+
+        // Search by product code
+        $product = $this->productModel->getByCode($barcode);
+        
+        if (!$product) {
+            // Also try searching by name or partial code
+            $products = $this->productModel->getProductsForPOS($barcode);
+            if (count($products) > 0) {
+                // Return first match
+                return $this->response->setJSON([
+                    'success' => true,
+                    'product' => $products[0],
+                    'search_results' => $products
+                ]);
+            }
+            
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => 'Product not found',
+                'barcode' => $barcode
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'success' => true,
+            'product' => $product,
+            'barcode' => $barcode
+        ]);
+    }
+
+    /**
      * Get product by ID for AJAX requests
      */
     public function getProductById($id = null)

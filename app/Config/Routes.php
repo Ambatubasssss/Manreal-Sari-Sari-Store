@@ -48,6 +48,7 @@ $routes->group('products', ['filter' => 'auth'], function($routes) {
     $routes->get('pos-search', 'ProductsController::getProductsForPOS');
     $routes->get('by-code', 'ProductsController::getProductByCode');
     $routes->get('get/(:num)', 'ProductsController::getProductById/$1');
+    $routes->match(['get', 'post'], 'scan-barcode', 'ProductsController::scanBarcode');
 });
 
 // Sales routes
