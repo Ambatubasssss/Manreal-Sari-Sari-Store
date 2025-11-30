@@ -123,9 +123,9 @@ class App extends BaseConfig
     public array $supportedLocales = ['en'];
 
     /**
-     * --------------------------------------------------------------------------
+     * -------------------------------------------------------------------------- 
      * Application Timezone
-     * --------------------------------------------------------------------------
+     * -------------------------------------------------------------------------- 
      *
      * The default timezone that will be used in your application to display
      * dates with the date helper, and can be retrieved through app_timezone()
@@ -133,7 +133,7 @@ class App extends BaseConfig
      * @see https://www.php.net/manual/en/timezones.php for list of timezones
      *      supported by PHP.
      */
-    public string $appTimezone = 'UTC';
+    public string $appTimezone = 'Asia/Manila';
 
     /**
      * --------------------------------------------------------------------------

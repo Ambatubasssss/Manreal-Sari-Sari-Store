@@ -47,35 +47,51 @@ class DashboardController extends BaseController
     private function getDashboardStats()
     {
         $today = date('Y-m-d');
-        $thisMonth = date('Y-m');
-        
-        // Today's sales
-        $todaySales = $this->saleModel->getDailySales($today);
-        
-        // This month's sales
-        $monthlySales = $this->saleModel->getMonthlySales(date('Y'), date('m'));
+
+        // Today's sales - return default zero values
+        $todaySales = [
+            'total_sales' => 0,
+            'total_revenue' => 0,
+            'total_discount' => 0,
+            'average_sale' => 0
+        ];
+
+        // Monthly sales total
         $monthlyTotal = 0;
-        if ($monthlySales) {
-            foreach ($monthlySales as $sale) {
-                $monthlyTotal += $sale['total_revenue'];
+
+        // Product statistics - return default values
+        $productStats = [
+            'total_products' => 0,
+            'low_stock_count' => 0,
+            'out_of_stock_count' => 0,
+            'total_value' => 0
+        ];
+
+        // User statistics - return default values
+        $totalUsers = 0;
+        $totalActiveUsers = 0;
+
+        try {
+            $todaySales = $this->saleModel->getDailySales($today) ?: $todaySales;
+            $monthlySales = $this->saleModel->getMonthlySales(date('Y'), date('m'));
+            foreach ($monthlySales as $daily) {
+                $monthlyTotal += $daily['total_revenue'] ?? 0;
             }
+            $productStats = $this->productModel->getProductStats() ?: $productStats;
+            $totalUsers = $this->userModel->countAllResults() ?: 0;
+            $totalActiveUsers = count($this->userModel->getActiveUsers() ?: []);
+        } catch (\Exception $e) {
+            // If any model fails, continue with default values
+            log_message('error', 'Dashboard stats error: ' . $e->getMessage());
         }
-        
-        // Product statistics
-        $productStats = $this->productModel->getProductStats();
-        
-        // User statistics
-        $totalUsers = $this->userModel->countAllResults();
-        $activeUsers = $this->userModel->getActiveUsers();
-        $totalActiveUsers = count($activeUsers);
-        
+
         return [
-            'today_sales' => $todaySales ? $todaySales['total_sales'] : 0,
-            'today_revenue' => $todaySales ? $todaySales['total_revenue'] : 0,
+            'today_sales' => $todaySales['total_sales'] ?? 0,
+            'today_revenue' => $todaySales['total_revenue'] ?? 0,
             'monthly_revenue' => $monthlyTotal,
-            'total_products' => $productStats['total_products'],
-            'low_stock_count' => $productStats['low_stock_count'],
-            'out_of_stock_count' => $productStats['out_of_stock_count'],
+            'total_products' => $productStats['total_products'] ?? 0,
+            'low_stock_count' => $productStats['low_stock_count'] ?? 0,
+            'out_of_stock_count' => $productStats['out_of_stock_count'] ?? 0,
             'total_users' => $totalUsers,
             'active_users' => $totalActiveUsers,
         ];
@@ -86,7 +102,11 @@ class DashboardController extends BaseController
      */
     private function getRecentSales()
     {
-        return $this->saleModel->getSales([], 1, 5)['sales'];
+        try {
+            return $this->saleModel->getSales([], 1, 5)['sales'] ?: [];
+        } catch (\Exception $e) {
+            return []; // Return empty array on error
+        }
     }
 
     /**
@@ -94,7 +114,11 @@ class DashboardController extends BaseController
      */
     private function getLowStockProducts()
     {
-        return $this->productModel->getLowStockProducts();
+        try {
+            return $this->productModel->getLowStockProducts() ?: [];
+        } catch (\Exception $e) {
+            return []; // Return empty array on error
+        }
     }
 
     /**
@@ -102,10 +126,13 @@ class DashboardController extends BaseController
      */
     private function getTopSellingProducts()
     {
-        $startDate = date('Y-m-d', strtotime('-30 days'));
-        $endDate = date('Y-m-d');
-        
-        return $this->saleModel->getTopSellingProducts(5, $startDate, $endDate);
+        try {
+            $startDate = date('Y-m-d', strtotime('-30 days'));
+            $endDate = date('Y-m-d');
+            return $this->saleModel->getTopSellingProducts(5, $startDate, $endDate) ?: [];
+        } catch (\Exception $e) {
+            return []; // Return empty array on error
+        }
     }
 
     /**
@@ -186,14 +213,11 @@ class DashboardController extends BaseController
      */
     private function getDatabaseInfo()
     {
-        $db = \Config\Database::connect();
-        $platform = $db->getPlatform();
-        
         return [
-            'platform' => $platform,
-            'database' => $db->database,
-            'hostname' => $db->hostname,
-            'port' => $db->port,
+            'platform' => 'MongoDB',
+            'database' => getenv('MONGODB_DATABASE') ?: 'manreal',
+            'hostname' => getenv('MONGODB_HOST') ?: 'localhost',
+            'port' => getenv('MONGODB_PORT') ?: '27017',
         ];
     }
 

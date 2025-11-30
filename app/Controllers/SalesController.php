@@ -6,6 +6,7 @@ use App\Models\SaleModel;
 use App\Models\SaleItemModel;
 use App\Models\ProductModel;
 use App\Models\InventoryLogModel;
+use App\Models\ReportModel;
 
 class SalesController extends BaseController
 {
@@ -13,6 +14,7 @@ class SalesController extends BaseController
     protected $saleItemModel;
     protected $productModel;
     protected $inventoryLogModel;
+    protected $reportModel;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class SalesController extends BaseController
         $this->saleItemModel = new SaleItemModel();
         $this->productModel = new ProductModel();
         $this->inventoryLogModel = new InventoryLogModel();
+        $this->reportModel = new ReportModel();
     }
 
     /**
@@ -29,12 +32,11 @@ class SalesController extends BaseController
     public function pos()
     {
         $this->requireAuth();
-        
+
         $data = [
             'title' => 'Point of Sale',
-            'sale_number' => $this->saleModel->generateSaleNumber(),
         ];
-        
+
         return $this->renderView('sales/pos', $data);
     }
 
@@ -94,101 +96,116 @@ class SalesController extends BaseController
     public function processSale()
     {
         $this->requireAuth();
-        
+
         if (!$this->request->isAJAX()) {
             return $this->response->setJSON(['error' => 'Invalid request']);
         }
-        
-        $saleData = json_decode($this->request->getPost('sale_data'), true);
-        
+
+        $saleData = $this->request->getJSON(true);
+
         if (!$saleData || empty($saleData['items'])) {
             return $this->response->setJSON(['error' => 'Sale data is required']);
         }
-        
-        // Validate items
+
+        // Validate items and calculate totals
+        $subtotal = 0;
         foreach ($saleData['items'] as $item) {
-            $product = $this->productModel->find($item['product_id']);
+            $product = $this->productModel->find($item['id']);
             if (!$product || $product['quantity'] < $item['quantity']) {
                 return $this->response->setJSON(['error' => 'Insufficient stock for ' . $product['name']]);
             }
+            $subtotal += $item['price'] * $item['quantity'];
         }
-        
-        // Start transaction
-        $db = \Config\Database::connect();
-        $db->transStart();
+        $tax = $subtotal * 0.12; // 12% tax
+        $total_amount = $subtotal + $tax;
+        $change_amount = $saleData['cash_received'] - $total_amount;
         
         try {
-            // Create sale record
-            $saleRecord = [
-                'sale_number' => $saleData['sale_number'],
-                'user_id' => $this->userData['id'],
-                'customer_name' => $saleData['customer_name'] ?? '',
-                'subtotal' => $saleData['subtotal'],
-                'discount' => $saleData['discount'] ?? 0,
-                'tax' => $saleData['tax'] ?? 0,
-                'total_amount' => $saleData['total_amount'],
-                'cash_received' => $saleData['cash_received'],
-                'change_amount' => $saleData['change_amount'],
-                'payment_method' => $saleData['payment_method'],
-                'status' => 'completed',
-                'notes' => $saleData['notes'] ?? '',
-            ];
-            
-            $saleId = $this->saleModel->insert($saleRecord);
-            
+            $attempts = 0;
+            do {
+                $saleNumber = $saleData['sale_number'] ?? $this->saleModel->generateSaleNumber();
+                $saleRecord = [
+                    'sale_number' => $saleNumber,
+                    'user_id' => $this->userData['id'],
+                    'customer_name' => $saleData['customer_name'] ?? '',
+                    'subtotal' => $subtotal,
+                    'discount' => $saleData['discount'] ?? 0,
+                    'tax' => $tax,
+                    'total_amount' => $total_amount,
+                    'cash_received' => $saleData['cash_received'],
+                    'change_amount' => $change_amount,
+                    'payment_method' => $saleData['payment_method'],
+                    'status' => 'completed',
+                    'notes' => $saleData['notes'] ?? '',
+                ];
+
+                try {
+                    $saleId = $this->saleModel->insert($saleRecord);
+                    break; // success
+                } catch (\MongoDB\Driver\Exception\Exception $e) {
+                    // Check if it's a duplicate key error
+                    if (strpos($e->getMessage(), 'E11000 duplicate key error') !== false) {
+                        // Increment sequence and retry
+                        $attempts++;
+                        if ($attempts >= 10) {
+                            throw new \Exception('Failed to create unique sale number after multiple attempts');
+                        }
+                    } else {
+                        throw $e; // rethrow other errors
+                    }
+                }
+            } while ($attempts < 10);
+
             if (!$saleId) {
                 throw new \Exception('Failed to create sale record');
             }
-            
+
             // Create sale items and update inventory
             foreach ($saleData['items'] as $item) {
-                $product = $this->productModel->find($item['product_id']);
+                $productId = $item['id'];
+                $product = $this->productModel->find($productId);
                 $previousQuantity = $product['quantity'];
-                
+
+                $unitPrice = $item['price'];
+                $totalPrice = $unitPrice * $item['quantity'];
+
                 // Create sale item
                 $saleItem = [
                     'sale_id' => $saleId,
-                    'product_id' => $item['product_id'],
+                    'product_id' => $productId,
                     'product_code' => $item['product_code'],
-                    'product_name' => $item['product_name'],
+                    'product_name' => $item['name'],
                     'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'],
-                    'total_price' => $item['total_price'],
+                    'unit_price' => $unitPrice,
+                    'total_price' => $totalPrice,
                 ];
-                
+
                 if (!$this->saleItemModel->insert($saleItem)) {
                     throw new \Exception('Failed to create sale item');
                 }
-                
+
                 // Update product quantity
-                if (!$this->productModel->updateQuantity($item['product_id'], -$item['quantity'], 'sale')) {
+                if (!$this->productModel->updateQuantity($productId, -$item['quantity'], 'sale')) {
                     throw new \Exception('Failed to update product quantity');
                 }
-                
+
                 // Log inventory change
                 $this->inventoryLogModel->logSale(
-                    $item['product_id'],
+                    $productId,
                     $this->userData['id'],
                     $item['quantity'],
                     $previousQuantity,
                     $saleId
                 );
             }
-            
-            $db->transComplete();
-            
-            if ($db->transStatus() === false) {
-                return $this->response->setJSON(['error' => 'Transaction failed']);
-            }
-            
+
             return $this->response->setJSON([
                 'success' => true,
                 'sale_id' => $saleId,
                 'message' => 'Sale completed successfully'
             ]);
-            
+
         } catch (\Exception $e) {
-            $db->transRollback();
             return $this->response->setJSON(['error' => $e->getMessage()]);
         }
     }
@@ -213,23 +230,19 @@ class SalesController extends BaseController
             return redirect()->to('/sales')->with('error', 'Sale cannot be cancelled');
         }
         
-        // Start transaction
-        $db = \Config\Database::connect();
-        $db->transStart();
-        
         try {
             // Update sale status
             $this->saleModel->update($id, ['status' => 'cancelled']);
-            
+
             // Restore product quantities
             $saleItems = $this->saleItemModel->getBySaleId($id);
             foreach ($saleItems as $item) {
                 $product = $this->productModel->find($item['product_id']);
                 $previousQuantity = $product['quantity'];
-                
+
                 // Restore quantity
                 $this->productModel->updateQuantity($item['product_id'], $item['quantity'], 'return');
-                
+
                 // Log inventory change
                 $this->inventoryLogModel->logChange([
                     'product_id' => $item['product_id'],
@@ -243,17 +256,10 @@ class SalesController extends BaseController
                     'notes' => 'Sale cancellation - quantity restored',
                 ]);
             }
-            
-            $db->transComplete();
-            
-            if ($db->transStatus() === false) {
-                $this->setErrorMessage('Failed to cancel sale');
-            } else {
-                $this->setSuccessMessage('Sale cancelled successfully');
-            }
-            
+
+            $this->setSuccessMessage('Sale cancelled successfully');
+
         } catch (\Exception $e) {
-            $db->transRollback();
             $this->setErrorMessage('Error cancelling sale: ' . $e->getMessage());
         }
         
@@ -440,5 +446,131 @@ class SalesController extends BaseController
         
         echo "</table>";
         exit;
+    }
+
+    /**
+     * Generate POS report (AJAX)
+     */
+    public function generateReport()
+    {
+        $this->requireAuth();
+
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON(['error' => 'Invalid request']);
+        }
+
+        $reportType = $this->request->getPost('report_type') ?? 'daily';
+
+        try {
+            $reportId = $this->reportModel->generatePOSReport($this->userData['id'], $reportType);
+            $report = $this->reportModel->find($reportId);
+
+            return $this->response->setJSON([
+                'success' => true,
+                'report_id' => $reportId,
+                'report' => $report,
+                'message' => 'Report generated successfully'
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON(['error' => $e->getMessage()]);
+        }
+    }
+
+    /**
+     * Download report as PDF
+     */
+    public function downloadReport($reportId = null)
+    {
+        $this->requireAuth();
+
+        if (!$reportId) {
+            return redirect()->to('/sales')->with('error', 'Report ID is required');
+        }
+
+        $report = $this->reportModel->find($reportId);
+        if (!$report) {
+            return redirect()->to('/sales')->with('error', 'Report not found');
+        }
+
+        // Generate PDF download
+        $this->generateReportPDF($report);
+    }
+
+    /**
+     * Generate PDF for report
+     */
+    private function generateReportPDF($report)
+    {
+        // Set headers for HTML download (since no PDF library)
+        header('Content-Type: text/html');
+        header('Content-Disposition: attachment; filename="report_' . $report['id'] . '.html"');
+
+        // Generate HTML content
+        $html = $this->generateReportHTML($report);
+
+        echo $html;
+        exit;
+    }
+
+    /**
+     * Generate report HTML
+     */
+    private function generateReportHTML($report)
+    {
+        $storeName = 'Manreal Store';
+        $data = $report['report_data'];
+
+        $html = '
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Report - ' . ucfirst($report['type']) . '</title>
+            <style>
+                body { font-family: Arial, sans-serif; font-size: 12px; }
+                .header { text-align: center; margin-bottom: 20px; }
+                .report-title { font-size: 18px; font-weight: bold; }
+                .summary { margin: 20px 0; }
+                .table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                .table th, .table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                .table th { background-color: #f2f2f2; }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <div class="report-title">' . $storeName . ' - ' . ucfirst($report['type']) . ' Report</div>
+                <div>Report ID: ' . $report['id'] . '</div>
+                <div>Generated At: ' . date('Y-m-d H:i:s', strtotime($report['generated_at'])) . '</div>
+                <div>Period: ' . $report['period'] . '</div>
+            </div>
+
+            <div class="summary">
+                <h3>Sales Summary</h3>
+                <table class="table">
+                    <tr><th>Total Sales</th><th>Total Revenue</th><th>Average Sale</th></tr>
+                    <tr>
+                        <td>' . ($data['sales_summary']['total_sales'] ?? 0) . '</td>
+                        <td>₱' . number_format($data['sales_summary']['total_revenue'] ?? 0, 2) . '</td>
+                        <td>₱' . number_format($data['sales_summary']['average_sale'] ?? 0, 2) . '</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="summary">
+                <h3>Product Summary</h3>
+                <table class="table">
+                    <tr><th>Total Products</th><th>Low Stock</th><th>Out of Stock</th><th>Inventory Value</th></tr>
+                    <tr>
+                        <td>' . ($data['product_summary']['total_products'] ?? 0) . '</td>
+                        <td>' . ($data['product_summary']['low_stock_count'] ?? 0) . '</td>
+                        <td>' . ($data['product_summary']['out_of_stock_count'] ?? 0) . '</td>
+                        <td>₱' . number_format($data['product_summary']['total_value'] ?? 0, 2) . '</td>
+                    </tr>
+                </table>
+            </div>
+        </body>
+        </html>';
+
+        return $html;
     }
 }

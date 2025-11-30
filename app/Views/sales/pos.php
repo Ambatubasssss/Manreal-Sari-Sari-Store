@@ -17,15 +17,12 @@
                         <i class="bi bi-upc-scan"></i> Scan
                     </button>
                 </div>
-                <div id="barcodeResult" class="mt-2" style="display: none;">
-                    <!-- Scanned product will be displayed here -->
-                </div>
             </div>
         </div>
 
         <div class="card mb-4">
             <div class="card-header">
-                <h5 class="mb-0"><i class="bi bi-search me-2"></i>Product Search</h5>
+                <h5 class="mb-0"><i class="bi bi-search me-2"></i>Products</h5>
             </div>
             <div class="card-body">
                 <div class="input-group mb-3">
@@ -159,118 +156,23 @@ let currentProduct = null;
 function scanBarcode(barcodeValue = null) {
     const barcodeInput = document.getElementById('barcodeInput');
     const barcode = barcodeValue || barcodeInput.value.trim();
-    
+
     if (!barcode) {
         return;
     }
 
-    // Populate the search bar with the scanned barcode IMMEDIATELY
+    // Populate the search bar with the scanned barcode
     const searchInput = document.getElementById('productSearch');
     searchInput.value = barcode;
-    
-    // Show loading state
-    const container = document.getElementById('barcodeResult');
-    container.style.display = 'block';
-    container.innerHTML = `
-        <div class="alert alert-info">
-            <i class="bi bi-hourglass-split me-2"></i>Scanning barcode: ${barcode}...
-        </div>
-    `;
 
-    // Use the new barcode scanner API
-    fetch(`<?= base_url('products/scan-barcode') ?>?barcode=${encodeURIComponent(barcode)}`, {
-        method: 'GET',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success && data.product) {
-                displayScannedProduct(data.product);
-                // Also trigger search to show results
-                searchProducts();
-            } else {
-                displayBarcodeError(data.error || 'Product not found');
-                // Still trigger search even if direct lookup fails
-                searchProducts();
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            displayBarcodeError('Error scanning barcode. Please try again.');
-            // Still trigger search on error
-            searchProducts();
-        });
-}
-
-function displayScannedProduct(product) {
-    const container = document.getElementById('barcodeResult');
-    container.style.display = 'block';
-    container.innerHTML = `
-        <div class="alert alert-success">
-            <div class="d-flex align-items-center">
-                <div class="flex-grow-1">
-                    <h6 class="mb-1">${product.name}</h6>
-                    <p class="mb-1 text-muted small">Code: ${product.product_code}</p>
-                    <p class="mb-0 fw-bold">₱${parseFloat(product.price).toFixed(2)}</p>
-                </div>
-                <div class="ms-3">
-                    <button class="btn btn-sm btn-success" onclick="addScannedProductToCart('${product.id}')">
-                        <i class="bi bi-plus-circle"></i> Add to Cart
-                    </button>
-                </div>
-            </div>
-        </div>
-    `;
+    // Trigger search to show results
+    searchProducts();
 
     // Clear the input after successful scan
-    document.getElementById('barcodeInput').value = '';
+    barcodeInput.value = '';
 }
 
-function displayBarcodeError(message) {
-    const container = document.getElementById('barcodeResult');
-    container.style.display = 'block';
-    container.innerHTML = `
-        <div class="alert alert-danger">
-            <i class="bi bi-exclamation-triangle me-2"></i>${message}
-        </div>
-    `;
 
-    // Hide error after 3 seconds
-    setTimeout(() => {
-        container.style.display = 'none';
-    }, 3000);
-}
-
-function addScannedProductToCart(productId) {
-    // Fetch product details by ID
-    fetch(`<?= base_url('products/get/') ?>${productId}`)
-        .then(response => response.json())
-        .then(product => {
-            if (product.error) {
-                alert('Error loading product: ' + product.error);
-                return;
-            }
-            
-            currentProduct = product;
-            document.getElementById('modalProductName').textContent = product.name;
-            document.getElementById('modalProductCode').textContent = product.product_code;
-            document.getElementById('modalProductPrice').textContent = `₱${parseFloat(product.price).toFixed(2)}`;
-            document.getElementById('modalProductImage').src = product.image ? `<?= base_url('uploads/products/') ?>${product.image}` : '';
-            document.getElementById('quantity').value = 1;
-
-            const modal = new bootstrap.Modal(document.getElementById('productModal'));
-            modal.show();
-
-            // Hide the barcode result after adding to cart
-            document.getElementById('barcodeResult').style.display = 'none';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error loading product details');
-        });
-}
 
 function searchProducts() {
     const searchTerm = document.getElementById('productSearch').value;
@@ -461,7 +363,7 @@ function processSale() {
             // Redirect to receipt or sales list
             window.location.href = '<?= base_url('sales') ?>';
         } else {
-            alert('Error: ' + (data.message || 'Unknown error'));
+            alert('Error: ' + (data.error || 'Unknown error'));
         }
     })
     .catch(error => {

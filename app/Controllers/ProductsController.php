@@ -73,11 +73,7 @@ class ProductsController extends BaseController
     public function store()
     {
         $this->requireAdmin();
-        
-        if (!$this->validateCSRF()) {
-            return redirect()->back()->withInput();
-        }
-        
+
         $productData = [
             'product_code' => $this->request->getPost('product_code'),
             'name' => $this->request->getPost('name'),
@@ -140,15 +136,11 @@ class ProductsController extends BaseController
     public function update($id = null)
     {
         $this->requireAdmin();
-        
+
         if (!$id) {
             return redirect()->to('/products')->with('error', 'Product ID is required');
         }
-        
-        if (!$this->validateCSRF()) {
-            return redirect()->back()->withInput();
-        }
-        
+
         $product = $this->productModel->find($id);
         if (!$product) {
             return redirect()->to('/products')->with('error', 'Product not found');
@@ -271,15 +263,11 @@ class ProductsController extends BaseController
     public function processInventoryAdjustment($id = null)
     {
         $this->requireAdmin();
-        
+
         if (!$id) {
             return redirect()->to('/products')->with('error', 'Product ID is required');
         }
-        
-        if (!$this->validateCSRF()) {
-            return redirect()->back()->withInput();
-        }
-        
+
         $product = $this->productModel->find($id);
         if (!$product) {
             return redirect()->to('/products')->with('error', 'Product not found');
@@ -339,10 +327,24 @@ class ProductsController extends BaseController
      */
     public function getProductsForPOS()
     {
-        $search = $this->request->getGet('search') ?? '';
-        $products = $this->productModel->getProductsForPOS($search);
+        // Check authentication first - return JSON error for AJAX requests
+        $authResult = $this->requireAuth();
+        if ($authResult !== true) {
+            return $authResult; // This will return the JSON response for auth error
+        }
 
-        return $this->response->setJSON($products);
+        $search = $this->request->getGet('search') ?? '';
+
+        try {
+            $products = $this->productModel->getProductsForPOS($search);
+            return $this->response->setJSON($products);
+        } catch (\Exception $e) {
+            log_message('error', 'POS search error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'error' => 'Database error occurred',
+                'details' => $e->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -368,17 +370,23 @@ class ProductsController extends BaseController
      */
     public function scanBarcode()
     {
+        // Check authentication first - return JSON error for AJAX requests
+        $authResult = $this->requireAuth();
+        if ($authResult !== true) {
+            return $authResult; // This will return the JSON response for auth error
+        }
+
         // Accept both GET and POST requests
         $barcode = $this->request->getGet('barcode') ?? $this->request->getPost('barcode') ?? '';
-        
+
         // Also check for product_code parameter for backward compatibility
         if (empty($barcode)) {
             $barcode = $this->request->getGet('product_code') ?? $this->request->getPost('product_code') ?? '';
         }
-        
+
         // Trim whitespace
         $barcode = trim($barcode);
-        
+
         if (empty($barcode)) {
             return $this->response->setJSON([
                 'success' => false,
@@ -386,33 +394,42 @@ class ProductsController extends BaseController
             ]);
         }
 
-        // Search by product code
-        $product = $this->productModel->getByCode($barcode);
-        
-        if (!$product) {
-            // Also try searching by name or partial code
-            $products = $this->productModel->getProductsForPOS($barcode);
-            if (count($products) > 0) {
-                // Return first match
+        try {
+            // Search by product code
+            $product = $this->productModel->getByCode($barcode);
+
+            if (!$product) {
+                // Also try searching by name or partial code
+                $products = $this->productModel->getProductsForPOS($barcode);
+                if (count($products) > 0) {
+                    // Return first match
+                    return $this->response->setJSON([
+                        'success' => true,
+                        'product' => $products[0],
+                        'search_results' => $products
+                    ]);
+                }
+
                 return $this->response->setJSON([
-                    'success' => true,
-                    'product' => $products[0],
-                    'search_results' => $products
+                    'success' => false,
+                    'error' => 'Product not found',
+                    'barcode' => $barcode
                 ]);
             }
-            
+
             return $this->response->setJSON([
-                'success' => false,
-                'error' => 'Product not found',
+                'success' => true,
+                'product' => $product,
                 'barcode' => $barcode
             ]);
+        } catch (\Exception $e) {
+            log_message('error', 'Barcode scan error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'success' => false,
+                'error' => 'Database error occurred',
+                'details' => $e->getMessage()
+            ]);
         }
-
-        return $this->response->setJSON([
-            'success' => true,
-            'product' => $product,
-            'barcode' => $barcode
-        ]);
     }
 
     /**

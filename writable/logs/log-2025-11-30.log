@@ -1,0 +1,722 @@
+CRITICAL - 2025-11-30 10:29:28 --> Error: Class "MongoDB\Client" not found
+[Method: CLI, Route: mongodb:setup]
+in APPPATH\Libraries\MongoDB.php on line 29.
+ 1 APPPATH\Commands\MongoDBSetup.php(17): App\Libraries\MongoDB->__construct()
+ 2 SYSTEMPATH\CLI\Commands.php(74): App\Commands\MongoDBSetup->run([])
+ 3 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('mongodb:setup', [])
+ 4 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+ 5 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+ 6 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2025-11-30 10:30:50 --> Error: Class "MongoDB\Client" not found
+[Method: CLI, Route: mongodb:setup]
+in APPPATH\Libraries\MongoDB.php on line 29.
+ 1 APPPATH\Commands\MongoDBSetup.php(17): App\Libraries\MongoDB->__construct()
+ 2 SYSTEMPATH\CLI\Commands.php(74): App\Commands\MongoDBSetup->run([])
+ 3 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('mongodb:setup', [])
+ 4 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+ 5 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+ 6 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2025-11-30 10:32:08 --> Error: Class "MongoDB\Client" not found
+[Method: CLI, Route: mongodb:setup]
+in APPPATH\Libraries\MongoDB.php on line 29.
+ 1 APPPATH\Commands\MongoDBSetup.php(17): App\Libraries\MongoDB->__construct()
+ 2 SYSTEMPATH\CLI\Commands.php(74): App\Commands\MongoDBSetup->run([])
+ 3 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('mongodb:setup', [])
+ 4 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+ 5 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+ 6 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2025-11-30 10:43:17 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'manreal_pos', 3306, '', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DATE(cre...', Array, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Manrealstore\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\Manrealstore\app\Models\SaleModel.php(173): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\Manrealstore\app\Controllers\DashboardController.php(53): App\Models\SaleModel->getDailySales('2025-11-30')
+#8 C:\xampp\htdocs\Manrealstore\app\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+#9 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+#10 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+#11 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DATE(cre...', Array, false)
+#3 C:\xampp\htdocs\Manrealstore\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\Manrealstore\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#5 C:\xampp\htdocs\Manrealstore\app\Models\SaleModel.php(173): CodeIgniter\BaseModel->first()
+#6 C:\xampp\htdocs\Manrealstore\app\Controllers\DashboardController.php(53): App\Models\SaleModel->getDailySales('2025-11-30')
+#7 C:\xampp\htdocs\Manrealstore\app\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+#8 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+#9 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+#10 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-11-30 10:43:17 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DATE(created_at) as date, COUNT(*) as total_sales, SUM(total_amount) as total_revenue, SUM(discount) as total_discount, AVG(total_amount) as average_sale
+FROM `sales`
+WHERE DATE(created_at) = :DATE(created_at):
+AND `status` = :status:
+GROUP BY DATE(created_at)
+ORDER BY `sales`.`id` ASC
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Models\SaleModel.php(173): CodeIgniter\BaseModel->first()
+ 6 APPPATH\Controllers\DashboardController.php(53): App\Models\SaleModel->getDailySales('2025-11-30')
+ 7 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 10:43:55 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'manreal_pos', 3306, '', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DATE(cre...', Array, false)
+#4 C:\xampp\htdocs\Manrealstore\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\Manrealstore\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#6 C:\xampp\htdocs\Manrealstore\app\Models\SaleModel.php(173): CodeIgniter\BaseModel->first()
+#7 C:\xampp\htdocs\Manrealstore\app\Controllers\DashboardController.php(53): App\Models\SaleModel->getDailySales('2025-11-30')
+#8 C:\xampp\htdocs\Manrealstore\app\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+#9 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+#10 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+#11 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#13 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DATE(cre...', Array, false)
+#3 C:\xampp\htdocs\Manrealstore\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\xampp\htdocs\Manrealstore\system\BaseModel.php(715): CodeIgniter\Model->doFirst()
+#5 C:\xampp\htdocs\Manrealstore\app\Models\SaleModel.php(173): CodeIgniter\BaseModel->first()
+#6 C:\xampp\htdocs\Manrealstore\app\Controllers\DashboardController.php(53): App\Models\SaleModel->getDailySales('2025-11-30')
+#7 C:\xampp\htdocs\Manrealstore\app\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+#8 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+#9 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+#10 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-11-30 10:43:55 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: dashboard]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT DATE(created_at) as date, COUNT(*) as total_sales, SUM(total_amount) as total_revenue, SUM(discount) as total_discount, AVG(total_amount) as average_sale
+FROM `sales`
+WHERE DATE(created_at) = :DATE(created_at):
+AND `status` = :status:
+GROUP BY DATE(created_at)
+ORDER BY `sales`.`id` ASC
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(715): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Models\SaleModel.php(173): CodeIgniter\BaseModel->first()
+ 6 APPPATH\Controllers\DashboardController.php(53): App\Models\SaleModel->getDailySales('2025-11-30')
+ 7 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 10:59:21 --> Error: Call to undefined method App\Models\UserModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\DashboardController.php on line 77.
+ 1 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 10:59:27 --> Error: Call to undefined method App\Models\UserModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\DashboardController.php on line 77.
+ 1 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 10:59:28 --> Error: Call to undefined method App\Models\UserModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\DashboardController.php on line 77.
+ 1 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 10:59:38 --> Error: Call to undefined method App\Models\UserModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\DashboardController.php on line 77.
+ 1 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 10:59:46 --> Error: Call to undefined method App\Models\UserModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\DashboardController.php on line 77.
+ 1 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:00:23 --> Error: Call to undefined method App\Models\UserModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Controllers\DashboardController.php on line 77.
+ 1 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 11:04:45 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'manreal_pos', 3306, '', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(36): CodeIgniter\Database\BaseConnection->query('SELECT id, full...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->index()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(36): CodeIgniter\Database\BaseConnection->query('SELECT id, full...', Array)
+#3 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->index()
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#8 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#9 {main}
+CRITICAL - 2025-11-30 11:04:45 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: chat]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 APPPATH\Controllers\ChatController.php(36): CodeIgniter\Database\BaseConnection->query('SELECT id, full_name, role FROM users WHERE id = ?', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 11:06:32 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'manreal_pos', 3306, '', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\Manrealstore\system\Database\Database.php(72): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\Manrealstore\system\Database\Config.php(109): CodeIgniter\Database\Database->loadForge(Object(CodeIgniter\Database\MySQLi\Connection))
+#4 C:\xampp\htdocs\Manrealstore\system\Database\Seeder.php(98): CodeIgniter\Database\Config::forge(NULL)
+#5 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Seed.php(71): CodeIgniter\Database\Seeder->__construct(Object(Config\Database))
+#6 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#7 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#9 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#10 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#11 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\Database.php(72): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\Manrealstore\system\Database\Config.php(109): CodeIgniter\Database\Database->loadForge(Object(CodeIgniter\Database\MySQLi\Connection))
+#3 C:\xampp\htdocs\Manrealstore\system\Database\Seeder.php(98): CodeIgniter\Database\Config::forge(NULL)
+#4 C:\xampp\htdocs\Manrealstore\system\Commands\Database\Seed.php(71): CodeIgniter\Database\Seeder->__construct(Object(Config\Database))
+#5 C:\xampp\htdocs\Manrealstore\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run(Array)
+#6 C:\xampp\htdocs\Manrealstore\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#9 C:\xampp\htdocs\Manrealstore\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#10 {main}
+CRITICAL - 2025-11-30 11:06:32 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: CLI, Route: db:seed/ProductSeeder]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\Database.php(72): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\Config.php(109): CodeIgniter\Database\Database->loadForge(Object(CodeIgniter\Database\MySQLi\Connection))
+ 3 SYSTEMPATH\Database\Seeder.php(98): CodeIgniter\Database\Config::forge(null)
+ 4 SYSTEMPATH\Commands\Database\Seed.php(71): CodeIgniter\Database\Seeder->__construct(Object(Config\Database))
+ 5 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\Seed->run([...])
+ 6 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('db:seed', [...])
+ 7 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+ 8 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+ 9 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:14:48 --> Exception: MongoDB InsertMany Error: E11000 duplicate key error collection: manreal.users index: username_unique dup key: { username: "admin" }
+[Method: CLI, Route: mongodb:seed]
+in APPPATH\Libraries\MongoDB.php on line 86.
+ 1 APPPATH\Commands\MongoDBSeed.php(76): App\Libraries\MongoDB->insertMany('users', [...])
+ 2 APPPATH\Commands\MongoDBSeed.php(22): App\Commands\MongoDBSeed->seedUsers(Object(App\Libraries\MongoDB))
+ 3 SYSTEMPATH\CLI\Commands.php(74): App\Commands\MongoDBSeed->run([])
+ 4 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('mongodb:seed', [])
+ 5 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+ 6 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+ 7 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:20:32 --> ErrorException: Undefined array key "image"
+[Method: GET, Route: products]
+in APPPATH\Views\products\index.php on line 73.
+ 1 APPPATH\Views\products\index.php(73): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "image"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\products\\index.php', 73)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\products\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('products/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(97): view('products/index', [...])
+ 6 APPPATH\Controllers\ProductsController.php(50): App\Controllers\BaseController->renderView('products/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:29:57 --> ErrorException: Undefined array key "image"
+[Method: GET, Route: products]
+in APPPATH\Views\products\index.php on line 73.
+ 1 APPPATH\Views\products\index.php(73): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "image"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\products\\index.php', 73)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\products\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('products/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(97): view('products/index', [...])
+ 6 APPPATH\Controllers\ProductsController.php(50): App\Controllers\BaseController->renderView('products/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:35:32 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(390): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:35:34 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(390): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:35:39 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(390): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:35:49 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(390): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:36:08 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(390): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:36:13 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(390): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 11:44:24 --> Error: Call to a member function verify() on null
+[Method: POST, Route: products/store]
+in APPPATH\Controllers\BaseController.php on line 165.
+ 1 APPPATH\Controllers\ProductsController.php(77): App\Controllers\BaseController->validateCSRF()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->store()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 12:00:38 --> Error: Call to a member function getTokenName() on null
+[Method: POST, Route: products/store]
+in APPPATH\Controllers\BaseController.php on line 168.
+ 1 APPPATH\Controllers\ProductsController.php(77): App\Controllers\BaseController->validateCSRF()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->store()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 12:04:17 --> Error: Call to a member function getTokenName() on null
+[Method: POST, Route: products/store]
+in APPPATH\Controllers\BaseController.php on line 166.
+ 1 APPPATH\Controllers\ProductsController.php(77): App\Controllers\BaseController->validateCSRF()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->store()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 12:09:03 --> CodeIgniter\Filters\Exceptions\FilterException: "auth,csrf" filter must have a matching alias defined.
+[Method: POST, Route: products/store]
+in SYSTEMPATH\Filters\Filters.php on line 590.
+ 1 SYSTEMPATH\Filters\Filters.php(590): CodeIgniter\Filters\Exceptions\FilterException::forNoAlias('auth,csrf')
+ 2 SYSTEMPATH\Filters\Filters.php(641): CodeIgniter\Filters\Filters->enableFilter('auth,csrf', 'before')
+ 3 SYSTEMPATH\CodeIgniter.php(467): CodeIgniter\Filters\Filters->enableFilters([...], 'before')
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 12:12:32 --> ErrorException: Undefined array key "image"
+[Method: GET, Route: products]
+in APPPATH\Views\products\index.php on line 73.
+ 1 APPPATH\Views\products\index.php(73): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "image"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\products\\index.php', 73)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\products\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('products/index', [], true)
+ 5 APPPATH\Controllers\BaseController.php(97): view('products/index', [...])
+ 6 APPPATH\Controllers\ProductsController.php(50): App\Controllers\BaseController->renderView('products/index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 12:23:13 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+CRITICAL - 2025-11-30 12:33:04 --> Error: Call to undefined method App\Models\UserModel::validate()
+[Method: POST, Route: auth/processRegistration]
+in APPPATH\Controllers\AuthController.php on line 96.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\AuthController->processRegistration()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 12:41:49 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 12:43:33 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:201
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php(201): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'manreal_pos', 3306, '', 0)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(36): CodeIgniter\Database\BaseConnection->query('SELECT id, full...', Array)
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->index()
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#6 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#8 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#9 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#10 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\xampp\htdocs\Manrealstore\system\Database\MySQLi\Connection.php:246
+Stack trace:
+#0 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(419): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\xampp\htdocs\Manrealstore\system\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\xampp\htdocs\Manrealstore\app\Controllers\ChatController.php(36): CodeIgniter\Database\BaseConnection->query('SELECT id, full...', Array)
+#3 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(933): App\Controllers\ChatController->index()
+#4 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+#5 C:\xampp\htdocs\Manrealstore\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 C:\xampp\htdocs\Manrealstore\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#7 C:\xampp\htdocs\Manrealstore\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#8 C:\xampp\htdocs\Manrealstore\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#9 {main}
+CRITICAL - 2025-11-30 12:43:33 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+[Method: GET, Route: chat]
+in SYSTEMPATH\Database\BaseConnection.php on line 465.
+ 1 SYSTEMPATH\Database\BaseConnection.php(614): CodeIgniter\Database\BaseConnection->initialize()
+ 2 APPPATH\Controllers\ChatController.php(36): CodeIgniter\Database\BaseConnection->query('SELECT id, full_name, role FROM users WHERE id = ?', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ChatController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ChatController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 12:49:54 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 13:02:34 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 13:32:02 --> Barcode scan error: MongoDB Find Error: Regular expression is invalid: unrecognized character follows \
+ERROR - 2025-11-30 13:32:02 --> POS search error: MongoDB Find Error: Regular expression is invalid: unrecognized character follows \
+CRITICAL - 2025-11-30 13:37:16 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(399): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 13:37:19 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(399): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 13:37:21 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products/scan-barcode]
+in APPPATH\Models\ProductModel.php on line 340.
+ 1 APPPATH\Controllers\ProductsController.php(399): App\Models\ProductModel->getByCode('HTH002')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->scanBarcode()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 14:00:04 --> POS search error: MongoDB Find Error: Regular expression is invalid: unrecognized character follows \
+ERROR - 2025-11-30 14:36:40 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 14:38:42 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 14:42:15 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+CRITICAL - 2025-11-30 14:45:05 --> ParseError: syntax error, unexpected token "return", expecting "function" or "const"
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 60.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 14:48:51 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+CRITICAL - 2025-11-30 14:48:52 --> Error: Call to undefined method App\Models\ProductModel::findAll()
+[Method: GET, Route: dashboard]
+in APPPATH\Models\ProductModel.php on line 296.
+ 1 APPPATH\Controllers\DashboardController.php(118): App\Models\ProductModel->getLowStockProducts()
+ 2 APPPATH\Controllers\DashboardController.php(36): App\Controllers\DashboardController->getLowStockProducts()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 14:51:25 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 14:52:37 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+CRITICAL - 2025-11-30 14:55:58 --> ParseError: Unclosed '{' on line 361 does not match ']'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 377.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 14:56:28 --> ParseError: Unclosed '{' on line 361 does not match ']'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 377.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 14:57:09 --> ParseError: Unclosed '{' on line 361 does not match ']'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 377.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 14:58:10 --> ParseError: Unclosed '{' on line 361 does not match ']'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 377.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 14:59:11 --> ParseError: Unclosed '{' on line 361 does not match ']'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 377.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 15:00:12 --> ParseError: Unclosed '{' on line 361 does not match ']'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 377.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 15:01:13 --> ParseError: Unclosed '{' on line 361 does not match ']'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 377.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 15:02:10 --> ParseError: Unclosed '{' on line 361 does not match ']'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 377.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 15:03:10 --> ParseError: Unmatched '}'
+[Method: GET, Route: dashboard/data]
+in APPPATH\Models\ProductModel.php on line 404.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\xampp\\htdocs\\Manrealstore\\app\\Models\\ProductModel.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Models\\ProductModel')
+ 3 APPPATH\Controllers\DashboardController.php(20): CodeIgniter\Autoloader\Autoloader->loadClass('App\\Models\\ProductModel')
+ 4 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\DashboardController->__construct()
+ 5 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 15:04:04 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+CRITICAL - 2025-11-30 15:08:24 --> Error: Call to undefined method App\Models\ProductModel::getProductsForPOS()
+[Method: GET, Route: products/pos-search]
+in APPPATH\Controllers\ProductsController.php on line 339.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->getProductsForPOS()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 15:18:27 --> Error: Call to undefined method App\Models\ProductModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Models\ProductModel.php on line 419.
+ 1 APPPATH\Controllers\DashboardController.php(80): App\Models\ProductModel->getProductStats()
+ 2 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 15:20:51 --> Error: Call to undefined method App\Models\ProductModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Models\ProductModel.php on line 419.
+ 1 APPPATH\Controllers\DashboardController.php(80): App\Models\ProductModel->getProductStats()
+ 2 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-30 15:20:55 --> Error: Call to undefined method App\Models\ProductModel::countAllResults()
+[Method: GET, Route: dashboard]
+in APPPATH\Models\ProductModel.php on line 419.
+ 1 APPPATH\Controllers\DashboardController.php(80): App\Models\ProductModel->getProductStats()
+ 2 APPPATH\Controllers\DashboardController.php(34): App\Controllers\DashboardController->getDashboardStats()
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\DashboardController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\DashboardController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 15:22:42 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 15:23:35 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 15:24:27 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+CRITICAL - 2025-11-30 15:30:10 --> Error: Call to undefined method App\Models\ProductModel::first()
+[Method: GET, Route: products]
+in APPPATH\Models\ProductModel.php on line 304.
+ 1 APPPATH\Controllers\ProductsController.php(31): App\Models\ProductModel->getProducts('vp201', '', 1)
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-11-30 15:52:04 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 15:52:41 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 15:53:18 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 15:55:23 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 15:56:27 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression
+ERROR - 2025-11-30 15:57:17 --> Dashboard stats error: Executor error during aggregate command on namespace: manreal.products :: caused by :: only numbers are allowed in an $multiply expression

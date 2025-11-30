@@ -11,7 +11,7 @@ $routes->get('auth', 'AuthController::index');
 $routes->get('login', 'AuthController::index'); // Add direct login route
 $routes->get('register', 'AuthController::register');
 $routes->post('auth/login', 'AuthController::login');
-$routes->post('auth/processRegistration', 'AuthController::processRegistration');
+$routes->match(['get', 'post'], 'auth/processRegistration', 'AuthController::processRegistration');
 $routes->get('auth/logout', 'AuthController::logout');
 $routes->get('auth/change-password', 'AuthController::changePassword');
 $routes->post('auth/update-password', 'AuthController::updatePassword');
@@ -23,8 +23,8 @@ $routes->get('auth/reset-password', 'AuthController::resetPassword');
 $routes->post('auth/reset-password', 'AuthController::processResetPassword');
 
 // Profile routes
-$routes->get('profile', 'ProfileController::index', ['filter' => 'auth']);
-$routes->post('profile/update', 'ProfileController::update', ['filter' => 'auth']);
+$routes->get('profile', 'ProfileController::index', ['filter' => ['auth']]);
+$routes->post('profile/update', 'ProfileController::update', ['filter' => ['auth']]);
 
 // Dashboard routes
 $routes->get('dashboard', 'DashboardController::index');
@@ -35,21 +35,22 @@ $routes->get('dashboard/data', 'DashboardController::getDashboardData');
 $routes->group('products', ['filter' => 'auth'], function($routes) {
     $routes->get('/', 'ProductsController::index');
     $routes->get('create', 'ProductsController::create');
-    $routes->post('store', 'ProductsController::store');
+    $routes->get('store', 'ProductsController::create');
+    $routes->post('store', 'ProductsController::store', ['filter' => ['auth', 'csrf']]);
     $routes->get('edit/(:num)', 'ProductsController::edit/$1');
-    $routes->post('update/(:num)', 'ProductsController::update/$1');
+    $routes->post('update/(:num)', 'ProductsController::update/$1', ['filter' => ['auth', 'csrf']]);
     $routes->get('delete/(:num)', 'ProductsController::delete/$1');
     $routes->get('show/(:num)', 'ProductsController::show/$1');
     $routes->get('adjust-inventory/(:num)', 'ProductsController::adjustInventory/$1');
-    $routes->post('process-inventory-adjustment/(:num)', 'ProductsController::processInventoryAdjustment/$1');
+    $routes->post('process-inventory-adjustment/(:num)', 'ProductsController::processInventoryAdjustment/$1', ['filter' => ['auth', 'csrf']]);
     $routes->get('export', 'ProductsController::export');
-    
-    // AJAX routes
-    $routes->get('pos-search', 'ProductsController::getProductsForPOS');
-    $routes->get('by-code', 'ProductsController::getProductByCode');
-    $routes->get('get/(:num)', 'ProductsController::getProductById/$1');
-    $routes->match(['get', 'post'], 'scan-barcode', 'ProductsController::scanBarcode');
 });
+
+// AJAX routes for products (no auth filter - handled in controller)
+$routes->get('products/pos-search', 'ProductsController::getProductsForPOS');
+$routes->get('products/by-code', 'ProductsController::getProductByCode');
+$routes->get('products/get/(:num)', 'ProductsController::getProductById/$1');
+$routes->match(['get', 'post'], 'products/scan-barcode', 'ProductsController::scanBarcode');
 
 // Sales routes
 $routes->group('sales', ['filter' => 'auth'], function($routes) {
@@ -58,10 +59,12 @@ $routes->group('sales', ['filter' => 'auth'], function($routes) {
     $routes->get('cancel/(:num)', 'SalesController::cancelSale/$1');
     $routes->get('receipt/(:num)', 'SalesController::generateReceipt/$1');
     $routes->get('export', 'SalesController::export');
-    
+
     // AJAX routes
     $routes->post('process', 'SalesController::processSale');
     $routes->get('chart-data', 'SalesController::getSalesChartData');
+    $routes->post('generate-report', 'SalesController::generateReport');
+    $routes->get('download-report/(:any)', 'SalesController::downloadReport/$1');
 });
 
 // POS routes

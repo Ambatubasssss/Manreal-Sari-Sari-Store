@@ -27,28 +27,38 @@ class ChatController extends BaseController
     public function index()
     {
         $this->requireAuth();
-        
+
         // Get current user and other users
         $currentUserId = session()->get('user_id');
-        $db = \Config\Database::connect();
-        
-        // Get current user info for the layout
-        $currentUserQuery = $db->query("SELECT id, full_name, role FROM users WHERE id = ?", [$currentUserId]);
-        $currentUser = $currentUserQuery->getRowArray();
-        
-        // Get other users for chat
-        $usersQuery = $db->query("SELECT id, full_name, role FROM users WHERE id != ? AND is_active = 1 ORDER BY full_name", [$currentUserId]);
-        $users = $usersQuery->getResultArray();
-        
+
+        // Get current user info using UserModel
+        $currentUser = $this->userModel->find($currentUserId);
+
+        if (!$currentUser) {
+            return redirect()->to('/auth')->with('error', 'User not found');
+        }
+
+        // Get other active users for chat
+        $otherUsers = $this->userModel->where('is_active', true)->findAll();
+
+        // Filter out current user and sort by name
+        $otherUsers = array_filter($otherUsers, function($user) use ($currentUserId) {
+            return $user['id'] !== $currentUserId;
+        });
+
+        usort($otherUsers, function($a, $b) {
+            return strcmp($a['full_name'], $b['full_name']);
+        });
+
         $data = [
             'title' => 'Chat',
             'user' => $currentUser,
-            'users' => $users,
+            'users' => $otherUsers,
             'current_user_id' => $currentUserId,
             'current_url' => current_url(),
             'is_admin' => $currentUser['role'] === 'admin'
         ];
-        
+
         return view('chat/index', $data);
     }
 
@@ -127,61 +137,65 @@ class ChatController extends BaseController
      */
     public function fetchMessages()
     {
+        log_message('debug', 'fetchMessages called');
+
         // Set JSON header immediately
         $this->response->setContentType('application/json');
-        
-        // Check authentication manually
-        $session = \Config\Services::session();
-        if (!$session->get('is_logged_in')) {
+
+        try {
+            // Check authentication manually
+            $session = \Config\Services::session();
+            if (!$session->get('is_logged_in')) {
+                log_message('debug', 'fetchMessages: Authentication failed');
+                return $this->response
+                    ->setStatusCode(401)
+                    ->setJSON(['error' => 'Authentication required']);
+            }
+
+            $currentUserId = $session->get('user_id');
+            $otherUserId = $this->request->getGet('user_id');
+
+            log_message('debug', "fetchMessages: currentUserId=$currentUserId, otherUserId=$otherUserId");
+
+            if (empty($otherUserId)) {
+                log_message('debug', 'fetchMessages: User ID is required');
+                return $this->response
+                    ->setStatusCode(400)
+                    ->setJSON(['error' => 'User ID is required']);
+            }
+
+            // Get other user info
+            $otherUser = $this->userModel->find($otherUserId);
+
+            if (!$otherUser) {
+                log_message('debug', 'fetchMessages: Other user not found');
+                return $this->response
+                    ->setStatusCode(404)
+                    ->setJSON(['error' => 'User not found']);
+            }
+
+            // Get messages using MessageModel
+            $messages = $this->messageModel->getConversation($currentUserId, $otherUserId);
+
+            log_message('debug', 'fetchMessages: Retrieved ' . count($messages) . ' messages');
+
+            $response = [
+                'success' => true,
+                'messages' => $messages,
+                'other_user' => $otherUser,
+            ];
+
+            log_message('debug', 'fetchMessages: Returning success response');
+
             return $this->response
-                ->setStatusCode(401)
-                ->setJSON(['error' => 'Authentication required']);
-        }
-        
-        $currentUserId = $session->get('user_id');
-        $otherUserId = $this->request->getGet('user_id');
-        
-        if (empty($otherUserId)) {
+                ->setStatusCode(200)
+                ->setJSON($response);
+        } catch (\Exception $e) {
+            log_message('error', 'fetchMessages error: ' . $e->getMessage());
             return $this->response
-                ->setStatusCode(400)
-                ->setJSON(['error' => 'User ID is required']);
+                ->setStatusCode(500)
+                ->setJSON(['error' => 'Internal server error']);
         }
-        
-        // Get messages from database using raw SQL to avoid any query builder issues
-        $db = \Config\Database::connect();
-        $sql = "SELECT m.*, 
-                       u1.full_name as sender_name, 
-                       u1.role as sender_role,
-                       u2.full_name as receiver_name, 
-                       u2.role as receiver_role
-                FROM messages m
-                INNER JOIN users u1 ON u1.id = m.sender_id
-                INNER JOIN users u2 ON u2.id = m.receiver_id
-                WHERE (m.sender_id = ? AND m.receiver_id = ?) 
-                   OR (m.sender_id = ? AND m.receiver_id = ?)
-                ORDER BY m.created_at ASC";
-        
-        $messages = $db->query($sql, [$currentUserId, $otherUserId, $otherUserId, $currentUserId])->getResultArray();
-        
-        // Get other user info
-        $otherUserQuery = $db->query("SELECT id, full_name, role FROM users WHERE id = ?", [$otherUserId]);
-        $otherUser = $otherUserQuery->getRowArray();
-        
-        if (!$otherUser) {
-            return $this->response
-                ->setStatusCode(404)
-                ->setJSON(['error' => 'User not found']);
-        }
-        
-        $response = [
-            'success' => true,
-            'messages' => $messages,
-            'other_user' => $otherUser,
-        ];
-        
-        return $this->response
-            ->setStatusCode(200)
-            ->setJSON($response);
     }
 
     /**
@@ -190,15 +204,24 @@ class ChatController extends BaseController
     public function users()
     {
         $this->requireAuth();
-        
+
         $currentUserId = session()->get('user_id');
-        $db = \Config\Database::connect();
-        $usersQuery = $db->query("SELECT id, full_name, role FROM users WHERE id != ? AND is_active = 1 ORDER BY full_name", [$currentUserId]);
-        $users = $usersQuery->getResultArray();
-        
+
+        // Get active users using UserModel
+        $allUsers = $this->userModel->where('is_active', true)->findAll();
+
+        // Filter out current user and sort by name
+        $users = array_filter($allUsers, function($user) use ($currentUserId) {
+            return $user['id'] !== $currentUserId;
+        });
+
+        usort($users, function($a, $b) {
+            return strcmp($a['full_name'], $b['full_name']);
+        });
+
         return $this->response->setJSON([
             'success' => true,
-            'users' => $users,
+            'users' => array_values($users),
         ]);
     }
 
@@ -270,25 +293,16 @@ class ChatController extends BaseController
     public function updateActivity()
     {
         $this->requireAuth();
-        
+
         $currentUserId = session()->get('user_id');
-        
-        // Check if last_activity column exists before updating
-        $db = \Config\Database::connect();
-        $fields = $db->getFieldNames('users');
-        $hasLastActivity = in_array('last_activity', $fields);
-        
-        if ($hasLastActivity) {
-            // Update last activity
-            $this->userModel->update($currentUserId, [
-                'last_activity' => date('Y-m-d H:i:s')
-            ]);
-        }
-        
+
+        // Update last activity using UserModel
+        $this->userModel->update($currentUserId, [
+            'last_activity' => date('Y-m-d H:i:s')
+        ]);
+
         return $this->response->setJSON([
             'success' => true,
         ]);
     }
 }
-
-

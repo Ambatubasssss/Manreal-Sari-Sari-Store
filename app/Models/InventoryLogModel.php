@@ -2,67 +2,90 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use App\Libraries\MongoDB;
+use MongoDB\BSON\ObjectId;
 
-class InventoryLogModel extends Model
+class InventoryLogModel
 {
-    protected $table = 'inventory_logs';
-    protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType = 'array';
-    protected $useSoftDeletes = false;
-    protected $protectFields = true;
-    protected $allowedFields = [
-        'product_id', 'user_id', 'action_type', 'quantity_change', 
-        'previous_quantity', 'new_quantity', 'reference_id', 
-        'reference_type', 'notes'
+    protected MongoDB $mongodb;
+    protected string $collection = 'inventory_logs';
+    protected array $allowedFields = [
+        'product_id', 'user_id', 'action_type', 'quantity_change',
+        'previous_quantity', 'new_quantity', 'reference_id',
+        'reference_type', 'notes', 'created_at', 'updated_at'
     ];
 
-    // Dates
-    protected $useTimestamps = true;
-    protected $dateFormat = 'datetime';
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
+    public function __construct()
+    {
+        $this->mongodb = new MongoDB();
+    }
 
-    // Validation
-    protected $validationRules = [
-        'product_id' => 'required|integer',
-        'user_id' => 'required|integer',
-        'action_type' => 'required|in_list[sale,restock,adjustment,damaged,return]',
-        'quantity_change' => 'required|integer',
-        'previous_quantity' => 'required|integer',
-        'new_quantity' => 'required|integer',
-    ];
+    public function find($id = null)
+    {
+        if ($id !== null) {
+            if (is_string($id) && strlen($id) === 24) {
+                $id = new ObjectId($id);
+            }
+            $result = $this->mongodb->findOne($this->collection, ['_id' => $id]);
+        }
+        return $result ? $this->convertDocumentToArray($result) : null;
+    }
 
-    protected $validationMessages = [
-        'product_id' => [
-            'required' => 'Product ID is required',
-            'integer' => 'Product ID must be a valid integer',
-        ],
-        'user_id' => [
-            'required' => 'User ID is required',
-            'integer' => 'User ID must be a valid integer',
-        ],
-        'action_type' => [
-            'required' => 'Action type is required',
-            'in_list' => 'Invalid action type selected',
-        ],
-        'quantity_change' => [
-            'required' => 'Quantity change is required',
-            'integer' => 'Quantity change must be a whole number',
-        ],
-        'previous_quantity' => [
-            'required' => 'Previous quantity is required',
-            'integer' => 'Previous quantity must be a whole number',
-        ],
-        'new_quantity' => [
-            'required' => 'New quantity is required',
-            'integer' => 'New quantity must be a whole number',
-        ],
-    ];
+    public function findAll(int $limit = 0, int $offset = 0)
+    {
+        $options = [];
+        if ($limit > 0) $options['limit'] = $limit;
+        if ($offset > 0) $options['skip'] = $offset;
+        $cursor = $this->mongodb->find($this->collection, [], $options);
+        $results = [];
+        foreach ($cursor as $document) {
+            $results[] = $this->convertDocumentToArray($document);
+        }
+        return $results;
+    }
 
-    protected $skipValidation = false;
-    protected $cleanValidationRules = true;
+    public function insert($data, bool $returnID = true)
+    {
+        $data = $this->filterAllowedFields($data);
+        if (!isset($data['created_at'])) $data['created_at'] = new \MongoDB\BSON\UTCDateTime();
+        if (!isset($data['updated_at'])) $data['updated_at'] = new \MongoDB\BSON\UTCDateTime();
+        $result = $this->mongodb->insert($this->collection, $data);
+        return $returnID ? (string) $result : ($result !== null);
+    }
+
+    public function update($id = null, $data = null)
+    {
+        if ($id !== null && $data !== null) {
+            if (is_string($id) && strlen($id) === 24) $id = new ObjectId($id);
+            $data['updated_at'] = new \MongoDB\BSON\UTCDateTime();
+            $result = $this->mongodb->updateOne($this->collection, ['_id' => $id], ['$set' => $data]);
+            return $result->getModifiedCount() > 0;
+        }
+        return false;
+    }
+
+    public function delete($id = null, bool $purge = false)
+    {
+        if ($id !== null) {
+            if (is_string($id) && strlen($id) === 24) $id = new ObjectId($id);
+            $result = $this->mongodb->deleteOne($this->collection, ['_id' => $id]);
+            return $result->getDeletedCount() > 0;
+        }
+        return false;
+    }
+
+    private function convertDocumentToArray($document): array
+    {
+        $array = (array) $document;
+        $array['id'] = (string) $array['_id'];
+        unset($array['_id']);
+        return $array;
+    }
+
+    private function filterAllowedFields(array $data): array
+    {
+        return array_intersect_key($data, array_flip($this->allowedFields));
+    }
 
     /**
      * Log inventory change

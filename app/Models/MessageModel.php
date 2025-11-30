@@ -2,41 +2,29 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use App\Libraries\MongoDB;
+use MongoDB\BSON\ObjectId;
 
-class MessageModel extends Model
+class MessageModel
 {
-    protected $table = 'messages';
-    protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType = 'array';
-    protected $useSoftDeletes = false;
-    protected $protectFields = true;
-    protected $allowedFields = [
-        'sender_id', 'receiver_id', 'message', 'is_read'
+    protected MongoDB $mongodb;
+    protected string $collection = 'messages';
+    protected array $allowedFields = [
+        'sender_id', 'receiver_id', 'message', 'is_read', 'created_at', 'updated_at'
     ];
 
-    // Dates
-    protected $useTimestamps = true;
-    protected $dateFormat = 'datetime';
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
-
-    // Validation
     protected $validationRules = [
-        'sender_id' => 'required|integer',
-        'receiver_id' => 'required|integer',
+        'sender_id' => 'required',
+        'receiver_id' => 'required',
         'message' => 'required|min_length[1]',
     ];
 
     protected $validationMessages = [
         'sender_id' => [
             'required' => 'Sender ID is required',
-            'integer' => 'Sender ID must be a valid integer',
         ],
         'receiver_id' => [
             'required' => 'Receiver ID is required',
-            'integer' => 'Receiver ID must be a valid integer',
         ],
         'message' => [
             'required' => 'Message is required',
@@ -44,57 +32,151 @@ class MessageModel extends Model
         ],
     ];
 
-    /**
-     * Get conversation between two users
-     */
-    public function getConversation($user1Id, $user2Id, $limit = 50, $offset = 0)
+    public function __construct()
     {
-        // FIXED: Use raw SQL to avoid query builder issues
-        $db = \Config\Database::connect();
-        $sql = "SELECT messages.*, 
-                       u1.full_name as sender_name, 
-                       u1.role as sender_role,
-                       u2.full_name as receiver_name, 
-                       u2.role as receiver_role
-                FROM messages
-                INNER JOIN users u1 ON u1.id = messages.sender_id
-                INNER JOIN users u2 ON u2.id = messages.receiver_id
-                WHERE (sender_id = ? AND receiver_id = ?) 
-                   OR (sender_id = ? AND receiver_id = ?)
-                ORDER BY created_at ASC
-                LIMIT ?";
-        
-        return $db->query($sql, [$user1Id, $user2Id, $user2Id, $user1Id, $limit])->getResultArray();
+        $this->mongodb = new MongoDB();
     }
 
     /**
-     * Get recent conversations for a user
+     * Find a single document by ID
      */
-    public function getRecentConversations($userId, $limit = 20)
+    public function find($id = null)
+    {
+        if ($id !== null) {
+            if (is_string($id) && strlen($id) === 24) {
+                $id = new ObjectId($id);
+            }
+            $result = $this->mongodb->findOne($this->collection, ['_id' => $id]);
+        } else {
+            $result = $this->mongodb->findOne($this->collection, $this->whereConditions ?? []);
+        }
+
+        return $result ? $this->convertDocumentToArray($result) : null;
+    }
+
+    /**
+     * Insert a new message
+     */
+    public function insert($data, bool $returnID = true)
+    {
+        $data = $this->filterAllowedFields($data);
+
+        // Add timestamps if not present
+        if (!isset($data['created_at'])) {
+            $data['created_at'] = date('Y-m-d H:i:s');
+        }
+        if (!isset($data['updated_at'])) {
+            $data['updated_at'] = date('Y-m-d H:i:s');
+        }
+
+        $data['is_read'] = $data['is_read'] ?? 0;
+
+        $result = $this->mongodb->insert($this->collection, $data);
+
+        return $returnID ? (string) $result : ($result !== null);
+    }
+
+    /**
+     * Update a message
+     */
+    public function update($id = null, $data = null)
+    {
+        if ($id !== null && $data !== null) {
+            if (is_string($id) && strlen($id) === 24) {
+                $id = new ObjectId($id);
+            }
+
+            $data = $this->filterAllowedFields($data);
+            $data['updated_at'] = date('Y-m-d H:i:s');
+
+            $result = $this->mongodb->updateOne(
+                $this->collection,
+                ['_id' => $id],
+                ['$set' => $data]
+            );
+
+            return $result->getModifiedCount() > 0;
+        }
+
+        return false;
+    }
+
+    /**
+     * Add WHERE condition
+     */
+    public function where($key, $value = null)
+    {
+        if (!isset($this->whereConditions)) {
+            $this->whereConditions = [];
+        }
+
+        if (is_array($key)) {
+            $this->whereConditions = array_merge($this->whereConditions, $key);
+        } else {
+            $this->whereConditions[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get messages for a conversation between two users
+     */
+    public function getConversation($user1Id, $user2Id, $limit = 50, $offset = 0)
     {
         try {
-            // Simplified query to avoid complex SQL issues
-            $sql = "
-                SELECT DISTINCT
-                    u.id as other_user_id,
-                    u.full_name as other_user_name,
-                    u.role as other_user_role,
-                    m.message as last_message,
-                    m.created_at as last_message_time,
-                    m.is_read
-                FROM users u
-                INNER JOIN messages m ON (
-                    (m.sender_id = ? AND m.receiver_id = u.id) OR 
-                    (m.receiver_id = ? AND m.sender_id = u.id)
-                )
-                WHERE u.id != ?
-                ORDER BY m.created_at DESC
-                LIMIT ?
-            ";
-            
-            return $this->db->query($sql, [$userId, $userId, $userId, $limit])->getResultArray();
+            log_message('debug', "getConversation called with user1Id: $user1Id, user2Id: $user2Id");
+
+            $userModel = new UserModel();
+
+            $pipeline = [
+                [
+                    '$match' => [
+                        '$or' => [
+                            ['sender_id' => $user1Id, 'receiver_id' => $user2Id],
+                            ['sender_id' => $user2Id, 'receiver_id' => $user1Id]
+                        ]
+                    ]
+                ],
+                [
+                    '$sort' => ['created_at' => 1]
+                ],
+                [
+                    '$limit' => $limit
+                ]
+            ];
+
+            if ($offset > 0) {
+                $pipeline = array_merge($pipeline, [['$skip' => $offset]]);
+            }
+
+            log_message('debug', 'getConversation pipeline: ' . json_encode($pipeline));
+
+            $messages = $this->mongodb->aggregate($this->collection, $pipeline);
+            $result = [];
+
+            $messageCount = 0;
+            foreach ($messages as $message) {
+                $messageCount++;
+                $message = $this->convertDocumentToArray($message);
+
+                // Get sender and receiver info
+                $sender = $userModel->find($message['sender_id']);
+                $receiver = $userModel->find($message['receiver_id']);
+
+                $message['sender_name'] = $sender ? $sender['full_name'] : 'Unknown';
+                $message['sender_role'] = $sender ? $sender['role'] : 'unknown';
+                $message['receiver_name'] = $receiver ? $receiver['full_name'] : 'Unknown';
+                $message['receiver_role'] = $receiver ? $receiver['role'] : 'unknown';
+
+                $result[] = $message;
+            }
+
+            log_message('debug', "getConversation returned $messageCount messages");
+
+            return $result;
         } catch (\Exception $e) {
-            log_message('error', 'getRecentConversations error: ' . $e->getMessage());
+            log_message('error', 'getConversation error: ' . $e->getMessage());
             return [];
         }
     }
@@ -104,9 +186,10 @@ class MessageModel extends Model
      */
     public function getUnreadCount($userId)
     {
-        return $this->where('receiver_id', $userId)
-                    ->where('is_read', 0)
-                    ->countAllResults();
+        return $this->mongodb->count($this->collection, [
+            'receiver_id' => $userId,
+            'is_read' => 0
+        ]);
     }
 
     /**
@@ -114,54 +197,49 @@ class MessageModel extends Model
      */
     public function markAsRead($senderId, $receiverId)
     {
-        return $this->where('sender_id', $senderId)
-                    ->where('receiver_id', $receiverId)
-                    ->where('is_read', 0)
-                    ->set(['is_read' => 1])
-                    ->update();
+        $result = $this->mongodb->updateMany(
+            $this->collection,
+            [
+                'sender_id' => $senderId,
+                'receiver_id' => $receiverId,
+                'is_read' => 0
+            ],
+            ['$set' => ['is_read' => 1, 'updated_at' => date('Y-m-d H:i:s')]]
+        );
+
+        return $result->getModifiedCount() > 0;
     }
 
     /**
-     * Get online users (users who have been active in the last 5 minutes)
+     * Get online users (simplified for now - returns all active users except current)
      */
     public function getOnlineUsers($currentUserId)
     {
-        $userModel = new \App\Models\UserModel();
-        
-        // Check if last_activity column exists
-        $columns = $userModel->db->getFieldNames('users');
-        $hasLastActivity = in_array('last_activity', $columns);
-        
-        if ($hasLastActivity) {
-            // First try to get users active in the last 5 minutes
-            $recentUsers = $userModel->select('id, full_name, role, last_activity')
-                            ->where('id !=', $currentUserId)
-                            ->where('last_activity >', date('Y-m-d H:i:s', strtotime('-5 minutes')))
-                            ->where('is_active', 1)
-                            ->orderBy('last_activity', 'DESC')
-                            ->get()
-                            ->getResultArray();
-            
-            // If no recent users, show all active users
-            if (empty($recentUsers)) {
-                $recentUsers = $userModel->select('id, full_name, role, last_activity')
-                                ->where('id !=', $currentUserId)
-                                ->where('is_active', 1)
-                                ->orderBy('full_name', 'ASC')
-                                ->get()
-                                ->getResultArray();
-            }
-        } else {
-            // Fallback: just get all active users without last_activity
-            $recentUsers = $userModel->select('id, full_name, role')
-                            ->where('id !=', $currentUserId)
-                            ->where('is_active', 1)
-                            ->orderBy('full_name', 'ASC')
-                            ->get()
-                            ->getResultArray();
+        try {
+            $userModel = new UserModel();
+
+            // Get all active users first for simplicity
+            $allUsers = $userModel->where('is_active', true)->findAll();
+
+            log_message('debug', 'getOnlineUsers - Found ' . count($allUsers) . ' active users');
+
+            // Filter out current user
+            $otherUsers = array_filter($allUsers, function($user) use ($currentUserId) {
+                return $user['id'] !== $currentUserId;
+            });
+
+            log_message('debug', 'getOnlineUsers - After filtering current user: ' . count($otherUsers) . ' users');
+
+            // Sort by full_name
+            usort($otherUsers, function($a, $b) {
+                return strcmp($a['full_name'], $b['full_name']);
+            });
+
+            return array_values($otherUsers);
+        } catch (\Exception $e) {
+            log_message('error', 'getOnlineUsers error: ' . $e->getMessage());
+            return [];
         }
-        
-        return $recentUsers;
     }
 
     /**
@@ -169,18 +247,67 @@ class MessageModel extends Model
      */
     public function searchUsers($searchTerm, $currentUserId, $limit = 10)
     {
-        $userModel = new \App\Models\UserModel();
-        return $userModel->select('id, full_name, role, email')
-                        ->where('id !=', $currentUserId)
-                        ->where('is_active', 1)
-                        ->groupStart()
-                            ->like('full_name', $searchTerm)
-                            ->orLike('email', $searchTerm)
-                        ->groupEnd()
-                        ->limit($limit)
-                        ->get()
-                        ->getResultArray();
+        $userModel = new UserModel();
+
+        $results = $userModel->where('is_active', true)->findAll();
+
+        // Filter out current user and search by name
+        $results = array_filter($results, function($user) use ($searchTerm, $currentUserId) {
+            return $user['id'] != $currentUserId &&
+                   (stripos($user['full_name'], $searchTerm) !== false ||
+                    stripos($user['email'], $searchTerm) !== false);
+        });
+
+        // Limit results
+        return array_slice($results, 0, $limit);
+    }
+
+    /**
+     * Convert MongoDB document to array
+     */
+    private function convertDocumentToArray($document): array
+    {
+        $array = (array) $document;
+        $array['id'] = (string) $array['_id'];
+        unset($array['_id']);
+
+        return $array;
+    }
+
+    /**
+     * Filter data to only allowed fields
+     */
+    private function filterAllowedFields(array $data): array
+    {
+        return array_intersect_key($data, array_flip($this->allowedFields));
+    }
+
+    /**
+     * Validate data
+     */
+    public function validate($data): bool
+    {
+        $validation = \Config\Services::validation();
+        $validation->setRules($this->validationRules, $this->validationMessages);
+
+        return $validation->run($data);
+    }
+
+    /**
+     * Get validation errors
+     */
+    public function errors(): array
+    {
+        $validation = \Config\Services::validation();
+        return $validation->getErrors();
+    }
+
+    /**
+     * Get insert ID (MongoDB ObjectId as string)
+     */
+    public function getInsertID()
+    {
+        // This is a simplified version since MongoDB doesn't return the ID from insert operation
+        return null;
     }
 }
-
-

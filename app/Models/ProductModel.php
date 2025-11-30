@@ -2,26 +2,241 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use App\Libraries\MongoDB;
+use MongoDB\BSON\ObjectId;
 
-class ProductModel extends Model
+class ProductModel
 {
-    protected $table = 'products';
-    protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType = 'array';
-    protected $useSoftDeletes = false;
-    protected $protectFields = true;
-    protected $allowedFields = [
-        'product_code', 'name', 'description', 'category', 'price', 
-        'cost_price', 'quantity', 'min_stock', 'image', 'is_active'
+    protected MongoDB $mongodb;
+    protected string $collection = 'products';
+    protected array $allowedFields = [
+        'product_code', 'name', 'description', 'category', 'price',
+        'cost_price', 'quantity', 'min_stock', 'image', 'is_active',
+        'created_at', 'updated_at'
     ];
 
-    // Dates
-    protected $useTimestamps = true;
-    protected $dateFormat = 'datetime';
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
+    protected $whereConditions = [];
+
+    public function __construct()
+    {
+        $this->mongodb = new MongoDB();
+    }
+
+    /**
+     * Find a single document by ID or conditions
+     */
+    public function find($id = null)
+    {
+        if ($id !== null) {
+            if (is_string($id) && strlen($id) === 24) {
+                $id = new ObjectId($id);
+            }
+            $result = $this->mongodb->findOne($this->collection, ['_id' => $id]);
+        } else {
+            $result = $this->mongodb->findOne($this->collection, $this->whereConditions ?? []);
+        }
+
+        return $result ? $this->convertDocumentToArray($result) : null;
+    }
+
+    /**
+     * Find all documents matching conditions
+     */
+    public function findAll(int $limit = 0, int $offset = 0)
+    {
+        $options = [];
+        if ($limit > 0) {
+            $options['limit'] = $limit;
+        }
+        if ($offset > 0) {
+            $options['skip'] = $offset;
+        }
+
+        $cursor = $this->mongodb->find($this->collection, $this->whereConditions ?? [], $options);
+        $results = [];
+
+        foreach ($cursor as $document) {
+            $results[] = $this->convertDocumentToArray($document);
+        }
+
+        $this->whereConditions = []; // Reset for next query
+
+        return $results;
+    }
+
+    /**
+     * Insert a new document
+     */
+    public function insert($data, bool $returnID = true)
+    {
+        $data = $this->filterAllowedFields($data);
+
+        // Add timestamps if not present
+        if (!isset($data['created_at'])) {
+            $data['created_at'] = new \MongoDB\BSON\UTCDateTime();
+        }
+        if (!isset($data['updated_at'])) {
+            $data['updated_at'] = new \MongoDB\BSON\UTCDateTime();
+        }
+
+        $result = $this->mongodb->insert($this->collection, $data);
+
+        return $returnID ? (string) $result : ($result !== null);
+    }
+
+    /**
+     * Update a document
+     */
+    public function update($id = null, $data = null)
+    {
+        if ($id !== null && $data !== null) {
+            if (is_string($id) && strlen($id) === 24) {
+                $id = new ObjectId($id);
+            }
+
+            $data = $this->filterAllowedFields($data);
+            $data['updated_at'] = new \MongoDB\BSON\UTCDateTime();
+
+            $result = $this->mongodb->updateOne(
+                $this->collection,
+                ['_id' => $id],
+                ['$set' => $data]
+            );
+
+            return $result->getModifiedCount() > 0;
+        }
+
+        return false;
+    }
+
+    /**
+     * Delete a document
+     */
+    public function delete($id = null, bool $purge = false)
+    {
+        if ($id !== null) {
+            if (is_string($id) && strlen($id) === 24) {
+                $id = new ObjectId($id);
+            }
+
+            if ($purge) {
+                $result = $this->mongodb->deleteOne($this->collection, ['_id' => $id]);
+                return $result->getDeletedCount() > 0;
+            } else {
+                // Soft delete - update is_active to false
+                $result = $this->mongodb->updateOne(
+                    $this->collection,
+                    ['_id' => $id],
+                    ['$set' => ['is_active' => false, 'updated_at' => new \MongoDB\BSON\UTCDateTime()]]
+                );
+                return $result->getModifiedCount() > 0;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Add WHERE condition
+     */
+    public function where($key, $value = null)
+    {
+        if (!isset($this->whereConditions)) {
+            $this->whereConditions = [];
+        }
+
+        if (is_array($key)) {
+            $this->whereConditions = array_merge($this->whereConditions, $key);
+        } else {
+            $this->whereConditions[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Convert MongoDB document to array
+     */
+    private function convertDocumentToArray($document): array
+    {
+        $array = (array) $document;
+        $array['id'] = (string) $array['_id'];
+        unset($array['_id']);
+
+        return $array;
+    }
+
+    /**
+     * Get products for POS (active products with stock)
+     */
+    public function getProductsForPOS($search = '')
+    {
+        $filter = [
+            'is_active' => true,
+            'quantity' => ['$gt' => 0]
+        ];
+
+        $products = [];
+
+        if (!empty($search)) {
+            $trimmedSearch = trim($search);
+
+            // First, try exact product code match
+            $exactMatch = $this->mongodb->findOne($this->collection, array_merge($filter, ['product_code' => $trimmedSearch]));
+            if ($exactMatch) {
+                $products[] = $this->convertDocumentToArray($exactMatch);
+            }
+
+            // Also try exact name match
+            $exactNameMatch = $this->mongodb->findOne($this->collection, array_merge($filter, ['name' => $trimmedSearch]));
+            if ($exactNameMatch && (!empty($products) || (string) $exactNameMatch['_id'] !== ($products[0]['id'] ?? ''))) {
+                $products[] = $this->convertDocumentToArray($exactNameMatch);
+            }
+
+            // Then add other matches using regex
+            $regexFilter = array_merge($filter, [
+                '$or' => [
+                    ['name' => ['$regex' => $trimmedSearch, '$options' => 'i']],
+                    ['product_code' => ['$regex' => $trimmedSearch, '$options' => 'i']],
+                    ['description' => ['$regex' => $trimmedSearch, '$options' => 'i']]
+                ]
+            ]);
+
+            $options = [
+                'limit' => 50,
+                'sort' => ['name' => 1]
+            ];
+
+            $cursor = $this->mongodb->find($this->collection, $regexFilter, $options);
+
+            foreach ($cursor as $document) {
+                $productArray = $this->convertDocumentToArray($document);
+                // Avoid duplicates
+                $duplicate = false;
+                foreach ($products as $existing) {
+                    if ($existing['id'] === $productArray['id']) {
+                        $duplicate = true;
+                        break;
+                    }
+                }
+                if (!$duplicate) {
+                    $products[] = $productArray;
+                }
+            }
+        } else {
+            $options = [
+                'limit' => 50,
+                'sort' => ['name' => 1]
+            ];
+
+            $cursor = $this->mongodb->find($this->collection, $filter, $options);
+            foreach ($cursor as $document) {
+                $products[] = $this->convertDocumentToArray($document);
+            }
+        }
+
+        return $products;
+    }
 
     // Validation
     protected $validationRules = [
@@ -78,30 +293,49 @@ class ProductModel extends Model
      */
     public function getProducts($search = '', $category = '', $page = 1, $perPage = 20)
     {
-        $builder = $this->builder();
-        
-        if (!empty($search)) {
-            $builder->groupStart()
-                    ->like('name', $search)
-                    ->orLike('product_code', $search)
-                    ->orLike('description', $search)
-                    ->groupEnd();
-        }
-        
+        $filter = ['is_active' => true];
+
         if (!empty($category)) {
-            $builder->where('category', $category);
+            $filter['category'] = $category;
         }
-        
-        $builder->where('is_active', true);
-        
-        $total = $builder->countAllResults(false);
-        
-        $offset = ($page - 1) * $perPage;
-        $products = $builder->limit($perPage, $offset)
-                           ->orderBy('name', 'ASC')
-                           ->get()
-                           ->getResultArray();
-        
+
+        if (!empty($search)) {
+            $trimmedSearch = trim($search);
+            // Check for exact product code match
+            $exactMatch = $this->mongodb->findOne($this->collection, array_merge($filter, ['product_code' => $trimmedSearch]));
+            if ($exactMatch) {
+                // Return array with the exact match first
+                $results = [$this->convertDocumentToArray($exactMatch)];
+                // Then add other matches
+                $filter['$or'] = [
+                    ['name' => ['$regex' => '^' . preg_quote($trimmedSearch, '') . '$', '$options' => 'i']],
+                    ['product_code' => ['$regex' => '^' . preg_quote($trimmedSearch, '') . '$', '$options' => 'i']],
+                    ['description' => ['$regex' => '^' . preg_quote($trimmedSearch, '') . '$', '$options' => 'i']]
+                ];
+            } else {
+                $filter['$or'] = [
+                    ['name' => ['$regex' => $trimmedSearch, '$options' => 'i']],
+                    ['product_code' => ['$regex' => $trimmedSearch, '$options' => 'i']],
+                    ['description' => ['$regex' => $trimmedSearch, '$options' => 'i']]
+                ];
+            }
+        }
+
+        $total = $this->mongodb->count($this->collection, $filter);
+
+        $options = [
+            'limit' => $perPage,
+            'skip' => ($page - 1) * $perPage,
+            'sort' => ['name' => 1]
+        ];
+
+        $cursor = $this->mongodb->find($this->collection, $filter, $options);
+        $products = [];
+
+        foreach ($cursor as $document) {
+            $products[] = $this->convertDocumentToArray($document);
+        }
+
         return [
             'products' => $products,
             'total' => $total,
@@ -115,15 +349,21 @@ class ProductModel extends Model
      */
     public function getCategories()
     {
-        $categories = $this->select('category')
-                   ->distinct()
-                   ->where('is_active', true)
-                   ->orderBy('category', 'ASC')
-                   ->get()
-                   ->getResultArray();
-        
-        // Extract just the category names
-        return array_column($categories, 'category');
+        // MongoDB distinct operation
+        $pipeline = [
+            ['$match' => ['is_active' => true]],
+            ['$group' => ['_id' => '$category']],
+            ['$sort' => ['_id' => 1]]
+        ];
+
+        $cursor = $this->mongodb->getDatabase()->selectCollection($this->collection)->aggregate($pipeline);
+
+        $categories = [];
+        foreach ($cursor as $doc) {
+            $categories[] = $doc['_id'];
+        }
+
+        return $categories;
     }
 
     /**
@@ -159,31 +399,12 @@ class ProductModel extends Model
      */
     public function getByCode($productCode)
     {
-        return $this->where('product_code', $productCode)
-                   ->where('is_active', true)
-                   ->first();
-    }
-
-    /**
-     * Get products for POS (active products with stock)
-     */
-    public function getProductsForPOS($search = '')
-    {
-        $builder = $this->builder();
-        
-        if (!empty($search)) {
-            $builder->groupStart()
-                    ->like('name', $search)
-                    ->orLike('product_code', $search)
-                    ->groupEnd();
-        }
-        
-        return $builder->where('is_active', true)
-                     ->where('quantity >', 0)
-                     ->orderBy('name', 'ASC')
-                     ->limit(50)
-                     ->get()
-                     ->getResultArray();
+        $result = $this->mongodb->findOne($this->collection, [
+            'product_code' => ['$regex' => '^' . preg_quote(trim($productCode), '') . '$', '$options' => 'i'],
+            'is_active' => true,
+            'quantity' => ['$gt' => 0]  // Must have stock > 0
+        ]);
+        return $result ? $this->convertDocumentToArray($result) : null;
     }
 
     /**
@@ -191,19 +412,44 @@ class ProductModel extends Model
      */
     public function getProductStats()
     {
+        // Filter for active products (including those without is_active field)
+        $filter = ['$or' => [['is_active' => ['$exists' => false]], ['is_active' => true]]];
+
         $stats = [
-            'total_products' => $this->where('is_active', true)->countAllResults(),
-            'low_stock_count' => $this->where('quantity <= min_stock')->where('is_active', true)->countAllResults(),
-            'out_of_stock_count' => $this->where('quantity', 0)->where('is_active', true)->countAllResults(),
-            'total_value' => 0, // We'll calculate this separately if needed
+            'total_products' => $this->mongodb->count($this->collection, $filter) ?? 0,
+            'low_stock_count' => $this->mongodb->count($this->collection, array_merge($filter, ['quantity' => ['$lte' => 5]])) ?? 0, // assuming min_stock is 5
+            'out_of_stock_count' => $this->mongodb->count($this->collection, array_merge($filter, ['quantity' => 0])) ?? 0,
+            'total_value' => 0,
         ];
-        
-        // Calculate total inventory value using raw SQL
-        $result = $this->db->query("SELECT SUM(price * quantity) as total_value FROM products WHERE is_active = 1")->getRow();
-        if ($result && $result->total_value !== null) {
-            $stats['total_value'] = $result->total_value;
+
+        // Calculate total inventory value using MongoDB aggregation
+        $pipeline = [
+            ['$match' => $filter],
+            ['$group' => [
+                '_id' => null,
+                'total_value' => ['$sum' => ['$multiply' => [['$toDouble' => '$price'], ['$toDouble' => '$quantity']]]]
+            ]]
+        ];
+
+        $collection = $this->mongodb->getDatabase()->selectCollection($this->collection);
+        $result = $collection->aggregate($pipeline)->toArray();
+
+        if (!empty($result) && isset($result[0]['total_value'])) {
+            $stats['total_value'] = (float) $result[0]['total_value'];
         }
-        
+
         return $stats;
+    }
+
+    /**
+     * Merge conditions into whereConditions
+     */
+    private function mergeWhereConditions($newConditions)
+    {
+        if (empty($this->whereConditions)) {
+            $this->whereConditions = $newConditions;
+        } else {
+            $this->whereConditions = ['$and' => [$this->whereConditions, $newConditions]];
+        }
     }
 }

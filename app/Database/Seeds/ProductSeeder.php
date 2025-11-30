@@ -3,11 +3,14 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
+use App\Models\ProductModel;
 
 class ProductSeeder extends Seeder
 {
     public function run()
     {
+        $productModel = new ProductModel();
+
         $data = [
             [
                 'product_code' => 'CIG001',
@@ -141,6 +144,14 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-        $this->db->table('products')->insertBatch($data);
+        // Insert data using ProductModel (MongoDB)
+        $insertedCount = 0;
+        foreach ($data as $product) {
+            if ($productModel->insert($product, false)) {
+                $insertedCount++;
+            }
+        }
+
+        echo "Successfully inserted {$insertedCount} products into MongoDB\n";
     }
 }

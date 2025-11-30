@@ -70,7 +70,7 @@
                         <?php foreach ($products as $product): ?>
                             <tr>
                                 <td>
-                                    <?php if ($product['image']): ?>
+                                    <?php if (isset($product['image']) && $product['image']): ?>
                                         <img src="<?= base_url('uploads/products/' . $product['image']) ?>" 
                                              alt="<?= $product['name'] ?>" 
                                              class="img-thumbnail" style="width: 50px; height: 50px;">
@@ -107,24 +107,8 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <div class="btn-group" role="group">
-                                        <a href="<?= base_url('products/show/' . $product['id']) ?>" 
-                                           class="btn btn-sm btn-outline-info" title="View">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        <a href="<?= base_url('products/edit/' . $product['id']) ?>" 
-                                           class="btn btn-sm btn-outline-warning" title="Edit">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a href="<?= base_url('products/adjust-inventory/' . $product['id']) ?>" 
-                                           class="btn btn-sm btn-outline-secondary" title="Adjust Inventory">
-                                            <i class="bi bi-box-arrow-in-down"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-outline-danger" 
-                                                onclick="deleteProduct(<?= $product['id'] ?>)" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </div>
+                                    <a href="<?= base_url('products/edit/' . $product['id']) ?>" class="text-primary text-decoration-none">Edit</a> |
+                                    <button onclick="deleteProduct(<?= $product['id'] ?>)" class="btn btn-link text-danger text-decoration-none">Delete</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

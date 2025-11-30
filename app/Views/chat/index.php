@@ -15,11 +15,10 @@
                 <div class="card-body p-0">
                 <div class="list-group list-group-flush" id="usersList">
                     <?php foreach ($users as $user): ?>
-                    <div class="list-group-item list-group-item-action user-item" 
-                         data-user-id="<?= $user['id'] ?>" 
+                    <div class="list-group-item list-group-item-action user-item"
+                         data-user-id="<?= $user['id'] ?>"
                          data-user-name="<?= htmlspecialchars($user['full_name']) ?>"
-                         data-user-role="<?= $user['role'] ?>"
-                         onclick="loadMessages(<?= $user['id'] ?>, '<?= htmlspecialchars($user['full_name']) ?>', '<?= $user['role'] ?>')">
+                         data-user-role="<?= $user['role'] ?>">
                         <div class="d-flex align-items-center">
                             <div class="avatar me-3">
                                 <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
@@ -250,7 +249,7 @@ function displayMessages(messages) {
     
     if (messages && messages.length > 0) {
         messages.forEach(function(msg) {
-            const isSent = msg.sender_id == <?= $current_user_id ?>;
+            const isSent = msg.sender_id == '<?= isset($current_user_id) ? $current_user_id : '' ?>';
         const messageClass = isSent ? 'sent' : 'received';
             const time = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         
@@ -299,19 +298,20 @@ function showNewMessageNotification() {
 
 function sendMessage() {
     if (!currentChatUser) return;
-    
+
     const message = $('#messageInput').val().trim();
     if (!message) return;
-    
+
     // Disable send button to prevent double-sending
     $('#sendBtn').prop('disabled', true);
-    
+
     $.ajax({
         url: '<?= base_url('chat/send') ?>',
         method: 'POST',
         data: {
             receiver_id: currentChatUser,
-            message: message
+            message: message,
+            '<?= csrf_token() ?>': '<?= csrf_hash() ?>'
         },
         dataType: 'json',
         headers: {
@@ -443,6 +443,16 @@ window.addEventListener('focus', function() {
     if (currentChatUser) {
         refreshMessages();
     }
+});
+
+// Bind click event for user items
+$(document).ready(function() {
+    $('.user-item').on('click', function() {
+        const userId = $(this).data('user-id');
+        const userName = $(this).data('user-name');
+        const userRole = $(this).data('user-role');
+        loadMessages(userId, userName, userRole);
+    });
 });
 </script>
 

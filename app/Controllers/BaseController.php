@@ -161,12 +161,15 @@ class BaseController extends Controller
     protected function validateCSRF()
     {
         $csrf = \Config\Services::csrf();
-        
-        if (!$csrf->verify($this->request->getPost('csrf_token_name'))) {
+
+        // Get CSRF token using the configured token name
+        $csrfToken = $this->request->getPost(\Config\Services::csrf()->getTokenName());
+
+        if (!$csrf->verify($csrfToken)) {
             $this->setErrorMessage('CSRF token validation failed. Please try again.');
             return false;
         }
-        
+
         return true;
     }
 

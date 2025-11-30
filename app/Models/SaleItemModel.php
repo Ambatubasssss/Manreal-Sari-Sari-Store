@@ -2,72 +2,99 @@
 
 namespace App\Models;
 
-use CodeIgniter\Model;
+use App\Libraries\MongoDB;
+use MongoDB\BSON\ObjectId;
 
-class SaleItemModel extends Model
+class SaleItemModel
 {
-    protected $table = 'sale_items';
-    protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType = 'array';
-    protected $useSoftDeletes = false;
-    protected $protectFields = true;
-    protected $allowedFields = [
-        'sale_id', 'product_id', 'product_code', 'product_name', 
-        'quantity', 'unit_price', 'total_price'
+    protected MongoDB $mongodb;
+    protected string $collection = 'sale_items';
+    protected array $allowedFields = [
+        'sale_id', 'product_id', 'product_code', 'product_name',
+        'quantity', 'unit_price', 'total_price', 'created_at', 'updated_at'
     ];
 
-    // Dates
-    protected $useTimestamps = true;
-    protected $dateFormat = 'datetime';
-    protected $createdField = 'created_at';
-    protected $updatedField = 'updated_at';
+    public function __construct()
+    {
+        $this->mongodb = new MongoDB();
+    }
 
-    // Validation
-    protected $validationRules = [
-        'sale_id' => 'required|integer',
-        'product_id' => 'required|integer',
-        'product_code' => 'required|max_length[50]',
-        'product_name' => 'required|max_length[200]',
-        'quantity' => 'required|integer|greater_than[0]',
-        'unit_price' => 'required|decimal',
-        'total_price' => 'required|decimal',
-    ];
+    // Basic CRUD
+    public function find($id = null)
+    {
+        if ($id !== null) {
+            if (is_string($id) && strlen($id) === 24) {
+                $id = new ObjectId($id);
+            }
+            $result = $this->mongodb->findOne($this->collection, ['_id' => $id]);
+        }
+        return $result ? $this->convertDocumentToArray($result) : null;
+    }
 
-    protected $validationMessages = [
-        'sale_id' => [
-            'required' => 'Sale ID is required',
-            'integer' => 'Sale ID must be a valid integer',
-        ],
-        'product_id' => [
-            'required' => 'Product ID is required',
-            'integer' => 'Product ID must be a valid integer',
-        ],
-        'product_code' => [
-            'required' => 'Product code is required',
-            'max_length' => 'Product code cannot exceed 50 characters',
-        ],
-        'product_name' => [
-            'required' => 'Product name is required',
-            'max_length' => 'Product name cannot exceed 200 characters',
-        ],
-        'quantity' => [
-            'required' => 'Quantity is required',
-            'integer' => 'Quantity must be a whole number',
-            'greater_than' => 'Quantity must be greater than 0',
-        ],
-        'unit_price' => [
-            'required' => 'Unit price is required',
-            'decimal' => 'Unit price must be a valid decimal number',
-        ],
-        'total_price' => [
-            'required' => 'Total price is required',
-            'decimal' => 'Total price must be a valid decimal number',
-        ],
-    ];
+    public function findAll(int $limit = 0, int $offset = 0)
+    {
+        $options = [];
+        if ($limit > 0) $options['limit'] = $limit;
+        if ($offset > 0) $options['skip'] = $offset;
+        $cursor = $this->mongodb->find($this->collection, [], $options);
+        $results = [];
+        foreach ($cursor as $document) {
+            $results[] = $this->convertDocumentToArray($document);
+        }
+        return $results;
+    }
 
-    protected $skipValidation = false;
-    protected $cleanValidationRules = true;
+    public function insert($data, bool $returnID = true)
+    {
+        $data = $this->filterAllowedFields($data);
+        if (!isset($data['created_at'])) $data['created_at'] = new \MongoDB\BSON\UTCDateTime();
+        if (!isset($data['updated_at'])) $data['updated_at'] = new \MongoDB\BSON\UTCDateTime();
+        $result = $this->mongodb->insert($this->collection, $data);
+        return $returnID ? (string) $result : ($result !== null);
+    }
+
+    public function update($id = null, $data = null)
+    {
+        if ($id !== null && $data !== null) {
+            if (is_string($id) && strlen($id) === 24) $id = new ObjectId($id);
+            $data['updated_at'] = new \MongoDB\BSON\UTCDateTime();
+            $result = $this->mongodb->updateOne($this->collection, ['_id' => $id], ['$set' => $data]);
+            return $result->getModifiedCount() > 0;
+        }
+        return false;
+    }
+
+    public function delete($id = null, bool $purge = false)
+    {
+        if ($id !== null) {
+            if (is_string($id) && strlen($id) === 24) $id = new ObjectId($id);
+            $result = $this->mongodb->deleteOne($this->collection, ['_id' => $id]);
+            return $result->getDeletedCount() > 0;
+        }
+        return false;
+    }
+
+    public function where($key, $value = null)
+    {
+        // Simplified where for this context
+        $this->_whereConditions[$key] = $value;
+        return $this;
+    }
+
+    private function convertDocumentToArray($document): array
+    {
+        $array = (array) $document;
+        $array['id'] = (string) $array['_id'];
+        unset($array['_id']);
+        return $array;
+    }
+
+    private function filterAllowedFields(array $data): array
+    {
+        return array_intersect_key($data, array_flip($this->allowedFields));
+    }
+
+    // Specific methods
 
     /**
      * Get sale items by sale ID
