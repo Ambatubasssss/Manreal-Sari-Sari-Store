@@ -79,20 +79,14 @@ class ProfileController extends BaseController
 
         // Check for uniqueness only if values have changed
         if ($username !== $user['username']) {
-            $existingUsername = $this->userModel->where('username', $username)
-                                                ->where('id !=', $userId)
-                                                ->first();
-            if ($existingUsername) {
+            if (!$this->userModel->isUnique('username', $username, $userId)) {
                 $this->session->setFlashdata('error', 'Username is already taken by another user');
                 return redirect()->back()->withInput();
             }
         }
 
         if ($email !== $user['email']) {
-            $existingEmail = $this->userModel->where('email', $email)
-                                             ->where('id !=', $userId)
-                                             ->first();
-            if ($existingEmail) {
+            if (!$this->userModel->isUnique('email', $email, $userId)) {
                 $this->session->setFlashdata('error', 'Email is already registered to another user');
                 return redirect()->back()->withInput();
             }

@@ -37,19 +37,19 @@ $routes->group('products', ['filter' => 'auth'], function($routes) {
     $routes->get('create', 'ProductsController::create');
     $routes->get('store', 'ProductsController::create');
     $routes->post('store', 'ProductsController::store', ['filter' => ['auth', 'csrf']]);
-    $routes->get('edit/(:num)', 'ProductsController::edit/$1');
-    $routes->post('update/(:num)', 'ProductsController::update/$1', ['filter' => ['auth', 'csrf']]);
-    $routes->get('delete/(:num)', 'ProductsController::delete/$1');
-    $routes->get('show/(:num)', 'ProductsController::show/$1');
-    $routes->get('adjust-inventory/(:num)', 'ProductsController::adjustInventory/$1');
-    $routes->post('process-inventory-adjustment/(:num)', 'ProductsController::processInventoryAdjustment/$1', ['filter' => ['auth', 'csrf']]);
+    $routes->get('edit/(:any)', 'ProductsController::edit/$1');
+    $routes->post('update/(:any)', 'ProductsController::update/$1', ['filter' => ['auth', 'csrf']]);
+    $routes->get('delete/(:any)', 'ProductsController::delete/$1');
+    $routes->get('show/(:any)', 'ProductsController::show/$1');
+    $routes->get('adjust-inventory/(:any)', 'ProductsController::adjustInventory/$1');
+    $routes->post('process-inventory-adjustment/(:any)', 'ProductsController::processInventoryAdjustment/$1', ['filter' => ['auth', 'csrf']]);
     $routes->get('export', 'ProductsController::export');
 });
 
 // AJAX routes for products (no auth filter - handled in controller)
 $routes->get('products/pos-search', 'ProductsController::getProductsForPOS');
 $routes->get('products/by-code', 'ProductsController::getProductByCode');
-$routes->get('products/get/(:num)', 'ProductsController::getProductById/$1');
+$routes->get('products/get/(:any)', 'ProductsController::getProductById/$1');
 $routes->match(['get', 'post'], 'products/scan-barcode', 'ProductsController::scanBarcode');
 
 // Sales routes

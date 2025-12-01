@@ -155,6 +155,7 @@ class ProductsController extends BaseController
             'cost_price' => $this->request->getPost('cost_price'),
             'quantity' => $this->request->getPost('quantity'),
             'min_stock' => $this->request->getPost('min_stock'),
+            'is_active' => $this->request->getPost('is_active') ? true : false,
         ];
         
         // Handle image upload
@@ -187,19 +188,37 @@ class ProductsController extends BaseController
         $this->requireAdmin();
         
         if (!$id) {
-            return redirect()->to('/products')->with('error', 'Product ID is required');
+            $this->setErrorMessage('Product ID is required');
+            return redirect()->to('/products');
         }
         
         $product = $this->productModel->find($id);
         if (!$product) {
-            return redirect()->to('/products')->with('error', 'Product not found');
+            $this->setErrorMessage('Product not found');
+            return redirect()->to('/products');
         }
         
-        // Soft delete by setting is_active to false
-        if ($this->productModel->update($id, ['is_active' => false])) {
-            $this->setSuccessMessage('Product deleted successfully');
-        } else {
-            $this->setErrorMessage('Failed to delete product');
+        // Check if already deleted
+        if (isset($product['is_active']) && $product['is_active'] === false) {
+            $this->setSuccessMessage('Product is already deleted');
+            return redirect()->to('/products');
+        }
+        
+        // Use the model's delete method directly for soft delete
+        try {
+            if ($this->productModel->delete($id, false)) {
+                $this->setSuccessMessage('Product deleted successfully');
+            } else {
+                // If delete returns false, try using update directly as fallback
+                if ($this->productModel->update($id, ['is_active' => false])) {
+                    $this->setSuccessMessage('Product deleted successfully');
+                } else {
+                    $this->setErrorMessage('Failed to delete product. Please try again.');
+                }
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Delete product error: ' . $e->getMessage());
+            $this->setErrorMessage('An error occurred while deleting the product: ' . $e->getMessage());
         }
         
         return redirect()->to('/products');

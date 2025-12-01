@@ -5,12 +5,14 @@ namespace App\Controllers;
 use App\Models\SaleModel;
 use App\Models\ProductModel;
 use App\Models\InventoryLogModel;
+use App\Models\UserModel;
 
 class ReportsController extends BaseController
 {
     protected $saleModel;
     protected $productModel;
     protected $inventoryLogModel;
+    protected $userModel;
 
     public function __construct()
     {
@@ -18,6 +20,7 @@ class ReportsController extends BaseController
         $this->saleModel = new SaleModel();
         $this->productModel = new ProductModel();
         $this->inventoryLogModel = new InventoryLogModel();
+        $this->userModel = new UserModel();
     }
 
     /**
@@ -27,8 +30,33 @@ class ReportsController extends BaseController
     {
         $this->requireAuth();
         
+        // Get today's sales
+        $today = date('Y-m-d');
+        $todaySalesData = $this->saleModel->getDailySales($today);
+        $todaySales = $todaySalesData['total_revenue'] ?? 0;
+        
+        // Get monthly sales
+        $year = date('Y');
+        $month = date('m');
+        $monthlySalesData = $this->saleModel->getMonthlySales($year, $month);
+        $monthlySales = 0;
+        foreach ($monthlySalesData as $daily) {
+            $monthlySales += $daily['total_revenue'] ?? 0;
+        }
+        
+        // Get low stock count
+        $productStats = $this->productModel->getProductStats();
+        $lowStockCount = $productStats['low_stock_count'] ?? 0;
+        
+        // Get total users
+        $totalUsers = $this->userModel->countAllResults();
+        
         $data = [
             'title' => 'Reports & Analytics',
+            'today_sales' => $todaySales,
+            'monthly_sales' => $monthlySales,
+            'low_stock_count' => $lowStockCount,
+            'total_users' => $totalUsers,
         ];
         
         return $this->renderView('reports/index', $data);

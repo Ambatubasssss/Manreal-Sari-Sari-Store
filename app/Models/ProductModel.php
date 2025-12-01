@@ -124,12 +124,15 @@ class ProductModel
                 return $result->getDeletedCount() > 0;
             } else {
                 // Soft delete - update is_active to false
+                // Update the document - if it exists, the operation succeeds
                 $result = $this->mongodb->updateOne(
                     $this->collection,
                     ['_id' => $id],
                     ['$set' => ['is_active' => false, 'updated_at' => new \MongoDB\BSON\UTCDateTime()]]
                 );
-                return $result->getModifiedCount() > 0;
+                // Check if document was matched (found) - this means the operation succeeded
+                // Modified count might be 0 if already false, but matched count tells us if document exists
+                return $result->getMatchedCount() > 0;
             }
         }
 
@@ -171,9 +174,18 @@ class ProductModel
      */
     public function getProductsForPOS($search = '')
     {
+        // Filter for active products (include products where is_active is not set or is true)
+        // and has quantity > 0
         $filter = [
-            'is_active' => true,
-            'quantity' => ['$gt' => 0]
+            '$and' => [
+                [
+                    '$or' => [
+                        ['is_active' => true],
+                        ['is_active' => ['$exists' => false]]
+                    ]
+                ],
+                ['quantity' => ['$gt' => 0]]
+            ]
         ];
 
         $products = [];
@@ -181,26 +193,46 @@ class ProductModel
         if (!empty($search)) {
             $trimmedSearch = trim($search);
 
-            // First, try exact product code match
-            $exactMatch = $this->mongodb->findOne($this->collection, array_merge($filter, ['product_code' => $trimmedSearch]));
+            // First, try exact product code match (case-insensitive)
+            $exactCodeFilter = $filter;
+            $exactCodeFilter['$and'][] = [
+                'product_code' => ['$regex' => '^' . preg_quote($trimmedSearch, '/') . '$', '$options' => 'i']
+            ];
+            $exactMatch = $this->mongodb->findOne($this->collection, $exactCodeFilter);
             if ($exactMatch) {
                 $products[] = $this->convertDocumentToArray($exactMatch);
             }
 
-            // Also try exact name match
-            $exactNameMatch = $this->mongodb->findOne($this->collection, array_merge($filter, ['name' => $trimmedSearch]));
-            if ($exactNameMatch && (!empty($products) || (string) $exactNameMatch['_id'] !== ($products[0]['id'] ?? ''))) {
-                $products[] = $this->convertDocumentToArray($exactNameMatch);
+            // Also try exact name match (case-insensitive) - avoid duplicates
+            $exactNameFilter = $filter;
+            $exactNameFilter['$and'][] = [
+                'name' => ['$regex' => '^' . preg_quote($trimmedSearch, '/') . '$', '$options' => 'i']
+            ];
+            $exactNameMatch = $this->mongodb->findOne($this->collection, $exactNameFilter);
+            if ($exactNameMatch) {
+                $productArray = $this->convertDocumentToArray($exactNameMatch);
+                // Avoid duplicates
+                $duplicate = false;
+                foreach ($products as $existing) {
+                    if ($existing['id'] === $productArray['id']) {
+                        $duplicate = true;
+                        break;
+                    }
+                }
+                if (!$duplicate) {
+                    $products[] = $productArray;
+                }
             }
 
-            // Then add other matches using regex
-            $regexFilter = array_merge($filter, [
+            // Then add other matches using regex (partial matches)
+            $regexFilter = $filter;
+            $regexFilter['$and'][] = [
                 '$or' => [
                     ['name' => ['$regex' => $trimmedSearch, '$options' => 'i']],
                     ['product_code' => ['$regex' => $trimmedSearch, '$options' => 'i']],
                     ['description' => ['$regex' => $trimmedSearch, '$options' => 'i']]
                 ]
-            ]);
+            ];
 
             $options = [
                 'limit' => 50,
@@ -371,9 +403,42 @@ class ProductModel
      */
     public function getLowStockProducts()
     {
-        return $this->where('quantity <= min_stock')
-                   ->where('is_active', true)
-                   ->findAll();
+        // Filter for active products where quantity <= min_stock
+        // Only include products where min_stock > 0 (exclude products with min_stock = 0 or null)
+        $filter = [
+            '$and' => [
+                [
+                    '$or' => [
+                        ['is_active' => true],
+                        ['is_active' => ['$exists' => false]]
+                    ]
+                ],
+                // min_stock must exist and be greater than 0
+                ['min_stock' => ['$exists' => true, '$gt' => 0]],
+                // quantity must be less than or equal to min_stock
+                [
+                    '$expr' => [
+                        '$lte' => [
+                            ['$ifNull' => ['$quantity', 0]],
+                            '$min_stock'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        
+        $options = [
+            'sort' => ['quantity' => 1] // Sort by quantity ascending
+        ];
+        
+        $cursor = $this->mongodb->find($this->collection, $filter, $options);
+        $products = [];
+        
+        foreach ($cursor as $document) {
+            $products[] = $this->convertDocumentToArray($document);
+        }
+        
+        return $products;
     }
 
     /**
@@ -415,10 +480,41 @@ class ProductModel
         // Filter for active products (including those without is_active field)
         $filter = ['$or' => [['is_active' => ['$exists' => false]], ['is_active' => true]]];
 
+        $collection = $this->mongodb->getDatabase()->selectCollection($this->collection);
+
+        // Count total products
+        $totalProducts = $this->mongodb->count($this->collection, $filter) ?? 0;
+        
+        // Count out of stock products
+        $outOfStockFilter = array_merge($filter, ['quantity' => 0]);
+        $outOfStockCount = $this->mongodb->count($this->collection, $outOfStockFilter) ?? 0;
+        
+        // Count low stock products (quantity <= min_stock) using aggregation
+        // Only count products where min_stock > 0 (exclude products with min_stock = 0 or null)
+        // MongoDB countDocuments may not support $expr directly, so use aggregation
+        $lowStockPipeline = [
+            ['$match' => $filter],
+            ['$match' => [
+                // min_stock must exist and be greater than 0
+                'min_stock' => ['$exists' => true, '$gt' => 0],
+                // quantity must be less than or equal to min_stock
+                '$expr' => [
+                    '$lte' => [
+                        ['$ifNull' => ['$quantity', 0]],
+                        '$min_stock'
+                    ]
+                ]
+            ]],
+            ['$count' => 'count']
+        ];
+        
+        $lowStockResult = $collection->aggregate($lowStockPipeline)->toArray();
+        $lowStockCount = !empty($lowStockResult) ? (int)($lowStockResult[0]['count'] ?? 0) : 0;
+
         $stats = [
-            'total_products' => $this->mongodb->count($this->collection, $filter) ?? 0,
-            'low_stock_count' => $this->mongodb->count($this->collection, array_merge($filter, ['quantity' => ['$lte' => 5]])) ?? 0, // assuming min_stock is 5
-            'out_of_stock_count' => $this->mongodb->count($this->collection, array_merge($filter, ['quantity' => 0])) ?? 0,
+            'total_products' => $totalProducts,
+            'low_stock_count' => $lowStockCount,
+            'out_of_stock_count' => $outOfStockCount,
             'total_value' => 0,
         ];
 
@@ -427,11 +523,17 @@ class ProductModel
             ['$match' => $filter],
             ['$group' => [
                 '_id' => null,
-                'total_value' => ['$sum' => ['$multiply' => [['$toDouble' => '$price'], ['$toDouble' => '$quantity']]]]
+                'total_value' => [
+                    '$sum' => [
+                        '$multiply' => [
+                            ['$toDouble' => ['$ifNull' => ['$price', 0]]],
+                            ['$toDouble' => ['$ifNull' => ['$quantity', 0]]]
+                        ]
+                    ]
+                ]
             ]]
         ];
 
-        $collection = $this->mongodb->getDatabase()->selectCollection($this->collection);
         $result = $collection->aggregate($pipeline)->toArray();
 
         if (!empty($result) && isset($result[0]['total_value'])) {
@@ -451,5 +553,24 @@ class ProductModel
         } else {
             $this->whereConditions = ['$and' => [$this->whereConditions, $newConditions]];
         }
+    }
+
+    /**
+     * Filter data to only include allowed fields
+     */
+    protected function filterAllowedFields(array $data): array
+    {
+        if (empty($this->allowedFields)) {
+            return $data;
+        }
+
+        $filtered = [];
+        foreach ($this->allowedFields as $field) {
+            if (array_key_exists($field, $data)) {
+                $filtered[$field] = $data[$field];
+            }
+        }
+
+        return $filtered;
     }
 }

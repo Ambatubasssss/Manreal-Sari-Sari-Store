@@ -43,7 +43,7 @@
                     </div>
 
                     <!-- Profile Form -->
-                    <form action="<?= base_url('profile/update') ?>" method="post">
+                    <form action="<?= base_url('index.php/profile/update') ?>" method="post">
                         <?= csrf_field() ?>
 
                         <div class="row">

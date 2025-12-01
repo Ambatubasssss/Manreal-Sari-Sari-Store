@@ -317,6 +317,21 @@ class UserModel
     }
 
     /**
+     * Check if a field value is unique, optionally excluding a specific user ID
+     */
+    public function isUnique(string $field, string $value, string $excludeId = null): bool
+    {
+        $conditions = [$field => $value];
+
+        if ($excludeId !== null) {
+            $conditions['_id'] = ['$ne' => new ObjectId($excludeId)];
+        }
+
+        $result = $this->mongodb->findOne($this->collection, $conditions);
+        return $result === null;
+    }
+
+    /**
      * Check uniqueness constraints (username and email)
      */
     private function checkUniqueness(array $data): bool

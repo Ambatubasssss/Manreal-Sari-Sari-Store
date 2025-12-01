@@ -118,3 +118,486 @@ in SYSTEMPATH\Security\Security.php on line 262.
  7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
  8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  9 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:15:40 --> Error: Call to undefined method App\Models\ProductModel::filterAllowedFields()
+[Method: POST, Route: sales/process]
+in APPPATH\Models\ProductModel.php on line 97.
+ 1 APPPATH\Models\ProductModel.php(394): App\Models\ProductModel->update(Object(MongoDB\BSON\ObjectId), [...])
+ 2 APPPATH\Controllers\SalesController.php(188): App\Models\ProductModel->updateQuantity('692d32292cbfc445fe0c8ad4', -1, 'sale')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SalesController->processSale()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SalesController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:15:45 --> Error: Call to undefined method App\Models\ProductModel::filterAllowedFields()
+[Method: POST, Route: sales/process]
+in APPPATH\Models\ProductModel.php on line 97.
+ 1 APPPATH\Models\ProductModel.php(394): App\Models\ProductModel->update(Object(MongoDB\BSON\ObjectId), [...])
+ 2 APPPATH\Controllers\SalesController.php(188): App\Models\ProductModel->updateQuantity('692d32292cbfc445fe0c8ad4', -1, 'sale')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SalesController->processSale()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SalesController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:15:48 --> Error: Call to undefined method App\Models\ProductModel::filterAllowedFields()
+[Method: POST, Route: sales/process]
+in APPPATH\Models\ProductModel.php on line 97.
+ 1 APPPATH\Models\ProductModel.php(394): App\Models\ProductModel->update(Object(MongoDB\BSON\ObjectId), [...])
+ 2 APPPATH\Controllers\SalesController.php(188): App\Models\ProductModel->updateQuantity('692d32292cbfc445fe0c8ad4', -1, 'sale')
+ 3 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\SalesController->processSale()
+ 4 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\SalesController))
+ 5 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:18:36 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory-movement]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(185): App\Models\InventoryLogModel->getMovementSummary('2025-11-01', '2025-12-01')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventoryMovement()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:18:39 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory-movement]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(185): App\Models\InventoryLogModel->getMovementSummary('2025-11-01', '2025-12-01')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventoryMovement()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:18:41 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/low_stock.php"
+[Method: GET, Route: reports/low-stock]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/low_stock.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/low_stock', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/low_stock', [...])
+ 4 APPPATH\Controllers\ReportsController.php(213): App\Controllers\BaseController->renderView('reports/low_stock', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->lowStock()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:18:43 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(74): App\Models\InventoryLogModel->getMovementSummary()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventory()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:19:10 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/daily_sales.php"
+[Method: GET, Route: reports/daily-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/daily_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/daily_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/daily_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(104): App\Controllers\BaseController->renderView('reports/daily_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->dailySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:19:14 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/weekly_sales.php"
+[Method: GET, Route: reports/weekly-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/weekly_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/weekly_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/weekly_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(126): App\Controllers\BaseController->renderView('reports/weekly_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->weeklySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:19:16 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/monthly_sales.php"
+[Method: GET, Route: reports/monthly-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/monthly_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/monthly_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/monthly_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(148): App\Controllers\BaseController->renderView('reports/monthly_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->monthlySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:19:17 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/top_products.php"
+[Method: GET, Route: reports/top-products]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/top_products.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/top_products', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/top_products', [...])
+ 4 APPPATH\Controllers\ReportsController.php(172): App\Controllers\BaseController->renderView('reports/top_products', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->topProducts()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:19:19 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory-movement]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(185): App\Models\InventoryLogModel->getMovementSummary('2025-11-01', '2025-12-01')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventoryMovement()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:19:22 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/low_stock.php"
+[Method: GET, Route: reports/low-stock]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/low_stock.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/low_stock', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/low_stock', [...])
+ 4 APPPATH\Controllers\ReportsController.php(213): App\Controllers\BaseController->renderView('reports/low_stock', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->lowStock()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:20:12 --> Error: Call to undefined method App\Models\UserModel::first()
+[Method: POST, Route: profile/update]
+in APPPATH\Controllers\ProfileController.php on line 94.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->update()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:20:51 --> Error: Call to undefined method App\Models\UserModel::first()
+[Method: POST, Route: profile/update]
+in APPPATH\Controllers\ProfileController.php on line 94.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProfileController->update()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProfileController))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:28:50 --> Error: Call to undefined method App\Models\ProductModel::filterAllowedFields()
+[Method: POST, Route: products/store]
+in APPPATH\Models\ProductModel.php on line 72.
+ 1 APPPATH\Controllers\ProductsController.php(97): App\Models\ProductModel->insert([...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->store()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:31:09 --> Error: Call to undefined method App\Models\ProductModel::filterAllowedFields()
+[Method: POST, Route: products/store]
+in APPPATH\Models\ProductModel.php on line 72.
+ 1 APPPATH\Controllers\ProductsController.php(97): App\Models\ProductModel->insert([...])
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->store()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:36:54 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "products/edit.php"
+[Method: GET, Route: products/edit/692d32292cbfc445fe0c8add]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('products/edit.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('products/edit', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('products/edit', [...])
+ 4 APPPATH\Controllers\ProductsController.php(130): App\Controllers\BaseController->renderView('products/edit', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->edit('692d32292cbfc445fe0c8add')
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:37:02 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "products/edit.php"
+[Method: GET, Route: products/edit/692d32292cbfc445fe0c8add]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('products/edit.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('products/edit', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('products/edit', [...])
+ 4 APPPATH\Controllers\ProductsController.php(130): App\Controllers\BaseController->renderView('products/edit', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ProductsController->edit('692d32292cbfc445fe0c8add')
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ProductsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:51:43 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory-movement]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(185): App\Models\InventoryLogModel->getMovementSummary('2025-11-01', '2025-12-01')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventoryMovement()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:54:12 --> ErrorException: Undefined array key "category"
+[Method: GET, Route: reports/sales]
+in APPPATH\Views\reports\sales.php on line 126.
+ 1 APPPATH\Views\reports\sales.php(126): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "category"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\reports\\sales.php', 126)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\reports\\sales.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/sales', [], true)
+ 5 APPPATH\Controllers\BaseController.php(97): view('reports/sales', [...])
+ 6 APPPATH\Controllers\ReportsController.php(62): App\Controllers\BaseController->renderView('reports/sales', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->sales()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:54:21 --> ErrorException: Undefined array key "category"
+[Method: GET, Route: reports/sales]
+in APPPATH\Views\reports\sales.php on line 126.
+ 1 APPPATH\Views\reports\sales.php(126): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "category"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\reports\\sales.php', 126)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\reports\\sales.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/sales', [], true)
+ 5 APPPATH\Controllers\BaseController.php(97): view('reports/sales', [...])
+ 6 APPPATH\Controllers\ReportsController.php(62): App\Controllers\BaseController->renderView('reports/sales', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->sales()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:54:42 --> ErrorException: Undefined array key "category"
+[Method: GET, Route: reports/sales]
+in APPPATH\Views\reports\sales.php on line 126.
+ 1 APPPATH\Views\reports\sales.php(126): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "category"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\reports\\sales.php', 126)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\reports\\sales.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/sales', [], true)
+ 5 APPPATH\Controllers\BaseController.php(97): view('reports/sales', [...])
+ 6 APPPATH\Controllers\ReportsController.php(62): App\Controllers\BaseController->renderView('reports/sales', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->sales()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:54:54 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/daily_sales.php"
+[Method: GET, Route: reports/daily-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/daily_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/daily_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/daily_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(104): App\Controllers\BaseController->renderView('reports/daily_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->dailySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:55:22 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/weekly_sales.php"
+[Method: GET, Route: reports/weekly-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/weekly_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/weekly_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/weekly_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(126): App\Controllers\BaseController->renderView('reports/weekly_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->weeklySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:55:24 --> ErrorException: Undefined array key "category"
+[Method: GET, Route: reports/sales]
+in APPPATH\Views\reports\sales.php on line 126.
+ 1 APPPATH\Views\reports\sales.php(126): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "category"', 'C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\reports\\sales.php', 126)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\Manrealstore\\app\\Views\\reports\\sales.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/sales', [], true)
+ 5 APPPATH\Controllers\BaseController.php(97): view('reports/sales', [...])
+ 6 APPPATH\Controllers\ReportsController.php(62): App\Controllers\BaseController->renderView('reports/sales', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->sales()
+ 8 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 9 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+12 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:55:32 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/monthly_sales.php"
+[Method: GET, Route: reports/monthly-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/monthly_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/monthly_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/monthly_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(148): App\Controllers\BaseController->renderView('reports/monthly_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->monthlySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:56:45 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/weekly_sales.php"
+[Method: GET, Route: reports/weekly-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/weekly_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/weekly_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/weekly_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(126): App\Controllers\BaseController->renderView('reports/weekly_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->weeklySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:57:59 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/weekly_sales.php"
+[Method: GET, Route: reports/weekly-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/weekly_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/weekly_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/weekly_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(126): App\Controllers\BaseController->renderView('reports/weekly_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->weeklySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:58:10 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/monthly_sales.php"
+[Method: GET, Route: reports/monthly-sales]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/monthly_sales.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/monthly_sales', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/monthly_sales', [...])
+ 4 APPPATH\Controllers\ReportsController.php(148): App\Controllers\BaseController->renderView('reports/monthly_sales', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->monthlySales()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:58:32 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/top_products.php"
+[Method: GET, Route: reports/top-products]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/top_products.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/top_products', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/top_products', [...])
+ 4 APPPATH\Controllers\ReportsController.php(172): App\Controllers\BaseController->renderView('reports/top_products', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->topProducts()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:58:37 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(74): App\Models\InventoryLogModel->getMovementSummary()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventory()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:58:39 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/low_stock.php"
+[Method: GET, Route: reports/low-stock]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/low_stock.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/low_stock', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/low_stock', [...])
+ 4 APPPATH\Controllers\ReportsController.php(213): App\Controllers\BaseController->renderView('reports/low_stock', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->lowStock()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 14:58:40 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory-movement]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(185): App\Models\InventoryLogModel->getMovementSummary('2025-11-01', '2025-12-01')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventoryMovement()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 15:00:40 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/top_products.php"
+[Method: GET, Route: reports/top-products]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/top_products.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/top_products', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/top_products', [...])
+ 4 APPPATH\Controllers\ReportsController.php(172): App\Controllers\BaseController->renderView('reports/top_products', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->topProducts()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 15:00:50 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(74): App\Models\InventoryLogModel->getMovementSummary()
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventory()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 15:01:46 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "reports/low_stock.php"
+[Method: GET, Route: reports/low-stock]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('reports/low_stock.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('reports/low_stock', [], true)
+ 3 APPPATH\Controllers\BaseController.php(97): view('reports/low_stock', [...])
+ 4 APPPATH\Controllers\ReportsController.php(213): App\Controllers\BaseController->renderView('reports/low_stock', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->lowStock()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 15:02:11 --> Error: Call to undefined method App\Models\InventoryLogModel::builder()
+[Method: GET, Route: reports/inventory-movement]
+in APPPATH\Models\InventoryLogModel.php on line 249.
+ 1 APPPATH\Controllers\ReportsController.php(185): App\Models\InventoryLogModel->getMovementSummary('2025-11-01', '2025-12-01')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventoryMovement()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 15:05:48 --> MongoDB\Driver\Exception\CommandException: the match filter must be an expression in an object
+[Method: GET, Route: reports/inventory]
+in FCPATH\vendor\mongodb\mongodb\src\Operation\Aggregate.php on line 328.
+ 1 FCPATH\vendor\mongodb\mongodb\src\Operation\Aggregate.php(328): MongoDB\Driver\Server->executeReadCommand('manreal', Object(MongoDB\Driver\Command), [...])
+ 2 FCPATH\vendor\mongodb\mongodb\src\Operation\Aggregate.php(236): MongoDB\Operation\Aggregate->executeCommand(Object(MongoDB\Driver\Server), Object(MongoDB\Driver\Command))
+ 3 FCPATH\vendor\mongodb\mongodb\src\Collection.php(258): MongoDB\Operation\Aggregate->execute(Object(MongoDB\Driver\Server))
+ 4 APPPATH\Models\InventoryLogModel.php(323): MongoDB\Collection->aggregate([...])
+ 5 APPPATH\Controllers\ReportsController.php(74): App\Models\InventoryLogModel->getMovementSummary()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventory()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-01 15:05:55 --> MongoDB\Driver\Exception\CommandException: the match filter must be an expression in an object
+[Method: GET, Route: reports/inventory]
+in FCPATH\vendor\mongodb\mongodb\src\Operation\Aggregate.php on line 328.
+ 1 FCPATH\vendor\mongodb\mongodb\src\Operation\Aggregate.php(328): MongoDB\Driver\Server->executeReadCommand('manreal', Object(MongoDB\Driver\Command), [...])
+ 2 FCPATH\vendor\mongodb\mongodb\src\Operation\Aggregate.php(236): MongoDB\Operation\Aggregate->executeCommand(Object(MongoDB\Driver\Server), Object(MongoDB\Driver\Command))
+ 3 FCPATH\vendor\mongodb\mongodb\src\Collection.php(258): MongoDB\Operation\Aggregate->execute(Object(MongoDB\Driver\Server))
+ 4 APPPATH\Models\InventoryLogModel.php(323): MongoDB\Collection->aggregate([...])
+ 5 APPPATH\Controllers\ReportsController.php(74): App\Models\InventoryLogModel->getMovementSummary()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\ReportsController->inventory()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ReportsController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(35): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

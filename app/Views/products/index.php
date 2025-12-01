@@ -71,7 +71,7 @@
                             <tr>
                                 <td>
                                     <?php if (isset($product['image']) && $product['image']): ?>
-                                        <img src="<?= base_url('uploads/products/' . $product['image']) ?>" 
+                                        <img src="<?= base_url($product['image']) ?>" 
                                              alt="<?= $product['name'] ?>" 
                                              class="img-thumbnail" style="width: 50px; height: 50px;">
                                     <?php else: ?>
@@ -107,8 +107,8 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('products/edit/' . $product['id']) ?>" class="text-primary text-decoration-none">Edit</a> |
-                                    <button onclick="deleteProduct(<?= $product['id'] ?>)" class="btn btn-link text-danger text-decoration-none">Delete</button>
+                                    <a href="<?= base_url('products/edit/' . $product['id']) ?>" class="text-primary text-decoration-none">Edit</a> | 
+                                    <a href="javascript:void(0);" onclick="deleteProduct('<?= $product['id'] ?>')" class="text-danger text-decoration-none">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -158,7 +158,7 @@
 <?= $this->section('scripts') ?>
 <script>
 function deleteProduct(productId) {
-    if (confirm('Are you sure you want to delete this product?')) {
+    if (confirm('Are you sure you want to delete this product? This action cannot be undone.')) {
         window.location.href = '<?= base_url('products/delete/') ?>' + productId;
     }
 }

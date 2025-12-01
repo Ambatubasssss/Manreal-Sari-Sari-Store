@@ -174,16 +174,52 @@ function scanBarcode(barcodeValue = null) {
 
 
 
-function searchProducts() {
-    const searchTerm = document.getElementById('productSearch').value;
-    if (searchTerm.length < 2) return;
+// Helper function to escape HTML
+function escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
+function searchProducts() {
+    const searchTerm = document.getElementById('productSearch').value.trim();
+    if (searchTerm.length < 1) {
+        // Clear results if search is empty
+        document.getElementById('searchResults').innerHTML = '';
+        return;
+    }
+
+    console.log('Searching for:', searchTerm);
     fetch(`<?= base_url('products/pos-search') ?>?search=${encodeURIComponent(searchTerm)}`)
-        .then(response => response.json())
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(products => {
+            console.log('Products received:', products);
+            if (products.error) {
+                console.error('Search error:', products.error);
+                document.getElementById('searchResults').innerHTML = 
+                    '<div class="col-12 text-center text-danger">Error: ' + escapeHtml(products.error) + '</div>';
+                return;
+            }
+            if (!Array.isArray(products)) {
+                console.error('Invalid response format:', products);
+                document.getElementById('searchResults').innerHTML = 
+                    '<div class="col-12 text-center text-danger">Invalid response from server</div>';
+                return;
+            }
             displaySearchResults(products);
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Search error:', error);
+            document.getElementById('searchResults').innerHTML = 
+                '<div class="col-12 text-center text-danger">Error searching products. Please try again.</div>';
+        });
 }
 
 function displaySearchResults(products) {
@@ -195,19 +231,23 @@ function displaySearchResults(products) {
         return;
     }
     
-    products.forEach(product => {
+    products.forEach((product, index) => {
         const productCard = document.createElement('div');
-        productCard.className = 'col-md-4 col-sm-6';
+        productCard.className = 'col-md-4 col-sm-6 mb-3';
         productCard.innerHTML = `
-            <div class="card h-100 product-card" onclick="selectProduct(${JSON.stringify(product).replace(/"/g, '&quot;')})">
+            <div class="card h-100 product-card" style="cursor: pointer;">
                 <div class="card-body text-center">
-                    <h6 class="card-title">${product.name}</h6>
-                    <p class="text-muted small">${product.product_code}</p>
+                    <h6 class="card-title">${escapeHtml(product.name)}</h6>
+                    <p class="text-muted small">${escapeHtml(product.product_code)}</p>
                     <p class="h6 text-primary">₱${parseFloat(product.price).toFixed(2)}</p>
                     <p class="text-muted small">Stock: ${product.quantity}</p>
                 </div>
             </div>
         `;
+        // Store product data and add click handler
+        productCard.querySelector('.product-card').addEventListener('click', function() {
+            selectProduct(product);
+        });
         container.appendChild(productCard);
     });
 }
@@ -217,7 +257,15 @@ function selectProduct(product) {
     document.getElementById('modalProductName').textContent = product.name;
     document.getElementById('modalProductCode').textContent = product.product_code;
     document.getElementById('modalProductPrice').textContent = `₱${parseFloat(product.price).toFixed(2)}`;
-    document.getElementById('modalProductImage').src = product.image ? `<?= base_url('uploads/products/') ?>${product.image}` : '';
+    const imageElement = document.getElementById('modalProductImage');
+    if (product.image) {
+        // Image path already includes 'uploads/products/' from the database
+        imageElement.src = `<?= base_url('') ?>${product.image}`;
+        imageElement.style.display = 'block';
+    } else {
+        imageElement.src = '';
+        imageElement.style.display = 'none';
+    }
     document.getElementById('quantity').value = 1;
     
     const modal = new bootstrap.Modal(document.getElementById('productModal'));

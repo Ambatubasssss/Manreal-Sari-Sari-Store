@@ -4,6 +4,8 @@ RewriteEngine On
 DirectoryIndex index.php
 
 # Handle CodeIgniter routing - redirect all requests to root index.php
+# Skip rewriting if the request already starts with index.php
+RewriteCond %{REQUEST_URI} !^/index\.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]

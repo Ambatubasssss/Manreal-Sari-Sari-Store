@@ -15,8 +15,8 @@
         "ext-mbstring": "*",
         "ext-mongodb": "*",
         "laminas/laminas-escaper": "^2.17",
-        "psr/log": "^3.0",
-        "mongodb/mongodb": "^1.17"
+        "mongodb/mongodb": "^2.1",
+        "psr/log": "^3.0"
     },
     "require-dev": {
         "codeigniter/coding-standard": "^1.7",

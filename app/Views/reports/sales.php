@@ -122,8 +122,8 @@
                                         <?php foreach (array_slice($top_products, 0, 5) as $product): ?>
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <div>
-                                                    <div class="fw-bold"><?= $product['product_name'] ?></div>
-                                                    <small class="text-muted"><?= $product['category'] ?></small>
+                                                    <div class="fw-bold"><?= $product['product_name'] ?? 'Unknown' ?></div>
+                                                    <small class="text-muted"><?= $product['category'] ?? 'N/A' ?></small>
                                                 </div>
                                                 <div class="text-end">
                                                     <div class="fw-bold"><?= $product['total_quantity'] ?> units</div>

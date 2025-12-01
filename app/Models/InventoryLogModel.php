@@ -177,44 +177,62 @@ class InventoryLogModel
      */
     public function getLogs($filters = [], $page = 1, $perPage = 50)
     {
-        $builder = $this->builder();
+        $filter = [];
         
-        // Apply filters
         if (!empty($filters['product_id'])) {
-            $builder->where('product_id', $filters['product_id']);
+            $filter['product_id'] = $filters['product_id'];
         }
         
         if (!empty($filters['user_id'])) {
-            $builder->where('user_id', $filters['user_id']);
+            $filter['user_id'] = $filters['user_id'];
         }
         
         if (!empty($filters['action_type'])) {
-            $builder->where('action_type', $filters['action_type']);
+            $filter['action_type'] = $filters['action_type'];
         }
         
-        if (!empty($filters['start_date'])) {
-            $builder->where('DATE(created_at) >=', $filters['start_date']);
+        if (!empty($filters['start_date']) || !empty($filters['end_date'])) {
+            $filter['created_at'] = [];
+            if (!empty($filters['start_date'])) {
+                $filter['created_at']['$gte'] = new \MongoDB\BSON\UTCDateTime(strtotime($filters['start_date'] . ' 00:00:00') * 1000);
+            }
+            if (!empty($filters['end_date'])) {
+                $filter['created_at']['$lte'] = new \MongoDB\BSON\UTCDateTime(strtotime($filters['end_date'] . ' 23:59:59') * 1000);
+            }
         }
         
-        if (!empty($filters['end_date'])) {
-            $builder->where('DATE(created_at) <=', $filters['end_date']);
+        $total = $this->mongodb->count($this->collection, $filter);
+        
+        $options = [
+            'limit' => $perPage,
+            'skip' => ($page - 1) * $perPage,
+            'sort' => ['created_at' => -1]
+        ];
+        
+        $cursor = $this->mongodb->find($this->collection, $filter, $options);
+        $logs = [];
+        
+        $productModel = new ProductModel();
+        $userModel = new UserModel();
+        
+        foreach ($cursor as $document) {
+            $log = $this->convertDocumentToArray($document);
+            
+            // Get product info
+            if (!empty($log['product_id'])) {
+                $product = $productModel->find($log['product_id']);
+                $log['product_name'] = $product['name'] ?? 'Unknown';
+                $log['product_code'] = $product['product_code'] ?? 'N/A';
+            }
+            
+            // Get user info
+            if (!empty($log['user_id'])) {
+                $user = $userModel->find($log['user_id']);
+                $log['user_name'] = $user['full_name'] ?? 'Unknown';
+            }
+            
+            $logs[] = $log;
         }
-        
-        $total = $builder->countAllResults(false);
-        
-        $offset = ($page - 1) * $perPage;
-        $logs = $builder->select('
-                inventory_logs.*,
-                products.name as product_name,
-                products.product_code,
-                users.full_name as user_name
-            ')
-            ->join('products', 'products.id = inventory_logs.product_id')
-            ->join('users', 'users.id = inventory_logs.user_id')
-            ->limit($perPage, $offset)
-            ->orderBy('inventory_logs.created_at', 'DESC')
-            ->get()
-            ->getResultArray();
         
         return [
             'logs' => $logs,
@@ -229,16 +247,31 @@ class InventoryLogModel
      */
     public function getProductHistory($productId, $limit = 100)
     {
-        return $this->select('
-                inventory_logs.*,
-                users.full_name as user_name
-            ')
-            ->join('users', 'users.id = inventory_logs.user_id')
-            ->where('product_id', $productId)
-            ->orderBy('created_at', 'DESC')
-            ->limit($limit)
-            ->get()
-            ->getResultArray();
+        $filter = ['product_id' => $productId];
+        
+        $options = [
+            'limit' => $limit,
+            'sort' => ['created_at' => -1]
+        ];
+        
+        $cursor = $this->mongodb->find($this->collection, $filter, $options);
+        $history = [];
+        
+        $userModel = new UserModel();
+        
+        foreach ($cursor as $document) {
+            $log = $this->convertDocumentToArray($document);
+            
+            // Get user info
+            if (!empty($log['user_id'])) {
+                $user = $userModel->find($log['user_id']);
+                $log['user_name'] = $user['full_name'] ?? 'Unknown';
+            }
+            
+            $history[] = $log;
+        }
+        
+        return $history;
     }
 
     /**
@@ -246,26 +279,62 @@ class InventoryLogModel
      */
     public function getMovementSummary($startDate = null, $endDate = null)
     {
-        $builder = $this->builder();
+        $pipeline = [];
         
-        if ($startDate) {
-            $builder->where('DATE(created_at) >=', $startDate);
-        }
-        if ($endDate) {
-            $builder->where('DATE(created_at) <=', $endDate);
+        // Only add $match stage if we have date filters
+        if ($startDate || $endDate) {
+            $filter = [];
+            if ($startDate) {
+                $filter['created_at']['$gte'] = new \MongoDB\BSON\UTCDateTime(strtotime($startDate . ' 00:00:00') * 1000);
+            }
+            if ($endDate) {
+                $filter['created_at']['$lte'] = new \MongoDB\BSON\UTCDateTime(strtotime($endDate . ' 23:59:59') * 1000);
+            }
+            if (!empty($filter)) {
+                $pipeline[] = ['$match' => $filter];
+            }
         }
         
-        return $builder->select('
-                action_type,
-                COUNT(*) as total_transactions,
-                SUM(ABS(quantity_change)) as total_quantity_moved,
-                SUM(CASE WHEN quantity_change > 0 THEN quantity_change ELSE 0 END) as total_in,
-                SUM(CASE WHEN quantity_change < 0 THEN ABS(quantity_change) ELSE 0 END) as total_out
-            ')
-            ->groupBy('action_type')
-            ->orderBy('total_transactions', 'DESC')
-            ->get()
-            ->getResultArray();
+        $pipeline[] = ['$group' => [
+            '_id' => '$action_type',
+            'total_transactions' => ['$sum' => 1],
+            'total_quantity_moved' => ['$sum' => ['$abs' => '$quantity_change']],
+            'total_in' => [
+                '$sum' => [
+                    '$cond' => [
+                        ['$gt' => ['$quantity_change', 0]],
+                        '$quantity_change',
+                        0
+                    ]
+                ]
+            ],
+            'total_out' => [
+                '$sum' => [
+                    '$cond' => [
+                        ['$lt' => ['$quantity_change', 0]],
+                        ['$abs' => '$quantity_change'],
+                        0
+                    ]
+                ]
+            ]
+        ]];
+        $pipeline[] = ['$sort' => ['total_transactions' => -1]];
+        
+        $collection = $this->mongodb->getDatabase()->selectCollection($this->collection);
+        $result = $collection->aggregate($pipeline)->toArray();
+        
+        $summary = [];
+        foreach ($result as $item) {
+            $summary[] = [
+                'action_type' => $item['_id'] ?? 'unknown',
+                'total_transactions' => (int)($item['total_transactions'] ?? 0),
+                'total_quantity_moved' => (int)($item['total_quantity_moved'] ?? 0),
+                'total_in' => (int)($item['total_in'] ?? 0),
+                'total_out' => (int)($item['total_out'] ?? 0)
+            ];
+        }
+        
+        return $summary;
     }
 
     /**
@@ -294,24 +363,66 @@ class InventoryLogModel
      */
     public function getInventoryValueChanges($startDate = null, $endDate = null)
     {
-        $builder = $this->db->table('inventory_logs il')
-                           ->select('
-                                DATE(il.created_at) as date,
-                                SUM(CASE WHEN il.quantity_change > 0 THEN il.quantity_change * p.cost_price ELSE 0 END) as value_in,
-                                SUM(CASE WHEN il.quantity_change < 0 THEN ABS(il.quantity_change) * p.price ELSE 0 END) as value_out
-                            ')
-                           ->join('products p', 'p.id = il.product_id');
+        $filter = [];
         
-        if ($startDate) {
-            $builder->where('DATE(il.created_at) >=', $startDate);
-        }
-        if ($endDate) {
-            $builder->where('DATE(il.created_at) <=', $endDate);
+        if ($startDate || $endDate) {
+            $filter['created_at'] = [];
+            if ($startDate) {
+                $filter['created_at']['$gte'] = new \MongoDB\BSON\UTCDateTime(strtotime($startDate . ' 00:00:00') * 1000);
+            }
+            if ($endDate) {
+                $filter['created_at']['$lte'] = new \MongoDB\BSON\UTCDateTime(strtotime($endDate . ' 23:59:59') * 1000);
+            }
         }
         
-        return $builder->groupBy('DATE(il.created_at)')
-                      ->orderBy('date', 'ASC')
-                      ->get()
-                      ->getResultArray();
+        // Get all inventory logs in the date range
+        $logs = $this->mongodb->find($this->collection, $filter);
+        $productModel = new ProductModel();
+        
+        $dailyValues = [];
+        
+        foreach ($logs as $log) {
+            $logArray = $this->convertDocumentToArray($log);
+            $productId = $logArray['product_id'] ?? null;
+            $quantityChange = (int)($logArray['quantity_change'] ?? 0);
+            
+            if (!$productId) continue;
+            
+            // Get product to get prices
+            $product = $productModel->find($productId);
+            if (!$product) continue;
+            
+            // Get date from created_at
+            $createdAt = $logArray['created_at'] ?? null;
+            if ($createdAt instanceof \MongoDB\BSON\UTCDateTime) {
+                $date = $createdAt->toDateTime()->format('Y-m-d');
+            } else {
+                $date = date('Y-m-d', strtotime($createdAt));
+            }
+            
+            if (!isset($dailyValues[$date])) {
+                $dailyValues[$date] = [
+                    'date' => $date,
+                    'value_in' => 0,
+                    'value_out' => 0
+                ];
+            }
+            
+            $costPrice = (float)($product['cost_price'] ?? 0);
+            $price = (float)($product['price'] ?? 0);
+            
+            if ($quantityChange > 0) {
+                // Incoming inventory - use cost price
+                $dailyValues[$date]['value_in'] += $quantityChange * $costPrice;
+            } else {
+                // Outgoing inventory - use selling price
+                $dailyValues[$date]['value_out'] += abs($quantityChange) * $price;
+            }
+        }
+        
+        // Sort by date
+        ksort($dailyValues);
+        
+        return array_values($dailyValues);
     }
 }

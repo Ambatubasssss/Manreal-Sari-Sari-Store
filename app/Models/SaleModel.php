@@ -363,20 +363,59 @@ class SaleModel
     }
 
     /**
-     * Get weekly sales report - STUB for now
+     * Get weekly sales report
      */
     public function getWeeklySales($startDate = null, $endDate = null)
     {
-        // Return empty array for now
-        return [
-            ['date' => '2025-11-24', 'total_sales' => 0, 'total_revenue' => 0, 'total_discount' => 0],
-            ['date' => '2025-11-25', 'total_sales' => 0, 'total_revenue' => 0, 'total_discount' => 0],
-            ['date' => '2025-11-26', 'total_sales' => 0, 'total_revenue' => 0, 'total_discount' => 0],
-            ['date' => '2025-11-27', 'total_sales' => 0, 'total_revenue' => 0, 'total_discount' => 0],
-            ['date' => '2025-11-28', 'total_sales' => 0, 'total_revenue' => 0, 'total_discount' => 0],
-            ['date' => '2025-11-29', 'total_sales' => 0, 'total_revenue' => 0, 'total_discount' => 0],
-            ['date' => '2025-11-30', 'total_sales' => 0, 'total_revenue' => 0, 'total_discount' => 0],
+        if (!$startDate) {
+            $startDate = date('Y-m-d', strtotime('-7 days'));
+        }
+        if (!$endDate) {
+            $endDate = date('Y-m-d');
+        }
+
+        $startTimestamp = new \MongoDB\BSON\UTCDateTime(strtotime($startDate . ' 00:00:00') * 1000);
+        $endTimestamp = new \MongoDB\BSON\UTCDateTime(strtotime($endDate . ' 23:59:59') * 1000);
+
+        $pipeline = [
+            ['$match' => [
+                'created_at' => [
+                    '$gte' => $startTimestamp,
+                    '$lte' => $endTimestamp
+                ],
+                'status' => 'completed'
+            ]],
+            ['$group' => [
+                '_id' => [
+                    '$dateToString' => ['format' => '%Y-%m-%d', 'date' => '$created_at']
+                ],
+                'total_sales' => ['$sum' => 1],
+                'total_revenue' => ['$sum' => ['$toDouble' => '$total_amount']],
+                'total_discount' => ['$sum' => ['$toDouble' => '$discount']]
+            ]],
+            ['$project' => [
+                'date' => '$_id',
+                'total_sales' => 1,
+                'total_revenue' => 1,
+                'total_discount' => 1
+            ]],
+            ['$sort' => ['date' => 1]]
         ];
+
+        $collection = $this->mongodb->getDatabase()->selectCollection($this->collection);
+        $result = $collection->aggregate($pipeline)->toArray();
+
+        $sales = [];
+        foreach ($result as $item) {
+            $sales[] = [
+                'date' => $item['date'],
+                'total_sales' => (int)($item['total_sales'] ?? 0),
+                'total_revenue' => (float)($item['total_revenue'] ?? 0),
+                'total_discount' => (float)($item['total_discount'] ?? 0)
+            ];
+        }
+
+        return $sales;
     }
 
     /**
@@ -422,20 +461,137 @@ class SaleModel
     }
 
     /**
-     * Get top selling products - STUB for now
+     * Get top selling products
      */
     public function getTopSellingProducts($limit = 10, $startDate = null, $endDate = null)
     {
-        // Return empty array for now
-        return [];
+        if (!$startDate) {
+            $startDate = date('Y-m-d', strtotime('-30 days'));
+        }
+        if (!$endDate) {
+            $endDate = date('Y-m-d');
+        }
+
+        $startTimestamp = new \MongoDB\BSON\UTCDateTime(strtotime($startDate . ' 00:00:00') * 1000);
+        $endTimestamp = new \MongoDB\BSON\UTCDateTime(strtotime($endDate . ' 23:59:59') * 1000);
+
+        // First, get all completed sales in the date range
+        $filter = [
+            'created_at' => [
+                '$gte' => $startTimestamp,
+                '$lte' => $endTimestamp
+            ],
+            'status' => 'completed'
+        ];
+        
+        $sales = $this->mongodb->find($this->collection, $filter);
+        $saleIds = [];
+        
+        foreach ($sales as $sale) {
+            $saleArray = $this->convertDocumentToArray($sale);
+            $saleIds[] = $saleArray['id'];
+        }
+
+        if (empty($saleIds)) {
+            return [];
+        }
+
+        // Get sale items for these sales directly from MongoDB
+        // sale_id is stored as string in sale_items
+        $saleItemsCollection = $this->mongodb->getDatabase()->selectCollection('sale_items');
+        $saleItems = $saleItemsCollection->find(['sale_id' => ['$in' => $saleIds]]);
+        
+        $productStats = [];
+        
+        // Get product model to look up categories
+        $productModel = new ProductModel();
+        
+        foreach ($saleItems as $item) {
+            $itemArray = (array)$item;
+            $productCode = $itemArray['product_code'] ?? '';
+            $productName = $itemArray['product_name'] ?? 'Unknown';
+            $productId = $itemArray['product_id'] ?? null;
+            
+            if (!isset($productStats[$productCode])) {
+                // Look up product category
+                $category = 'Unknown';
+                if ($productId) {
+                    $product = $productModel->find($productId);
+                    if ($product && isset($product['category'])) {
+                        $category = $product['category'];
+                    }
+                }
+                
+                $productStats[$productCode] = [
+                    'product_code' => $productCode,
+                    'product_name' => $productName,
+                    'category' => $category,
+                    'total_quantity' => 0,
+                    'total_revenue' => 0
+                ];
+            }
+            
+            $productStats[$productCode]['total_quantity'] += (int)($itemArray['quantity'] ?? 0);
+            $productStats[$productCode]['total_revenue'] += (float)($itemArray['total_price'] ?? 0);
+        }
+
+        // Sort by revenue and limit
+        usort($productStats, function($a, $b) {
+            return $b['total_revenue'] <=> $a['total_revenue'];
+        });
+
+        return array_slice($productStats, 0, $limit);
     }
 
     /**
-     * Get sales statistics - STUB for now
+     * Get sales statistics
      */
     public function getSalesStats($startDate = null, $endDate = null)
     {
-        // Return empty stats for now
+        if (!$startDate) {
+            $startDate = date('Y-m-d', strtotime('-30 days'));
+        }
+        if (!$endDate) {
+            $endDate = date('Y-m-d');
+        }
+
+        $startTimestamp = new \MongoDB\BSON\UTCDateTime(strtotime($startDate . ' 00:00:00') * 1000);
+        $endTimestamp = new \MongoDB\BSON\UTCDateTime(strtotime($endDate . ' 23:59:59') * 1000);
+
+        $pipeline = [
+            ['$match' => [
+                'created_at' => [
+                    '$gte' => $startTimestamp,
+                    '$lte' => $endTimestamp
+                ],
+                'status' => 'completed'
+            ]],
+            ['$group' => [
+                '_id' => null,
+                'total_sales' => ['$sum' => 1],
+                'total_revenue' => ['$sum' => ['$toDouble' => '$total_amount']],
+                'total_discount' => ['$sum' => ['$toDouble' => '$discount']],
+                'min_sale' => ['$min' => ['$toDouble' => '$total_amount']],
+                'max_sale' => ['$max' => ['$toDouble' => '$total_amount']],
+                'avg_sale' => ['$avg' => ['$toDouble' => '$total_amount']]
+            ]]
+        ];
+
+        $collection = $this->mongodb->getDatabase()->selectCollection($this->collection);
+        $result = $collection->aggregate($pipeline)->toArray();
+
+        if (!empty($result)) {
+            $stats = (array)$result[0];
+            return [
+                'total_sales' => (int)($stats['total_sales'] ?? 0),
+                'total_revenue' => (float)($stats['total_revenue'] ?? 0),
+                'total_discount' => (float)($stats['total_discount'] ?? 0),
+                'average_sale' => (float)($stats['avg_sale'] ?? 0),
+                'min_sale' => (float)($stats['min_sale'] ?? 0),
+                'max_sale' => (float)($stats['max_sale'] ?? 0)
+            ];
+        }
+
         return [
             'total_sales' => 0,
             'total_revenue' => 0,
